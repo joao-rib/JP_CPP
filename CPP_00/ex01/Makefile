@@ -1,13 +1,14 @@
-NAME = megaphone
-MAIN = megaphone.cpp
+NAME = agenda
 CPP = c++
 FLAGS = -Wall -Werror -Wextra -std=c++98
+MAIN = main.cpp
+SRC = Phonebook.c Contacts.c 
 RM = rm -fr
 
 all: $(NAME)
 
 $(NAME):
-	@$(CPP) $(FLAGS) $(MAIN) -o $(NAME)
+	@$(CPP) $(FLAGS) $(SRC) $(MAIN) -o $(NAME)
 
 clean:
 	@$(RM) $(NAME)
