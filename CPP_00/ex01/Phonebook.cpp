@@ -1,7 +1,12 @@
 #include "Phonebook.hpp"
 #include "Contacts.hpp"
 
-int PhoneBook::is_digit(int c)
+void PhoneBook::add_contact(Contact new_contact)
+{
+	
+}
+
+/*int PhoneBook::is_digit(int c)
 {
 	if (c >= 48 && c <= 57)
 	{
@@ -159,4 +164,4 @@ void PhoneBook::show_phonebook(void)
 		std::cout << "|\n";
 	}
 	phonebook_header();
-}
+}*/

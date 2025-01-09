@@ -11,11 +11,13 @@
 # include <iomanip>
 #include <cstdlib>*/
 
-// Convention: classes start private
-// WIP difference between public and private
-// WIP pragma once?
-
 class PhoneBook
+{
+private:
+
+public:
+    void PhoneBook::add_contact(Contact new_contact);
+}
 /*{
 private:
 	Contact contacts[8];

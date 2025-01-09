@@ -27,7 +27,7 @@ int	main(void)
 	print_prompt();
 	std::string input;
 	Contact contact;
-	PhoneBook phonebook; //WIP create PhoneBook class
+	PhoneBook phonebook;
 	while (std::getline(std::cin, input))
 	{
 		capitalize(input);
@@ -40,12 +40,12 @@ int	main(void)
 		{
 			system("clear");
 			contact.create_contact();
-			phonebook.add_contact(); // WIP Let's add
+			phonebook.add_contact(contact); // WIP Let's add
 		}
 		else if (input == "SEARCH")
 		{
 			system("clear");
-			; // WIP Let's search
+			//phonebook.display_contacts(); // WIP Let's display
 		}
 		else
 			std::cout << "Command not found ¯\\_(ツ)_/¯ Try something else\n" << std::endl;
