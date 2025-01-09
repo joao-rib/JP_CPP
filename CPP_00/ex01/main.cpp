@@ -1,7 +1,7 @@
 #include <iostream>
 #include <locale>
-#include "Phonebook.hpp" //WIP create PhoneBook header
-#include "Contacts.hpp" //WIP create Contact header
+#include "Phonebook.hpp"
+#include "Contacts.hpp"
 
 std::string capitalize(std::string str)
 {
@@ -26,7 +26,7 @@ int	main(void)
 	std::cout << "Thank you for opening a new phonebook! :D They're rare these days\n\n";
 	print_prompt();
 	std::string input;
-	Contact contact; //WIP create Contact class
+	Contact contact;
 	PhoneBook phonebook; //WIP create PhoneBook class
 	while (std::getline(std::cin, input))
 	{
@@ -39,7 +39,8 @@ int	main(void)
 		else if (input == "ADD")
 		{
 			system("clear");
-			; // WIP Let's add
+			contact.create_contact();
+			phonebook.add_contact(); // WIP Let's add
 		}
 		else if (input == "SEARCH")
 		{

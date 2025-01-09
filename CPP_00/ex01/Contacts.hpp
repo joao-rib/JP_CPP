@@ -1,4 +1,4 @@
-//#pragma once
+#pragma once
 
 #include "Phonebook.hpp"
 #include <iostream>
@@ -11,10 +11,8 @@
 # include <iomanip>*/
 
 // Convention: classes start private
-// WIP difference between public and private
-// WIP pragma once?
 class Contact 
-/*{
+{
 private:
 	std::string firstname;
 	std::string lastname;
@@ -22,8 +20,11 @@ private:
 	std::string phonenumber;
 	std::string darkestsecret;
 public:
-    Contact() {};
-	std::string get_firstname(void) const;
+	Contact();
+	void Contact::create_contact(void);
+	void Contact::write_value(std::string& field, const std::string& nametype);
+	bool Contact::validate_number(std::string str);
+	/*std::string get_firstname(void) const;
     std::string get_lastname(void) const;
     std::string get_nickname(void) const;
     std::string get_phonenumber(void) const;
@@ -39,5 +40,5 @@ public:
     void set_nickname(void);
     int check_number(std::string input);
     void set_phonenumber(void);
-    void set_darkestsecret(void);
-}*/;
+    void set_darkestsecret(void);*/
+};
