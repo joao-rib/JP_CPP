@@ -3,6 +3,7 @@
 #include "Phonebook.hpp"
 #include <iostream>
 #include <locale>
+#include <cstdlib>
 /*# include <string>
 # include <cstring>
 # include <cstdlib>
@@ -19,8 +20,8 @@ private:
 	std::string phonenumber;
 	std::string darkestsecret;
 public:
-	Contact();
-	void Contact::create_contact(void);
-	void Contact::write_value(std::string& field, const std::string& nametype);
-	bool Contact::validate_number(std::string str);
+	Contact() {};
+	void create_contact(void);
+	void write_value(std::string& field, const std::string& nametype);
+	bool validate_number(std::string str);
 };

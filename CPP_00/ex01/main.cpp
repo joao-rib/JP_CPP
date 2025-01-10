@@ -1,5 +1,3 @@
-#include <iostream>
-#include <locale>
 #include "Phonebook.hpp"
 #include "Contacts.hpp"
 
@@ -30,17 +28,17 @@ int	main(void)
 	PhoneBook phonebook;
 	while (std::getline(std::cin, input))
 	{
-		capitalize(input);
+		input = capitalize(input);
 		if (input == "EXIT")
 		{
-			std::cout << "Thank you for using our services :) Bye!" << std::endl;
+			std::cout << "Thank you for using our services :) Your contacts are now lost forever. Bye!" << std::endl;
 			return (0);
 		}
 		else if (input == "ADD")
 		{
 			system("clear");
 			contact.create_contact();
-			phonebook.add_contact(contact); // WIP Let's add
+			phonebook.add_contact(contact);
 		}
 		else if (input == "SEARCH")
 		{

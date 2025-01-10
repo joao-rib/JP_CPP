@@ -1,8 +1,9 @@
-//#pragma once
+#pragma once
 
 #include "Contacts.hpp"
 #include <iostream>
 #include <locale>
+#include <cstdlib>
 /*# include <string>
 # include <cstring>
 # include <cstdlib>
@@ -14,9 +15,12 @@
 class PhoneBook
 {
 private:
-
+	Contact contacts[8];
+	int num_contacts;
 public:
-    void PhoneBook::add_contact(Contact new_contact);
+	PhoneBook() : num_contacts(0) {};
+	void add_contact(Contact new_contact);
+    std::string itoa(int num);
 }
 /*{
 private:

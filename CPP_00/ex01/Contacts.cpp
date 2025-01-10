@@ -14,7 +14,6 @@ void Contact::create_contact(void)
 	write_value(phonenumber, "phone number");
 	std::cout << "Darkest Secret:\n";
 	write_value(darkestsecret, "darkest of secrets");
-	std::cout << "\nContact successfully added!" << std::endl;
 }
 
 void Contact::write_value(std::string& variable, const std::string& field)
