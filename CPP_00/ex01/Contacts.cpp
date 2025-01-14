@@ -43,3 +43,18 @@ bool Contact::validate_number(std::string str)
 	}
 	return (true);
 }
+
+std::string Contact::get_info(const std::string& field)
+{
+	if (field == "First Name")
+		return (firstname);
+	else if (field == "Last Name")
+		return (lastname);
+	else if (field == "Nickname")
+		return (nickname);
+	else if (field == "Phone Number")
+		return (phonenumber);
+	else if (field == "Darkest Secret")
+		return (darkestsecret);
+	return (NULL);
+}

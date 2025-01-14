@@ -3,13 +3,8 @@
 #include "Phonebook.hpp"
 #include <iostream>
 #include <locale>
+#include <iomanip>
 #include <cstdlib>
-/*# include <string>
-# include <cstring>
-# include <cstdlib>
-# include <limits>
-# include <cctype>
-# include <iomanip>*/
 
 class Contact 
 {
@@ -22,6 +17,7 @@ private:
 public:
 	Contact() {};
 	void create_contact(void);
-	void write_value(std::string& field, const std::string& nametype);
+	void write_value(std::string& variable, const std::string& field);
 	bool validate_number(std::string str);
+	std::string get_info(const std::string& field);
 };

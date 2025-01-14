@@ -1,7 +1,7 @@
 #include "Phonebook.hpp"
 #include "Contacts.hpp"
 
-std::string capitalize(std::string str)
+/*std::string capitalize(std::string str)
 {
 	for (unsigned int i = 0; i < str.length(); i++)
 	{
@@ -9,7 +9,7 @@ std::string capitalize(std::string str)
 			str[i] = std::toupper(str[i]);
 	}
 	return (str);
-}
+}*/
 
 void print_prompt(void)
 {
@@ -28,7 +28,7 @@ int	main(void)
 	PhoneBook phonebook;
 	while (std::getline(std::cin, input))
 	{
-		input = capitalize(input);
+		input = phonebook.capitalize(input);
 		if (input == "EXIT")
 		{
 			std::cout << "Thank you for using our services :) Your contacts are now lost forever. Bye!" << std::endl;
@@ -43,7 +43,7 @@ int	main(void)
 		else if (input == "SEARCH")
 		{
 			system("clear");
-			phonebook.display_contacts(); // WIP Let's display
+			phonebook.display_contacts();
 		}
 		else
 			std::cout << "Command not found ¯\\_(ツ)_/¯ Try something else\n" << std::endl;
