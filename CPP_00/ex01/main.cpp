@@ -1,16 +1,6 @@
 #include "Phonebook.hpp"
 #include "Contacts.hpp"
 
-/*std::string capitalize(std::string str)
-{
-	for (unsigned int i = 0; i < str.length(); i++)
-	{
-		if (std::isalpha(str[i]))
-			str[i] = std::toupper(str[i]);
-	}
-	return (str);
-}*/
-
 void print_prompt(void)
 {
 	std::cout << "1 - Enter \"ADD\" in order to add a new contact;\n";
