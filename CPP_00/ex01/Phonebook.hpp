@@ -17,8 +17,10 @@ class PhoneBook
 private:
 	Contact contacts[8];
 	int num_contacts;
+	bool full = false;
 public:
 	PhoneBook() : num_contacts(0) {};
 	void add_contact(Contact new_contact);
     std::string itoa(int num);
+	void display_contacts(void);
 };

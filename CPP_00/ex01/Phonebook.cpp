@@ -10,6 +10,7 @@ void PhoneBook::add_contact(Contact new_contact)
 	}
 	else
 	{
+		full = true;
 		contacts[0] = new_contact;
 		num_contacts = 1;
 	}
@@ -52,6 +53,60 @@ std::string PhoneBook::itoa(int n)
 		count--;
 	}
 	return (std::string(final_num));
+}
+
+void PhoneBook::display_contacts(void)
+{
+	int	tab_height;
+
+	if (num_contacts == 0)
+	{
+		std::cout << "The phonebook is still empty :o Try adding a contact!\n" << std::endl;
+		return ;
+	}
+	if (full)
+		tab_height = 7;
+	else
+		tab_height = num_contacts;
+	std::cout << "Your contact list:\n";
+	std::cout << "|" << std::setw(10) << "Index"; //WIP setw?
+	std::cout << "|" << std::setw(10) << "First Name"; //WIP setw?
+	std::cout << "|" << std::setw(10) << "Last Name"; //WIP setw?
+	std::cout << "|" << std::setw(10) << "Nickname" << "|\n"; //WIP setw?
+	for (int i = 0; i < tab_height; ++i)
+	{
+		Contact& buff = contacts[i];
+		std::cout << "|";
+		std::cout << std::right << std::setw(10) << (i + 1);
+		std::cout << "|";
+		std::cout << std::right << std::setw(10) << truncate_string(contact.get_firstname(), 10); //WIP abbreviate
+		std::cout << "|";
+		std::cout << std::right << std::setw(10) << truncate_string(contact.get_lastname(), 10); //WIP abbreviate
+		std::cout << "|";
+		std::cout << std::right << std::setw(10) << truncate_string(contact.get_nickname(), 10); //WIP abbreviate
+		std::cout << "|\n";
+	}
+	std::cout << std::endl;
+	std::cout << "Enter:\n -An index number in order to see a contact's full info; or\n -BACK, to return to the previous menu" << std::endl;
+	std::string input;
+	while (std::getline(std::cin, input))
+	{
+		input = capitalize(input); //WIP can I have access to this?
+		if (input == "BACK")
+			return ;
+		else if (!validate_number(input)) //WIP can I have access to this?
+		{
+			std::cout << "That is not a valid input >:( Try again" << std::endl;
+			continue ;
+		}
+		int index = atoi(input);
+		if (index > 8 || index <= 0)
+			std::cout << "That is not a valid index number, and you know it >:( Try again" << std::endl;
+		else if (index > (tab_height + 1))
+			std::cout << "I'm sorry, that contact has not been added yet :/ Try a different number" << std::endl;
+		else
+			display_info(index); //WIP Let's display
+	}
 }
 
 /*int PhoneBook::is_digit(int c)

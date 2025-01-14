@@ -43,7 +43,7 @@ int	main(void)
 		else if (input == "SEARCH")
 		{
 			system("clear");
-			//phonebook.display_contacts(); // WIP Let's display
+			phonebook.display_contacts(); // WIP Let's display
 		}
 		else
 			std::cout << "Command not found ¯\\_(ツ)_/¯ Try something else\n" << std::endl;
