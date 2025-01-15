@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef PHONEBOOK_H
+#define PHONEBOOK_H
+
 #include "Contacts.hpp"
 #include <iostream>
 #include <locale>
@@ -21,3 +24,5 @@ public:
 	std::string capitalize(std::string str);
 	std::string shorter_string(const std::string& str, int limit);
 };
+
+#endif

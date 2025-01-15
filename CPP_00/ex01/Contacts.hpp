@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef CONTACTS_H
+#define CONTACTS_H
+
 #include "Phonebook.hpp"
 #include <iostream>
 #include <locale>
@@ -21,3 +24,5 @@ public:
 	bool validate_number(std::string str);
 	std::string get_info(const std::string& field);
 };
+
+#endif
