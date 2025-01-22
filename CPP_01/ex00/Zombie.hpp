@@ -11,50 +11,27 @@
 class Zombie
 {
 private:
-	std::string firstname;
-	std::string lastname;
-	std::string nickname;
-	std::string phonenumber;
-	std::string darkestsecret;
+	std::string name;
 public:
-	Contact() {};
-	void create_contact(void);
-	void write_value(std::string& variable, const std::string& field);
-	bool validate_number(std::string str);
-	std::string get_info(const std::string& field);
-};
-
-#endif
-
-
-/*#ifndef ZOMBIE_H
-#define ZOMBIE_H
-# include <iostream>
-
-
-class Zombie
-{
-private:
-    std::string _Name;
-
-public:
-
-    // Construcot
-    Zombie();
-    
-    // Constructor with atributes
-    Zombie(std::string NAME);
-
-    // Destructor
+	Zombie(std::string name);
     ~Zombie();
-
-    // Methods
-
-    // zumbie announces itself
-    void    announce(void);
+	void announce(void);
+	//void setName(std::string name);
 };
 
 Zombie* newZombie(std::string name);
 void randomChump(std::string name);
 
-#endif*/
+/*class Zombie
+{
+private:
+	std::string name;
+public:
+	Zombie();
+    ~Zombie();
+	void announce(void);
+	Zombie* newZombie(std::string name);
+	void randomChump(std::string name);
+};*/
+
+#endif

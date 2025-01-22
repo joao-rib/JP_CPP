@@ -1,26 +1,23 @@
+#include "Zombie.hpp"
 
-/*#include "Zombie.hpp"
-
-
-// simple constructor
-Zombie::Zombie()
+/*void Zombie::setName(std::string name)
 {
-    std::cout << "Simple constructor called" << std::endl;
-}
-
-// construtor with name atribute
-Zombie::Zombie(std::string NAME_GIVEN)
-{
- this->_Name = NAME_GIVEN;
-}
-
-// Destructor 
-Zombie::~Zombie()
-{
-    std:: cout << this->_Name << ": destroied" << std::endl;
-}
-
-void    Zombie::announce(void)
-{
- std:: cout << this->_Name << ": Braaaaaaaainz" << std::endl;
+	this->name = name;
 }*/
+
+void Zombie::announce(void)
+{
+	std::cout << this->name << ": BraiiiiiiinnnzzzZ..." << std::endl;
+}
+
+Zombie::Zombie(std::string name)
+{
+    this->name = name;
+	std::cout << "Rise from your grave! " << this->name << "!" << std::endl;
+}
+
+Zombie::~Zombie(void)
+{
+	std::cout << this->name << " rests in peace once again. For now..." << std::endl;
+}
+

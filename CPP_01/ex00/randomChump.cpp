@@ -1,8 +1,14 @@
-
-/*#include "Zombie.hpp"
+#include "Zombie.hpp"
 
 void randomChump(std::string name)
 {
-    Zombie Myzombie = Zombie(name);
-    Myzombie.announce();
+    Zombie chumpZombie = Zombie(name);
+    chumpZombie.announce();
+}
+
+/*void randomChump(std::string name)
+{
+    Zombie chumpZombie;
+    chumpZombie.setName(name);
+    chumpZombie.announce();
 }*/
