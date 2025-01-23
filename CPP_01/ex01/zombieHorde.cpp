@@ -1,5 +1,13 @@
 #include "Zombie.hpp"
 
+Zombie* zombieHorde(int N, std::string name)
+{
+	Zombie *horde = new Zombie[N];
+	for (int i = 0; i < N; i++)
+		horde[i] = Zombie(name);
+	return (horde);
+}
+
 /*std::string itoa(int n)
 {
 	size_t	count;
@@ -48,11 +56,3 @@ Zombie* zombieHorde(int N, std::string name)
 	}
 	return (horde);
 }*/
-
-Zombie* zombieHorde(int N, std::string name)
-{
-	Zombie *horde = new Zombie[N];
-	for (int i = 0; i < N; i++)
-		horde[i] = Zombie(name);
-	return (horde);
-}
