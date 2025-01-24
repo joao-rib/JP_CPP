@@ -29,7 +29,7 @@ int	main(int argc, char** argv)
 	for (int i = 0; i < n; i++)
 		horde[i].announce();
 	//for (int i = 0; i < n; i++)
-	//	delete horde[i];
+	//	delete &horde[i];
 	delete[] horde;
 	return (0);
 }
