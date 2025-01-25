@@ -13,7 +13,7 @@ class HumanB
 {
 private:
 	std::string name;
-    Weapon *arma;
+    Weapon *arma; //MUDAR NOMES DE VARS PRIVADAS
 public:
 	HumanB() : name("") {};
 	HumanB(std::string str);

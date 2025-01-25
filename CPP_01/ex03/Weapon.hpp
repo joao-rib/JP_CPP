@@ -11,7 +11,7 @@
 class Weapon
 {
 private:
-	std::string type;
+	std::string type; //MUDAR NOMES DE VARS PRIVADAS
 public:
 	Weapon() : type("") {};
 	Weapon(std::string str);
