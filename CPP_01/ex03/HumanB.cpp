@@ -1,13 +1,13 @@
 #include "HumanB.hpp"
 
-void HumanB::setWeapon(Weapon weap)
+void HumanB::setWeapon(Weapon &weap)
 {
-	this->arma = weap;
+	this->arma = &weap;
 }
 
 void HumanB::attack(void)
 {
-	std::cout << this->name << " attacks with their " << this->arma.getType() << std::endl;
+	std::cout << this->name << " attacks with a " << this->arma->getType() << std::endl;
 }
 
 HumanB::HumanB(std::string str)

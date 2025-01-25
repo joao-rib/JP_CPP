@@ -65,7 +65,7 @@ void PhoneBook::display_contacts(void)
 		return ;
 	}
 	if (full)
-		tab_height = 7;
+		tab_height = 8;
 	else
 		tab_height = num_contacts;
 	std::cout << "Your contact list:\n";
