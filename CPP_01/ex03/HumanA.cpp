@@ -10,7 +10,7 @@ HumanA::HumanA(std::string str, Weapon &weap) : _Name(str), _Weap(weap)
     //this->name = str;
 	//this->arma = weap;
 
-	std::cout << this->_Name << " (A) born" << std::endl;
+	std::cout << this->_Name << " (A) born... with a " << this->_Weap.getType() << std::endl;
 }
 
 HumanA::~HumanA(void)

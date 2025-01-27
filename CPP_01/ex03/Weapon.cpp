@@ -2,6 +2,8 @@
 
 void Weapon::setType(std::string str)
 {
+	if (this->_Type[0])
+		std::cout << this->_Type << " became a " << str << std::endl;
 	this->_Type = str;
 }
 
