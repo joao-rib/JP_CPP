@@ -2,22 +2,22 @@
 
 void HumanB::setWeapon(Weapon &weap)
 {
-	this->arma = &weap;
+	this->_Weap = &weap;
 }
 
 void HumanB::attack(void)
 {
-	std::cout << this->name << " attacks with a " << this->arma->getType() << std::endl;
+	std::cout << this->_Name << " attacks with a " << this->_Weap->getType() << std::endl;
 }
 
 HumanB::HumanB(std::string str)
 {
-    this->name = str;
-	std::cout << this->name << " (B) born" << std::endl;
+    this->_Name = str;
+	std::cout << this->_Name << " (B) born" << std::endl;
 }
 
 HumanB::~HumanB(void)
 {
-	std::cout << this->name << " (B) died" << std::endl;
+	std::cout << this->_Name << " (B) died" << std::endl;
 }
 

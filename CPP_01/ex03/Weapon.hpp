@@ -11,9 +11,9 @@
 class Weapon
 {
 private:
-	std::string type; //MUDAR NOMES DE VARS PRIVADAS
+	std::string _Type;
 public:
-	Weapon() : type("") {};
+	Weapon() : _Type("") {};
 	Weapon(std::string str);
     ~Weapon();
 	std::string getType() const;

@@ -12,8 +12,8 @@
 class HumanA
 {
 private:
-	std::string name;
-	Weapon &arma; //MUDAR NOMES DE VARS PRIVADAS
+	std::string _Name;
+	Weapon &_Weap;
 public:
 	//HumanA() : name("") {};
 	HumanA(std::string str, Weapon &weap);
