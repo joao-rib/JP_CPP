@@ -4,82 +4,25 @@
 #include <cstdlib>
 #include <fstream>
 
-/*static char	*replace_short(const char *str, char *old, char *new, size_t len)
+std::string	ft_str_repl_seg(const std::string str, const std::string seg1, const std::string seg2)
 {
-	size_t	i;
-	size_t	j;
-	size_t	b;
-	char	*str2;
-
-	i = 0;
-	j = 0;
-	b = ft_strnstr_pos(str, old, len);
-	str2 = ft_calloc(len - ft_strlen(old) + ft_strlen(new), sizeof(char *));
-	if (!str2)
+	if (str.empty() || seg1.empty())
 		return (NULL);
-	while (i <= len)
-	{
-		if (i == b)
-		{
-			j = ft_strlen(new);
-			ft_memcpy(&str2[i], new, j);
-			b = ft_strlen(old);
-			i += b;
-			j = b - j;
-		}
-		str2[i - j] = str[i];
-		i++;
-	}
-	return (str2);
-}
 
-static char	*replace_long(const char *str, char *old, char *new, size_t len)
-{
-	size_t	i;
-	size_t	j;
-	size_t	b;
-	char	*str2;
-
-	i = 0;
-	j = 0;
-	b = ft_strnstr_pos(str, old, len);
-	str2 = ft_calloc(len - ft_strlen(old) + ft_strlen(new), sizeof(char *));
-	if (!str2)
-		return (NULL);
-	while (i <= len)
-	{
-		if (i == b)
-		{
-			j = ft_strlen(new);
-			ft_memcpy(&str2[i], new, j);
-			b = ft_strlen(old);
-			i += b;
-			j -= b;
-		}
-		str2[i + j] = str[i];
-		i++;
-	}
-	return (str2);
-}*/
-
-/*char	*ft_str_repl_seg(const std::string str, const std::string seg1, const std::string seg2)
-{
-	char	*str2;
-
-	if (str.empty())
-		return (NULL);
 	size_t len = str.length();
 	size_t o = seg1.length();
 	size_t n = seg2.length();
-	str.find(seg1, len);
-	if (seg1.empty() || o > len || !ft_strnstr(str, seg1, len))
-		return (NULL);
-	if (n > o)
-		str2 = replace_long(str, seg1, seg2, len);
-	else
-		str2 = replace_short(str, seg1, seg2, len);
+	size_t i = str.find(seg1, 0);
+	if (i == std::string::npos || o > len) //WIP preciso de equivalente a strdup
+		return (str);
+	std::string str2 = str;
+	while (i != std::string::npos ) 
+	{
+		str2 = str.substr(0, i) + seg2 + str.substr(i + o, len);
+		i += n; //WIP falta algo
+	}
 	return (str2);
-}*/
+}
 
 int	main(int argc, char** argv)
 {
@@ -108,7 +51,7 @@ int	main(int argc, char** argv)
 	std::string buff;
 	while (std::getline(oldFile, line))
 	{
-		//buff = ft_str_repl_seg(line, argv[2], argv[3]);
+		buff = ft_str_repl_seg(line, argv[2], argv[3]);
 		if (!buff.empty())
 			newFile << buff << std::endl;
 		else
