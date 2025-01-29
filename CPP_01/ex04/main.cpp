@@ -2,6 +2,7 @@
 #include <locale>
 #include <iomanip>
 #include <cstdlib>
+#include <fstream>
 
 /*static char	*replace_short(const char *str, char *old, char *new, size_t len)
 {
@@ -59,26 +60,24 @@ static char	*replace_long(const char *str, char *old, char *new, size_t len)
 		i++;
 	}
 	return (str2);
-}
+}*/
 
-char	*ft_str_repl_seg(const char *str, char *old, char *new)
+/*char	*ft_str_repl_seg(const std::string str, const std::string seg1, const std::string seg2)
 {
-	size_t	len;
-	size_t	o;
-	size_t	n;
 	char	*str2;
 
-	if (!str)
+	if (str.empty())
 		return (NULL);
-	len = ft_strlen(str);
-	o = ft_strlen(old);
-	n = ft_strlen(new);
-	if (!old || o > len || !ft_strnstr(str, old, len))
+	size_t len = str.length();
+	size_t o = seg1.length();
+	size_t n = seg2.length();
+	str.find(seg1, len);
+	if (seg1.empty() || o > len || !ft_strnstr(str, seg1, len))
 		return (NULL);
 	if (n > o)
-		str2 = replace_long(str, old, new, len);
+		str2 = replace_long(str, seg1, seg2, len);
 	else
-		str2 = replace_short(str, old, new, len);
+		str2 = replace_short(str, seg1, seg2, len);
 	return (str2);
 }*/
 
@@ -89,19 +88,35 @@ int	main(int argc, char** argv)
 		std::cout << "Please include three arguments" << std::endl;;
 		return (0);
 	}
-	// Abrir argv[1], verificar se houve erro
-	//if (!validate_number(argv[1]))
+	//Abrir argv[1], verificar se houve erro
+	std::ifstream oldFile(argv[1]);
+	if (!oldFile.is_open())
 	{
-		std::cout << "Error while attempting to open input file" << std::endl;;
+		std::cout << "Could not open input file" << std::endl;;
 		return (0);
 	}
-	//Copiar conteúdos de argv[1];
-	//Fechar filename
-	//Guardar em variável
-	//ft_repl_str argv[2] argv[3]
-	//Criar ou abrir filename.replace;
-	//Colar conteúdos em filename.replace
-	//Fechar filename.replace
+	//Criar filename.replace
+	std::string newFilename = std::string(argv[1]) + ".replace";
+	std::ofstream newFile(newFilename);
+	if (!newFile.is_open())
+	{
+		std::cout << "Could not open output file" << std::endl;;
+		return (0);
+	}
+	//Copiar ficheiro argv[1]
+	std::string line;
+	std::string buff;
+	while (std::getline(oldFile, line))
+	{
+		//buff = ft_str_repl_seg(line, argv[2], argv[3]);
+		if (!buff.empty())
+			newFile << buff << std::endl;
+		else
+			newFile << line << std::endl;
+	}
+	//Fechar
+	oldFile.close();
+	newFile.close();
 	return (0);
 }
 
