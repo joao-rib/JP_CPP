@@ -2,7 +2,7 @@ NAME = harl
 CPP = c++
 FLAGS = -Wall -Werror -Wextra -std=c++98
 MAIN = main.cpp
-SRC = harl.cpp
+SRC = Harl.cpp
 RM = rm -fr
 
 all: $(NAME)

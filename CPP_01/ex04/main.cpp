@@ -29,14 +29,14 @@ int	main(int argc, char** argv)
 		std::cout << "Please include three arguments" << std::endl;;
 		return (0);
 	}
-	//Abrir argv[1], verificar se houve erro
+	//Open argv[1], check for errors
 	std::ifstream oldFile(argv[1]);
 	if (!oldFile.is_open())
 	{
 		std::cout << "Could not open input file" << std::endl;;
 		return (0);
 	}
-	//Criar filename.replace
+	//Create filename.replace
 	std::string newFileName = std::string(argv[1]) + ".replace";
 	std::ofstream newFile(newFileName.c_str());
 	if (!newFile.is_open())
@@ -44,7 +44,7 @@ int	main(int argc, char** argv)
 		std::cout << "Could not open output file" << std::endl;;
 		return (0);
 	}
-	//Copiar ficheiro argv[1]
+	//Copy argv[1] content
 	std::string line;
 	std::string buff;
 	while (std::getline(oldFile, line))
@@ -55,9 +55,8 @@ int	main(int argc, char** argv)
 		else
 			newFile << line << std::endl;
 	}
-	//Fechar
+	//Close files
 	oldFile.close();
 	newFile.close();
 	return (0);
 }
-//WIP LINHA A MAIS NA CÓPIA!

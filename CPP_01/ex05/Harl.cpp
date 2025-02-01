@@ -22,37 +22,33 @@ void Harl::error(void)
 
 void Harl::complain(std::string level)
 {
-	return (this->_Type);
+	//void (MyClass::*funcArray[size])(args) = { &MyClass::func1, &MyClass::func2, etc. }
+	void (Harl::*complain_type[4])(void) = 
+	{
+		&Harl::debug,
+		&Harl::info,
+		&Harl::warning,
+		&Harl::error,
+	};
+	std::string message[4] = 
+	{
+		"DEBUG",
+		"INFO",
+		"WARNING",
+		"ERROR"
+	};
+	//(myclass_var.*funcArray[i])(args);
+	for (int i = 0; i < 4; i++)
+	{
+		if (level == message[i])
+		{
+			(this->*complain_type[i])();
+			return ;
+		}
+	}
+	std::cout << "[Harl]: I'm working here! You need anything?" << std::endl;
+    return ;
 }
-
-/*void Harl::complain(std::string level)
-{
-    // Ponteiro para membro da classe para acessar métodos privados
-    void (Harl::*ptrToMethod)() = NULL;
-    // Harl *ptrToMethod = NULL;
-    //int case_level;
-    std::string cases[] = {"DEBUG", "INFO", "WARNING", "ERROR"};
-    void (Harl::*array[4])() = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
-
-
-    for (int i = 0; i < 4; i++)
-    {
-        if (cases[i] == level)
-            
-        {
-            ptrToMethod = array[i];
-            if (ptrToMethod != NULL)
-                {
-                    std::cout << "[ " << level << " ]" << std::endl;
-                    (this->*ptrToMethod)();
-                }
-        }
-    }
-    if (!ptrToMethod || level.empty())
-    {
-        std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
-    }
-}*/
 
 Harl::Harl(void)
 {
