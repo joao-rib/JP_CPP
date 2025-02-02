@@ -36,12 +36,33 @@ void Harl::complain(std::string level)
 		"WARNING",
 		"ERROR"
 	};
+	static bool found = false;
 	for (int i = 0; i < 4; i++)
 	{
-		if (level == message[i])
+		if (level == message[i] || found)
 		{
-			(this->*complain_type[i])();
-			return ;
+			switch (i)
+			{
+				case 0:
+					(this->*complain_type[0])();
+					found = true;
+					return;
+				case 1:
+					(this->*complain_type[1])();
+					found = true;
+					return;
+				case 2:
+					(this->*complain_type[2])();
+					found = true;
+					return;
+				case 3:
+					(this->*complain_type[3])();
+					found = true;
+					return;
+				default:
+					std::cout << "[Harl]: I'm working here! You need anything?" << std::endl;
+					return;
+			}
 		}
 	}
 	std::cout << "[Harl]: I'm working here! You need anything?" << std::endl;
@@ -58,3 +79,29 @@ Harl::~Harl(void)
 	std::cout << "Harl has left the building" << std::endl;
 }
 
+/*#include <iostream>
+
+int main() {
+    char grade = 'B';
+
+    switch (grade) {
+        case 'A':
+            std::cout << "Excellent!\n";
+            break;
+        case 'B':
+        case 'C': // Both cases share the same output
+            std::cout << "Good job!\n";
+            break;
+        case 'D':
+            std::cout << "You passed\n";
+            break;
+        case 'F':
+            std::cout << "Better luck next time\n";
+            break;
+        default:
+            std::cout << "Invalid grade\n";
+    }
+
+    return 0;
+}
+*/
