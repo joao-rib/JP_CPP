@@ -46,26 +46,27 @@ void Harl::complain(std::string level)
 				case 0:
 					(this->*complain_type[0])();
 					found = true;
-					return;
+					break;
 				case 1:
 					(this->*complain_type[1])();
 					found = true;
-					return;
+					break;
 				case 2:
 					(this->*complain_type[2])();
 					found = true;
-					return;
+					break;
 				case 3:
 					(this->*complain_type[3])();
 					found = true;
-					return;
+					break;
 				default:
 					std::cout << "[Harl]: I'm working here! You need anything?" << std::endl;
 					return;
 			}
 		}
 	}
-	std::cout << "[Harl]: I'm working here! You need anything?" << std::endl;
+	if (!found)
+		std::cout << "[Harl]: I'm working here! You need anything?" << std::endl;
     return ;
 }
 
