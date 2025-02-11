@@ -8,32 +8,72 @@
 # include <sys/wait.h>
 # include <stdbool.h>
 
+void	write_error(char *msg, char *addend)
+{
+	int	i;
+
+	i = 0;
+	while(msg[i])
+	{
+		write(2, &msg[i], 1);
+		i++;
+	}
+	i = 0;
+	if (addend)
+	{
+		while(addend[i])
+		{
+			write(2, &addend[i], 1);
+			i++;
+		}
+	}
+	write(2, "/n", 1);
+}
+
+void	exec_child(char **args, int size, int curr_fd, char **envp)
+{
+	args[size] = NULL;
+	dup2(curr_fd, STDIN_FILENO);
+	close(curr_fd);
+	execve(args[0], args + 1, envp);
+	write_error("error: cannot execute ", args[0]);
+	exit(1);
+}
+
+void	exec_cd(char **args, int size)
+{
+	if (size != 2)
+		write_error("error: cd: bad arguments", NULL);
+	else if (!chdir(args[1]))
+		write_error("error: cd: cannot change directory to ", args[1]);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
+	int		fd[2];
+	int		curr_fd;
 	int		i;
 	int		j;
 	int		pv;
 	int		*cmd_pos;
-	bool	simple;
 
 	i = 1;
 	j = 1;
 	pv = 0;
-	simple = true;
+	curr_fd = dup(STDIN_FILENO);
 	while (i < argc)
 	{
-		if (simple && !strcmp(argv[i], "|"))
-			simple = false;
-		if (!strcmp(argv[i], ";"))
+		if (!strcmp(argv[i], ";") || !strcmp(argv[i], "|"))
 			pv++;
 		i++;
 	}
-	cmd_pos = malloc ((pv + 1) * sizeof(int));
+	cmd_pos = malloc ((pv + 2) * sizeof(int));
 	cmd_pos[0] = 1;
+	cmd_pos[pv + 1] = argc;
 	i = 1;
 	while (i < argc)
 	{
-		if (!strcmp(argv[i], ';') || !strcmp(argv[i], '|'))
+		if (!strcmp(argv[i], ";") || !strcmp(argv[i], "|"))
 		{
 			cmd_pos[j] = i + 1;
 			j++;
@@ -41,22 +81,45 @@ int	main(int argc, char **argv, char **envp)
 		i++;
 	}
 	i = 0;
-	j = 0;
-	if (simple)
+	while(i < pv)
 	{
-		while(i <= pv)
+		if (!strcmp(argv[cmd_pos[i]], "cd"))
+			exec_cd(argv + cmd_pos[i], cmd_pos[i + 1] - cmd_pos[i] - 1);
+		else if (!strcmp(argv[cmd_pos[i + 1] - 1], ";") || argv[cmd_pos[i + 1]] == NULL)
+			exec_child(argv + cmd_pos[i], cmd_pos[i + 1] - cmd_pos[i] - 1, curr_fd, envp); //WIP faltam coisas. Ver abaixo
+		else if (!strcmp(argv[cmd_pos[i + 1] - 1], "|"))
 		{
-			if (!strcmp(argv[cmd_pos[i]], "cd"))
-				exec_cd(argv[cmd_pos[i] + 1]); //WIP escrever cd aqui
+			pipe(fd);
+			if (fork() == 0)
+			{
+				dup2(fd[1], STDOUT_FILENO);
+				close(fd[0]);
+				close(fd[1]);
+				exec_child(argv + cmd_pos[i], cmd_pos[i + 1] - cmd_pos[i] - 1, curr_fd, envp);
+			}
 			else
-				execve(argv[cmd_pos[i]], argv + cmd_pos[i] + 1, envp); //WIP importante terminar aquele argv + cmd_pos[i] + 1... ate argv + cmd_pos[i + 1] - 2... ou assim. Preciso pensar no ultimo comando
-			i++;
+			{
+				close(fd[1]);
+				close(curr_fd);
+				curr_fd = fd[0];
+			}
 		}
-		free(cmd_pos);
-		return (0);
+		i++;
 	}
+		/*		else if (i != 0 && (argv[i] == NULL || strcmp(argv[i], ";") == 0)) //exec in stdout
+		{
+			if ( fork() == 0)
+				ft_execute(argv, i, tmp_fd, env);
+			else
+			{
+				close(tmp_fd);
+				while(waitpid(-1, NULL, WUNTRACED) != -1)
+					;
+				tmp_fd = dup(STDIN_FILENO);
+			}
+		}*/
 	free(cmd_pos);
-	//WIP PIPES! FORK()! DEUSMELIVRE!!!!!
+	close(curr_fd);
 	return (0);
 }
 
@@ -72,57 +135,3 @@ int	main(int argc, char **argv, char **envp)
     	//??? (estudar o que faz no Bash)
     //Else if "|"
     	//fork()
-
-
-/*
-#include "../include/minishell.h"
-
-void	change_dir(char *path, t_minish *ms)
-{
-	char	*oldpwd;
-	char	*newpwd;
-
-	if (!path)
-	{
-		error("minishell: cd: HOME not set\n", 1);
-		return ;
-	}
-	oldpwd = ft_strjoin("OLDPWD=", ms->cwd);
-	add_or_update_env(&ms->env_list, oldpwd);
-	add_or_update_env(&ms->env_tmp, oldpwd);
-	free(oldpwd);
-	chdir(path);
-	free(ms->cwd);
-	ms->cwd = getcwd(NULL, 4096);
-	newpwd = ft_strjoin("PWD=", ms->cwd);
-	add_or_update_env(&ms->env_list, newpwd);
-	add_or_update_env(&ms->env_tmp, newpwd);
-	free(newpwd);
-	free(path);
-}*/
-/*
-void	cd(char **tokens, t_minish *ms)
-{
-	struct stat	stats;
-	int			i;
-
-	i = 0;
-	while (tokens[i])
-		i++;
-	if (i > 1)
-	{
-		error("minishell: cd: too many arguments\n", 1);
-		return ;
-	}
-	if (!tokens[0][0] || ft_str_cmp(tokens[0], "~"))
-	{
-		change_dir(get_env("HOME", ms->env_list), ms);
-		return ;
-	}
-	if (stat(tokens[0], &stats) == 0 && S_ISDIR(stats.st_mode))
-		change_dir(ft_strdup(tokens[0]), ms);
-	else
-		error("minishell: cd: not a directory\n", 1);
-	unlink_hd_file(ms);
-}
-*/
