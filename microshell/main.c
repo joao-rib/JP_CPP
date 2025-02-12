@@ -7,7 +7,7 @@
 # include <string.h>
 # include <sys/wait.h>
 # include <stdbool.h>
-//# include <stdio.h>
+# include <stdio.h>
 
 void	write_error(char *msg, char *addend)
 {
@@ -34,9 +34,10 @@ void	write_error(char *msg, char *addend)
 void	exec_child(char **args, int size, int curr_fd, char **envp)
 {
 	args[size] = NULL;
+	printf("EXEC_CHILD: cmd: %s, size, %d, argfinal: %s\n", args[0], size, args[size]);
 	dup2(curr_fd, STDIN_FILENO);
 	close(curr_fd);
-	execve(args[0], args + 1, envp);
+	execve(args[0], args, envp);
 	write_error("error: cannot execute ", args[0]);
 	exit(1);
 }
@@ -70,7 +71,7 @@ int	main(int argc, char **argv, char **envp)
 	}
 	cmd_pos = malloc ((pv + 2) * sizeof(int));
 	cmd_pos[0] = 1;
-	cmd_pos[pv + 1] = argc;
+	cmd_pos[pv + 1] = argc + 1;
 	i = 1;
 	while (i < argc)
 	{
@@ -82,15 +83,15 @@ int	main(int argc, char **argv, char **envp)
 		i++;
 	}
 	i = 0;
-	//printf("cmd_pos: %d, %d, %d\n pv: %d\n", cmd_pos[0], cmd_pos[1], cmd_pos[2], pv);
-	while(i < pv)
+	printf("cmd_pos: %d, %d, %d\n pv: %d\n", cmd_pos[0], cmd_pos[1], cmd_pos[2], pv);
+	while(i < pv || i == 0)
 	{
 		if (!strcmp(argv[cmd_pos[i]], "cd"))
 			exec_cd(argv + cmd_pos[i], cmd_pos[i + 1] - cmd_pos[i] - 1);
 		else if (!strcmp(argv[cmd_pos[i + 1] - 1], ";") || argv[cmd_pos[i + 1]] == NULL)
 		{
 			if (fork() == 0)
-				exec_child(argv + cmd_pos[i], cmd_pos[i + 1] - cmd_pos[i] - 1, curr_fd, envp); //WIP faltam coisas. Ver abaixo
+				exec_child(argv + cmd_pos[i], cmd_pos[i + 1] - cmd_pos[i] - 1, curr_fd, envp);
 			else
 			{
 				close(curr_fd);
