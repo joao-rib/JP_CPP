@@ -7,6 +7,7 @@
 # include <string.h>
 # include <sys/wait.h>
 # include <stdbool.h>
+//# include <stdio.h>
 
 void	write_error(char *msg, char *addend)
 {
@@ -27,7 +28,7 @@ void	write_error(char *msg, char *addend)
 			i++;
 		}
 	}
-	write(2, "/n", 1);
+	write(2, "\n", 1);
 }
 
 void	exec_child(char **args, int size, int curr_fd, char **envp)
@@ -81,6 +82,7 @@ int	main(int argc, char **argv, char **envp)
 		i++;
 	}
 	i = 0;
+	//printf("cmd_pos: %d, %d, %d\n pv: %d\n", cmd_pos[0], cmd_pos[1], cmd_pos[2], pv);
 	while(i < pv)
 	{
 		if (!strcmp(argv[cmd_pos[i]], "cd"))
