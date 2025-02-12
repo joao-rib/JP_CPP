@@ -88,7 +88,17 @@ int	main(int argc, char **argv, char **envp)
 		if (!strcmp(argv[cmd_pos[i]], "cd"))
 			exec_cd(argv + cmd_pos[i], cmd_pos[i + 1] - cmd_pos[i] - 1);
 		else if (!strcmp(argv[cmd_pos[i + 1] - 1], ";") || argv[cmd_pos[i + 1]] == NULL)
-			exec_child(argv + cmd_pos[i], cmd_pos[i + 1] - cmd_pos[i] - 1, curr_fd, envp); //WIP faltam coisas. Ver abaixo
+		{
+			if (fork() == 0)
+				exec_child(argv + cmd_pos[i], cmd_pos[i + 1] - cmd_pos[i] - 1, curr_fd, envp); //WIP faltam coisas. Ver abaixo
+			else
+			{
+				close(curr_fd);
+				while(waitpid(-1, NULL, WUNTRACED) != -1)
+					;
+				curr_fd = dup(STDIN_FILENO);
+			}
+		}
 		else if (!strcmp(argv[cmd_pos[i + 1] - 1], "|"))
 		{
 			pipe(fd);
@@ -108,18 +118,6 @@ int	main(int argc, char **argv, char **envp)
 		}
 		i++;
 	}
-		/*		else if (i != 0 && (argv[i] == NULL || strcmp(argv[i], ";") == 0)) //exec in stdout
-		{
-			if ( fork() == 0)
-				ft_execute(argv, i, tmp_fd, env);
-			else
-			{
-				close(tmp_fd);
-				while(waitpid(-1, NULL, WUNTRACED) != -1)
-					;
-				tmp_fd = dup(STDIN_FILENO);
-			}
-		}*/
 	free(cmd_pos);
 	close(curr_fd);
 	return (0);
