@@ -34,7 +34,7 @@ void	write_error(char *msg, char *addend)
 void	exec_child(char **args, int size, int curr_fd, char **envp)
 {
 	args[size] = NULL;
-	printf("EXEC_CHILD: cmd: %s, size, %d, argfinal: %s\n", args[0], size, args[size]);
+	//printf("EXEC_CHILD: cmd: %s, size, %d, argfinal: %s\n", args[0], size, args[size]);
 	dup2(curr_fd, STDIN_FILENO);
 	close(curr_fd);
 	execve(args[0], args, envp);
@@ -83,12 +83,12 @@ int	main(int argc, char **argv, char **envp)
 		i++;
 	}
 	i = 0;
-	printf("cmd_pos: %d, %d, %d\n pv: %d\n", cmd_pos[0], cmd_pos[1], cmd_pos[2], pv);
+	//printf("cmd_pos: %d, %d, %d\npv: %d\n", cmd_pos[0], cmd_pos[1], cmd_pos[2], pv);
 	while(i < pv || i == 0)
 	{
 		if (!strcmp(argv[cmd_pos[i]], "cd"))
 			exec_cd(argv + cmd_pos[i], cmd_pos[i + 1] - cmd_pos[i] - 1);
-		else if (!strcmp(argv[cmd_pos[i + 1] - 1], ";") || argv[cmd_pos[i + 1]] == NULL)
+		else if (argv[cmd_pos[i + 1] - 1] == NULL || !strcmp(argv[cmd_pos[i + 1] - 1], ";"))
 		{
 			if (fork() == 0)
 				exec_child(argv + cmd_pos[i], cmd_pos[i + 1] - cmd_pos[i] - 1, curr_fd, envp);
