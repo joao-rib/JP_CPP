@@ -6,8 +6,6 @@
 # include <signal.h>
 # include <string.h>
 # include <sys/wait.h>
-# include <stdbool.h>
-# include <stdio.h>
 
 void	write_error(char *msg, char *addend)
 {
@@ -34,7 +32,6 @@ void	write_error(char *msg, char *addend)
 void	exec_child(char **args, int size, int curr_fd, char **envp)
 {
 	args[size] = NULL;
-	//printf("EXEC_CHILD: cmd: %s, size, %d, argfinal: %s\n", args[0], size, args[size]);
 	dup2(curr_fd, STDIN_FILENO);
 	close(curr_fd);
 	execve(args[0], args, envp);
@@ -83,7 +80,6 @@ int	main(int argc, char **argv, char **envp)
 		i++;
 	}
 	i = 0;
-	//printf("cmd_pos: %d, %d, %d\npv: %d\n", cmd_pos[0], cmd_pos[1], cmd_pos[2], pv);
 	while(i <= pv)
 	{
 		if (!strcmp(argv[cmd_pos[i]], "cd"))
@@ -123,16 +119,3 @@ int	main(int argc, char **argv, char **envp)
 	close(curr_fd);
 	return (0);
 }
-
-	//Parse - tokens (argv)
-	//Parse - Build tree
-	//Execute commands
-		//Write cd
-		//execve()
-
-    //Assumir caso simples
-    	//execve()
-    //Else if ";"
-    	//??? (estudar o que faz no Bash)
-    //Else if "|"
-    	//fork()
