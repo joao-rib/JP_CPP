@@ -84,7 +84,7 @@ int	main(int argc, char **argv, char **envp)
 	}
 	i = 0;
 	//printf("cmd_pos: %d, %d, %d\npv: %d\n", cmd_pos[0], cmd_pos[1], cmd_pos[2], pv);
-	while(i < pv || i == 0)
+	while(i <= pv)
 	{
 		if (!strcmp(argv[cmd_pos[i]], "cd"))
 			exec_cd(argv + cmd_pos[i], cmd_pos[i + 1] - cmd_pos[i] - 1);
