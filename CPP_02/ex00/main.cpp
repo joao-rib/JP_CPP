@@ -15,7 +15,7 @@ int main( void )
 /*$> ./a.out
 Default constructor called
 Copy constructor called
-Copy assignment operator called // <-- This line may be missing depending on your implementation
+Copy assignment operator called
 getRawBits member function called
 Default constructor called
 Copy assignment operator called

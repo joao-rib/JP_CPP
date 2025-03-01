@@ -12,14 +12,14 @@ class Fixed
 {
 private:
 	int _num;
-	static int _bits;
+	const static int _bits = 8;
 public:
 	Fixed();
+	Fixed(const Fixed &orig);
+	Fixed &operator = (const Fixed &orig);
     ~Fixed();
-	// copy
-	// assign
 	int getRawBits(void) const;
-	void setRawBits(int const raw) const;
+	void setRawBits(int const raw);
 };
 
 #endif
