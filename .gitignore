@@ -2,7 +2,6 @@
 *obj/
 *.o
 *.a
-*.pdf
 *wip*
 README.c
 a.out
