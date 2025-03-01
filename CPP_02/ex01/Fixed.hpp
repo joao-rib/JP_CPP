@@ -7,6 +7,7 @@
 #include <locale>
 #include <iomanip>
 #include <cstdlib>
+#include <cmath>
 
 class Fixed
 {
@@ -15,11 +16,15 @@ private:
 	const static int _bits = 8;
 public:
 	Fixed();
+	Fixed(const int num);
+	Fixed(const float num);
 	Fixed(const Fixed &orig);
 	Fixed &operator = (const Fixed &orig);
-	~Fixed();
+    ~Fixed();
 	int getRawBits(void) const;
 	void setRawBits(int const raw);
+	float toFloat(void) const;
+	int toInt(void) const;
 };
 
 #endif
