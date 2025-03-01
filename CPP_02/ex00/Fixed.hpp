@@ -1,37 +1,25 @@
 #pragma once
 
-#ifndef ZOMBIE_H
-#define ZOMBIE_H
+#ifndef FIXED_H
+#define FIXED_H
 
 #include <iostream>
 #include <locale>
 #include <iomanip>
 #include <cstdlib>
 
-class Zombie
+class Fixed
 {
 private:
-	std::string _Name;
+	int _num;
+	static int _bits;
 public:
-	Zombie(std::string name);
-    ~Zombie();
-	void announce(void);
-	//void setName(std::string name);
+	Fixed();
+    ~Fixed();
+	// copy
+	// assign
+	int getRawBits(void) const;
+	void setRawBits(int const raw) const;
 };
-
-Zombie* newZombie(std::string name);
-void randomChump(std::string name);
-
-/*class Zombie
-{
-private:
-	std::string name;
-public:
-	Zombie();
-    ~Zombie();
-	void announce(void);
-	Zombie* newZombie(std::string name);
-	void randomChump(std::string name);
-};*/
 
 #endif

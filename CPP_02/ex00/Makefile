@@ -1,8 +1,8 @@
-NAME = zombie
+NAME = a.out
 CPP = c++
 FLAGS = -Wall -Werror -Wextra -std=c++98
 MAIN = main.cpp
-SRC = newZombie.cpp randomChump.cpp Zombie.cpp
+SRC = Fixed.cpp
 RM = rm -fr
 
 all: $(NAME)

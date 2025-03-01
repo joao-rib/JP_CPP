@@ -1,23 +1,22 @@
-#include "Zombie.hpp"
+#include "Fixed.hpp"
 
-/*void Zombie::setName(std::string name)
+int Fixed::getRawBits(void) const
 {
-	this->name = name;
-}*/
-
-void Zombie::announce(void)
-{
-	std::cout << this->_Name << ": BraiiiiiiinnnzzzZ..." << std::endl;
+	;
 }
 
-Zombie::Zombie(std::string name)
+void Fixed::setRawBits(int const raw) const
 {
-    this->_Name = name;
-	std::cout << "Rise from your grave! " << this->_Name << "!" << std::endl;
+	;
 }
 
-Zombie::~Zombie(void)
+Fixed::Fixed(void)
 {
-	std::cout << this->_Name << " rests in peace once again. For now..." << std::endl;
+	std::cout << "Fixed constructor here!" << std::endl;
+}
+
+Fixed::~Fixed(void)
+{
+	std::cout << "Fixed destructor here!" << std::endl;
 }
 

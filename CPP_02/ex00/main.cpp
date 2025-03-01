@@ -1,27 +1,32 @@
-#include "Zombie.hpp"
+#include "Fixed.hpp"
 
-int	main(int argc, char** argv)
+int main( void )
 {
-	if (argc != 3)
-    {
-        std::cout << "Please include two arguments" << std::endl;;
-		return (0);
-    }
-	Zombie* patientZero = newZombie(argv[1]);
-	patientZero->announce();
-    randomChump(argv[2]);
-    delete patientZero;
-	return (0);
+	Fixed a;
+	Fixed b(a);
+	Fixed c;
+	c = b;
+	std::cout << a.getRawBits() << std::endl;
+	std::cout << b.getRawBits() << std::endl;
+	std::cout << c.getRawBits() << std::endl;
+	return 0;
 }
 
-/*int	main(int argc, char** argv)
-{
-	if (argc != 3)
-		return (0);
-	Zombie stackZombie;
-	Zombie* heapZombie = stackZombie.newZombie(argv[1]);
-	heapZombie->announce();
-    delete heapZombie;
-	return (0);
-}*/
-
+/*$> ./a.out
+Default constructor called
+Copy constructor called
+Copy assignment operator called // <-- This line may be missing depending on your implementation
+getRawBits member function called
+Default constructor called
+Copy assignment operator called
+getRawBits member function called
+getRawBits member function called
+0
+getRawBits member function called
+0
+getRawBits member function called
+0
+Destructor called
+Destructor called
+Destructor called
+$>*/
