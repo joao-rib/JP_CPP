@@ -24,32 +24,26 @@ public:
 	Fixed &operator = (const Fixed &orig);
 
 	bool operator == (const Fixed &another) const;
-	/*Fixed &operator > (const Fixed &orig);
-	Fixed &operator < (const Fixed &orig);
-	Fixed &operator >= (const Fixed &orig);
-	Fixed &operator <= (const Fixed &orig);
-	Fixed &operator == (const Fixed &orig);
-	Fixed &operator != (const Fixed &orig);*/
+	bool operator != (const Fixed &another) const;
+	bool operator < (const Fixed &another) const;
+	bool operator <= (const Fixed &another) const;
+	bool operator > (const Fixed &another) const;
+	bool operator >= (const Fixed &another) const;
 
 	Fixed operator + (const Fixed &amount) const;
-	/*Fixed &operator + (const Fixed &orig);
-	Fixed &operator - (const Fixed &orig);
-	Fixed &operator * (const Fixed &orig);
-	Fixed &operator / (const Fixed &orig);*/
+	Fixed operator - (const Fixed &amount) const;
+	Fixed operator * (const Fixed &amount) const;
+	Fixed operator / (const Fixed &amount) const;
 
 	Fixed &operator ++ (void); //pre
-	Fixed &operator ++ (int); //post WIP why "int"?
-	/*pre-increment
-	post-increment
-	pre-decrement
-	post-decrement*/
+	Fixed operator ++ (int); //post WIP why "int"?
+	Fixed &operator -- (void); //pre
+	Fixed operator -- (int); //post WIP why "int"?
 
 	static Fixed &min(Fixed &n1, Fixed &n2);
 	static const Fixed &min(const Fixed &n1, const Fixed &n2);
-	/*min
-	min const
-	max
-	max const*/
+	static Fixed &max(Fixed &n1, Fixed &n2);
+	static const Fixed &max(const Fixed &n1, const Fixed &n2);
 
 	int getRawBits(void) const;
 	void setRawBits(int const raw);
