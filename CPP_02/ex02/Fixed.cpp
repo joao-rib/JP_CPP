@@ -85,25 +85,29 @@ bool Fixed::operator <= (const Fixed& another) const
 Fixed Fixed::operator + (const Fixed& amount) const
 {
 	//this->setRawBits(this->getRawBits() + amount.getRawBits());
-	return (Fixed(this->getRawBits() + amount.getRawBits()));
+	//return (Fixed(this->getRawBits() + amount.getRawBits()));
+	return (Fixed(this->toFloat() + amount.toFloat()));
 }
 
 Fixed Fixed::operator - (const Fixed& amount) const
 {
 	//this->setRawBits(this->getRawBits() - amount.getRawBits());
-	return (Fixed(this->getRawBits() - amount.getRawBits()));
+	//return (Fixed(this->getRawBits() - amount.getRawBits()));
+	return (Fixed(this->toFloat() - amount.toFloat()));
 }
 
 Fixed Fixed::operator * (const Fixed& amount) const
 {
 	//this->setRawBits(this->getRawBits() * amount.getRawBits());
-	return (Fixed(this->getRawBits() * amount.getRawBits()));
+	//return (Fixed(this->getRawBits() * amount.getRawBits()));
+	return (Fixed(this->toFloat() * amount.toFloat()));
 }
 
 Fixed Fixed::operator / (const Fixed& amount) const
 {
 	//this->setRawBits(this->getRawBits() / amount.getRawBits());
-	return (Fixed(this->getRawBits() / amount.getRawBits()));
+	//return (Fixed(this->getRawBits() / amount.getRawBits()));
+	return (Fixed(this->toFloat() / amount.toFloat()));
 }
 
 Fixed &Fixed::operator ++ (void)
