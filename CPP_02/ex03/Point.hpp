@@ -21,15 +21,12 @@ public:
 	Point(const Point &orig);
 	~Point();
 
-	Point &operator = (const Point &orig);
-
+	//Point &operator = (const Point &orig);
 	bool operator == (const Point &another) const;
 	bool operator != (const Point &another) const;
 
 	Fixed getX(void) const;
-	void setX(Fixed const &raw);
 	Fixed getY(void) const;
-	void setY(Fixed const &raw);
 };
 
 //std::ostream& operator << (std::ostream& out, const Point& fp_num);

@@ -1,21 +1,15 @@
 #include "Point.hpp"
 
-int main (int argc, char **argv)
+int main (void)
 {
-	if (argc != 3)
-	{
-		std::cout << "Please include two arguments" << std::endl;
-		return (0);
-	}
-	//WIP Verificar se sao numericos
 	Point a(0, 0);
 	Point b(5, 0);
 	Point c(2, 4);
-	Point d(atoi(argv[1]), atoi(argv[2]));
+	Point d(1, 4);
 	if (bsp(a, b, c, d))
-		std::cout << "Ta dentro do triangulo" << std::endl;
+		std::cout << "Tá dentro do triângulo. Muito bem!" << std::endl;
 	else
-		std::cout << "Errou feio. Errou rude!" << std::endl;
+		std::cout << "Errou feio. Errou rude. Tá mal. Tá errado." << std::endl;
 	return (0);
 }
 
