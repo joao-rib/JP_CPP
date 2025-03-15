@@ -5,7 +5,7 @@ int main (void)
 	Point a(0, 0);
 	Point b(5, 0);
 	Point c(2, 4);
-	Point d(1, 4);
+	Point d(2, 1);
 	if (bsp(a, b, c, d))
 		std::cout << "Tá dentro do triângulo. Muito bem!" << std::endl;
 	else
