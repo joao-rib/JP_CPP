@@ -1,8 +1,8 @@
-NAME = a.out
+NAME = ClapTrap
 CPP = c++
 FLAGS = -Wall -Werror -Wextra -std=c++98
 MAIN = main.cpp
-SRC = Fixed.cpp
+SRC = ClapTrap.cpp
 RM = rm -fr
 
 all: $(NAME)

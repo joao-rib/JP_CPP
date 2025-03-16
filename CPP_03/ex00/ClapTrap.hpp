@@ -1,25 +1,39 @@
 #pragma once
 
-#ifndef FIXED_H
-#define FIXED_H
+#ifndef CLAPTRAP_H
+#define CLAPTRAP_H
 
 #include <iostream>
 #include <locale>
 #include <iomanip>
 #include <cstdlib>
 
-class Fixed
+class ClapTrap
 {
 private:
-	int _num;
-	const static int _bits = 8;
+	std::string _name;
+	unsigned int _hit_pnts;
+	unsigned int _energy_pnts;
+	unsigned int _attack_dmg;
 public:
-	Fixed();
-	Fixed(const Fixed &orig);
-	Fixed &operator = (const Fixed &orig);
-	~Fixed();
-	int getRawBits(void) const;
-	void setRawBits(int const raw);
+	//ClapTrap();
+	ClapTrap(std::string name);
+	ClapTrap(const ClapTrap &orig);
+	ClapTrap &operator = (const ClapTrap &orig);
+	~ClapTrap();
+
+	std::string		getName(void) const;
+	void			setName(std::string name);
+	unsigned int	getHitPnts(void) const;
+	void			setHitPnts(unsigned int value);
+	unsigned int	getEnergyPnts(void) const;
+	void			setEnergyPnts(unsigned int value);
+	unsigned int	getAtkDmg(void) const;
+	void			setAtkDmg(unsigned int value);
+
+	void			attack(const std::string &target);
+	void			takeDamage(unsigned int amount);
+	void			beRepaired(unsigned int amount);
 };
 
 #endif

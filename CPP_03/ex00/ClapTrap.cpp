@@ -1,40 +1,122 @@
-#include "Fixed.hpp"
+#include "ClapTrap.hpp"
 
-int Fixed::getRawBits(void) const
+void ClapTrap::attack(const std::string &target)
 {
-	std::cout << "getRawBits got called, son!" << std::endl;
-	return (this->_num);
+	if (this->getHitPnts() == 0)
+		std::cout << this->_name << " can't attack " << target << " on account of currently being dead!" << std::endl;
+	else if (this->getEnergyPnts() == 0)
+		std::cout << this->_name << " is too tired. Must recharge before attacking " << target << "!" << std::endl;
+	else
+	{
+		std::cout << this->_name << " the ClapTrap attacks " << target << "!" << std::endl;
+		this->_energy_pnts--;
+	}
+}
+void ClapTrap::takeDamage(unsigned int amount)
+{
+	if (this->getHitPnts() == 0)
+		std::cout << this->_name << " is already dead, so whatever." << std::endl;
+	else if (this->getHitPnts() > amount)
+	{
+		std::cout << this->_name << " the ClapTrap takes " << amount << " damage. Dang!" << std::endl;
+		this->setHitPnts(this->getHitPnts() - amount);
+	}
+	else
+	{
+		std::cout << this->_name << " just took " << amount << " damage and DIED LIKE A DOG!" << std::endl;
+		this->setHitPnts(0);
+	}
+}
+void ClapTrap::beRepaired(unsigned int amount)
+{
+	if (this->getHitPnts() == 0)
+		std::cout << this->_name << " can't repair itself while dead and scrapped." << std::endl;
+	else if (this->getEnergyPnts() == 0)
+		std::cout << this->_name << " is too tired. Must recharge before repairing." << std::endl;
+	else
+	{
+		std::cout << this->_name << " the ClapTrap is repaired and gains " << amount << " health. Yay!" << std::endl;
+		this->setHitPnts(this->getHitPnts() + amount);
+		this->_energy_pnts--;
+	}
 }
 
-void Fixed::setRawBits(int const raw)
+std::string ClapTrap::getName(void) const
 {
-	this->_num = raw;
+	return (this->_name);
 }
 
-Fixed &Fixed::operator = (const Fixed &orig)
+void ClapTrap::setName(std::string name)
+{
+	this->_name = name;
+}
+
+unsigned int ClapTrap::getAtkDmg(void) const
+{
+	return (this->_attack_dmg);
+}
+
+void ClapTrap::setAtkDmg(unsigned int value)
+{
+	this->_attack_dmg = value;
+}
+
+unsigned int ClapTrap::getHitPnts(void) const
+{
+	return (this->_hit_pnts);
+}
+
+void ClapTrap::setHitPnts(unsigned int value)
+{
+	this->_hit_pnts = value;
+}
+
+unsigned int ClapTrap::getEnergyPnts(void) const
+{
+	return (this->_energy_pnts);
+}
+
+void ClapTrap::setEnergyPnts(unsigned int value)
+{
+	this->_energy_pnts = value;
+}
+
+ClapTrap &ClapTrap::operator = (const ClapTrap &orig)
 {
 	if (this != &orig)
 	{
-		this->_num = orig.getRawBits();
+		this->setName(orig.getName());
+		this->setHitPnts(10);
+		this->setEnergyPnts(10);
+		this->setAtkDmg(0);
 	}
-	std::cout << "Fixed copy assignment!" << std::endl;
+	std::cout << "Copy assignment of ClapTrap " << this->getName() << " in factory assembly!" << std::endl;
 	return (*this);
 }
 
-Fixed::Fixed(const Fixed &orig)
+ClapTrap::ClapTrap(const ClapTrap &orig)
 {
 	*this = orig;
-	std::cout << "Fixed copy constructed!" << std::endl;
+	std::cout << "ClapTrap " << this->getName() << " was copy constructed, as machines do!" << std::endl;
 }
 
-Fixed::Fixed(void)
+ClapTrap::ClapTrap(std::string name)
+{
+	this->setName(name);
+	this->setHitPnts(10);
+	this->setEnergyPnts(10);
+	this->setAtkDmg(0);
+	std::cout << "ClapTrap " << this->getName() << " was built, meatbag!" << std::endl;
+}
+
+/*ClapTrap::ClapTrap(void)
 {
 	this->_num = 0;
-	std::cout << "Fixed default constructed!" << std::endl;
-}
+	std::cout << "ClapTrap default constructed!" << std::endl;
+}*/
 
-Fixed::~Fixed(void)
+ClapTrap::~ClapTrap(void)
 {
-	std::cout << "Fixed destructor here!" << std::endl;
+	std::cout << this->getName() << " broke doooownnn..." << std::endl;
 }
 
