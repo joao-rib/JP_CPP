@@ -12,7 +12,6 @@ void ClapTrap::attack(const std::string &target)
 		this->_energy_pnts--;
 	}
 }
-
 void ClapTrap::takeDamage(unsigned int amount)
 {
 	if (this->getHitPnts() == 0)
@@ -28,7 +27,6 @@ void ClapTrap::takeDamage(unsigned int amount)
 		this->setHitPnts(0);
 	}
 }
-
 void ClapTrap::beRepaired(unsigned int amount)
 {
 	if (this->getHitPnts() == 0)
@@ -110,12 +108,6 @@ ClapTrap::ClapTrap(std::string name)
 	this->setAtkDmg(0);
 	std::cout << "ClapTrap " << this->getName() << " was built, meatbag!" << std::endl;
 }
-
-/*ClapTrap::ClapTrap(void)
-{
-	this->_num = 0;
-	std::cout << "ClapTrap default constructed!" << std::endl;
-}*/
 
 ClapTrap::~ClapTrap(void)
 {
