@@ -3,12 +3,12 @@
 void ScavTrap::attack(const std::string &target)
 {
 	if (this->getHitPnts() == 0)
-		std::cout << this->getName() << " can't attack " << target << ", they're squished." << std::endl;
+		std::cout << this->getName() << " can't attack " << target << ", they're kaput." << std::endl;
 	else if (this->getEnergyPnts() == 0)
 		std::cout << this->getName() << " is too tired. Gotta drink some milk before attacking " << target << "!" << std::endl;
 	else
 	{
-		std::cout << this->getName() << " the ScavTrap verbally (only verbally) attacks " << target << "!" << std::endl;
+		std::cout << this->getName() << " the ScavTrap hilariously attacks " << target << "!" << std::endl;
 		this->setEnergyPnts(this->getEnergyPnts() - 1);
 	}
 }

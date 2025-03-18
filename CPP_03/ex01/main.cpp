@@ -1,69 +1,68 @@
-#include "ClapTrap.hpp"
+#include "ScavTrap.hpp"
 
 int main (void)
 {
 	ClapTrap	Tom("Tom");
 	ClapTrap	Jerry("Jerry");
 
+	std::cout << "This time, " << Tom.getName() << " brought a friend." << std::endl;
+	ScavTrap	Coyote("Coyote");
 	Tom.setAtkDmg(5);
+	std::cout << "But " << Jerry.getName() << " also brought a friend." << std::endl;
+	ScavTrap	BipBip("BipBip");
 	std::cout << "\n" << Tom.getName() << " has " << Tom.getAtkDmg() << " power. ";
 	std::cout << "Also, " << Tom.getHitPnts() << " health and " << Tom.getEnergyPnts() << " energy." << std::endl;
 	std::cout << Jerry.getName() << " has " << Jerry.getAtkDmg() << " power. ";
-	std::cout << "Also, " << Jerry.getHitPnts() << " health and " << Jerry.getEnergyPnts() << " energy.\n" << std::endl;
-	Tom.attack("Jerry");
-	Jerry.takeDamage(5);
-	Jerry.attack("Tom");
-	Tom.takeDamage(0);
-	Tom.attack("the air");
-	Jerry.takeDamage(0);
+	std::cout << "Also, " << Jerry.getHitPnts() << " health and " << Jerry.getEnergyPnts() << " energy." << std::endl;
+	std::cout << Coyote.getName() << " has " << Coyote.getAtkDmg() << " power. ";
+	std::cout << "Also, " << Coyote.getHitPnts() << " health and " << Coyote.getEnergyPnts() << " energy." << std::endl;
+	std::cout << BipBip.getName() << " has " << BipBip.getAtkDmg() << " power. ";
+	std::cout << "Also, " << BipBip.getHitPnts() << " health and " << BipBip.getEnergyPnts() << " energy.\n" << std::endl;
 
-	std::cout << "\n" << Tom.getName() << " has " << Tom.getAtkDmg() << " power. ";
-	std::cout << "Also, " << Tom.getHitPnts() << " health and " << Tom.getEnergyPnts() << " energy." << std::endl;
-	std::cout << Jerry.getName() << " has " << Jerry.getAtkDmg() << " power. ";
-	std::cout << "Also, " << Jerry.getHitPnts() << " health and " << Jerry.getEnergyPnts() << " energy.\n" << std::endl;
-	std::cout << Jerry.getName() << " grabbed... a bazooka?!" << std::endl;
-	Jerry.setAtkDmg(50);
-	Jerry.attack("Tom");
-	Tom.takeDamage(50);
-	Tom.attack("Jerry");
-	Jerry.attack("Tom");
-	Tom.takeDamage(50);
+	BipBip.guardGate();
+	Coyote.attack(BipBip.getName());
+	BipBip.takeDamage(0);
+	BipBip.attack(Coyote.getName());
+	Coyote.takeDamage(BipBip.getAtkDmg());
+	std::cout << "\n" << Coyote.getName() << " has " << Coyote.getAtkDmg() << " power. ";
+	std::cout << "Also, " << Coyote.getHitPnts() << " health and " << Coyote.getEnergyPnts() << " energy." << std::endl;
+	std::cout << BipBip.getName() << " has " << BipBip.getAtkDmg() << " power. ";
+	std::cout << "Also, " << BipBip.getHitPnts() << " health and " << BipBip.getEnergyPnts() << " energy.\n" << std::endl;
 
-	std::cout << "\n" << Tom.getName() << " has " << Tom.getAtkDmg() << " power. ";
-	std::cout << "Also, " << Tom.getHitPnts() << " health and " << Tom.getEnergyPnts() << " energy." << std::endl;
-	std::cout << Jerry.getName() << " has " << Jerry.getAtkDmg() << " power. ";
-	std::cout << "Also, " << Jerry.getHitPnts() << " health and " << Jerry.getEnergyPnts() << " energy.\n" << std::endl;
-	std::cout << Jerry.getName() << " starts to grow bored..." << std::endl;
-	Jerry.beRepaired(10);
-	Tom.beRepaired(10);
+	std::cout << Coyote.getName() << " grabbed... an ACME boxing glove" << std::endl;
+	Coyote.setAtkDmg(200);
+	Coyote.attack(BipBip.getName());
+	BipBip.takeDamage(0);
+	BipBip.attack("the ACME boxing glove");
+	Coyote.takeDamage(200);
+	std::cout << "\n" << Coyote.getName() << " has " << Coyote.getAtkDmg() << " power. ";
+	std::cout << "Also, " << Coyote.getHitPnts() << " health and " << Coyote.getEnergyPnts() << " energy." << std::endl;
+	std::cout << BipBip.getName() << " has " << BipBip.getAtkDmg() << " power. ";
+	std::cout << "Also, " << BipBip.getHitPnts() << " health and " << BipBip.getEnergyPnts() << " energy.\n" << std::endl;
 
+	Coyote.attack(BipBip.getName());
+	BipBip.beRepaired(10);
+	Coyote.beRepaired(10);
+	std::cout << BipBip.getName() << " said BIP BIP and ran off into the distance." << std::endl;
+	std::cout << Tom.getName() << " facepalmed with this whole situation." << std::endl;
+	std::cout << Jerry.getName() << " stole some cheese when nobody was looking." << std::endl;
 	std::cout << "\n" << Tom.getName() << " has " << Tom.getAtkDmg() << " power. ";
 	std::cout << "Also, " << Tom.getHitPnts() << " health and " << Tom.getEnergyPnts() << " energy." << std::endl;
 	std::cout << Jerry.getName() << " has " << Jerry.getAtkDmg() << " power. ";
-	std::cout << "Also, " << Jerry.getHitPnts() << " health and " << Jerry.getEnergyPnts() << " energy.\n" << std::endl;
-	std::cout << Jerry.getName() << " had an idea! Build a second Tom!" << std::endl;
-	ClapTrap Tom2(Tom);
-	Tom2.setName("Tom2");
-	Tom2.setAtkDmg(5);
+	std::cout << "Also, " << Jerry.getHitPnts() << " health and " << Jerry.getEnergyPnts() << " energy." << std::endl;
+	std::cout << Coyote.getName() << " has " << Coyote.getAtkDmg() << " power. ";
+	std::cout << "Also, " << Coyote.getHitPnts() << " health and " << Coyote.getEnergyPnts() << " energy." << std::endl;
+	std::cout << BipBip.getName() << " has " << BipBip.getAtkDmg() << " power. ";
+	std::cout << "Also, " << BipBip.getHitPnts() << " health and " << BipBip.getEnergyPnts() << " energy.\n" << std::endl;
 
-	std::cout << "\n" << Tom.getName() << " has " << Tom.getAtkDmg() << " power. ";
-	std::cout << "Also, " << Tom.getHitPnts() << " health and " << Tom.getEnergyPnts() << " energy." << std::endl;
-	std::cout << Tom2.getName() << " has " << Tom2.getAtkDmg() << " power. ";
-	std::cout << "Also, " << Tom2.getHitPnts() << " health and " << Tom2.getEnergyPnts() << " energy." << std::endl;
-	std::cout << Jerry.getName() << " has " << Jerry.getAtkDmg() << " power. ";
-	std::cout << "Also, " << Jerry.getHitPnts() << " health and " << Jerry.getEnergyPnts() << " energy.\n" << std::endl;
-	Tom2.attack("Jerry");
-	Jerry.takeDamage(5);
-	Jerry.attack("Tom");
-	Tom2.takeDamage(50);
-
-	std::cout << "\n" << Tom.getName() << " has " << Tom.getAtkDmg() << " power. ";
-	std::cout << "Also, " << Tom.getHitPnts() << " health and " << Tom.getEnergyPnts() << " energy." << std::endl;
-	std::cout << Tom2.getName() << " has " << Tom2.getAtkDmg() << " power. ";
-	std::cout << "Also, " << Tom2.getHitPnts() << " health and " << Tom2.getEnergyPnts() << " energy." << std::endl;
-	std::cout << Jerry.getName() << " has " << Jerry.getAtkDmg() << " power. ";
-	std::cout << "Also, " << Jerry.getHitPnts() << " health and " << Jerry.getEnergyPnts() << " energy.\n" << std::endl;
-	std::cout << "It was a fun day for " << Jerry.getName() << std::endl;
+	ScavTrap	BugsBunny(BipBip); //WIP Não está a funcionar
+	ScavTrap	DaffyDuck(Coyote); //WIP Não está a funcionar
+	BugsBunny.setName("Bugs Bunny");
+	DaffyDuck.setName("Daffy Duck");
+	std::cout << "\n" << DaffyDuck.getName() << " has " << DaffyDuck.getAtkDmg() << " power. ";
+	std::cout << "Also, " << DaffyDuck.getHitPnts() << " health and " << DaffyDuck.getEnergyPnts() << " energy." << std::endl;
+	std::cout << BugsBunny.getName() << " has " << BugsBunny.getAtkDmg() << " power. ";
+	std::cout << "Also, " << BugsBunny.getHitPnts() << " health and " << BugsBunny.getEnergyPnts() << " energy.\n" << std::endl;
 
 	return 0;
 }
