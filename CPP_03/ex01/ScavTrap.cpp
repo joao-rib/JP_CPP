@@ -3,7 +3,7 @@
 void ScavTrap::attack(const std::string &target)
 {
 	if (this->getHitPnts() == 0)
-		std::cout << this->getName() << " can't attack " << target << ", they're kaput." << std::endl;
+		std::cout << this->getName() << " can't attack " << target << ", it's kaput." << std::endl;
 	else if (this->getEnergyPnts() == 0)
 		std::cout << this->getName() << " is too tired. Gotta drink some milk before attacking " << target << "!" << std::endl;
 	else
@@ -15,7 +15,7 @@ void ScavTrap::attack(const std::string &target)
 
 void ScavTrap::guardGate(void)
 {
-	std::cout << this->getName() << " is guardGating. They are a ScavTrap, after all." << std::endl;
+	std::cout << this->getName() << " is guardGating. It is a ScavTrap, after all." << std::endl;
 }
 
 ScavTrap &ScavTrap::operator = (const ScavTrap &orig)
@@ -34,7 +34,7 @@ ScavTrap &ScavTrap::operator = (const ScavTrap &orig)
 
 ScavTrap::ScavTrap(const ScavTrap &orig): ClapTrap(orig)
 {
-	//*this = orig;
+	*this = orig;
 	std::cout << "ScavTrap " << this->getName() << " was copy constructed, cartoonishly." << std::endl;
 }
 

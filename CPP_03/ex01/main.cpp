@@ -34,7 +34,7 @@ int main (void)
 	Coyote.attack(BipBip.getName());
 	BipBip.takeDamage(0);
 	BipBip.attack("the ACME boxing glove");
-	Coyote.takeDamage(200);
+	Coyote.takeDamage(500);
 	std::cout << "\n" << Coyote.getName() << " has " << Coyote.getAtkDmg() << " power. ";
 	std::cout << "Also, " << Coyote.getHitPnts() << " health and " << Coyote.getEnergyPnts() << " energy." << std::endl;
 	std::cout << BipBip.getName() << " has " << BipBip.getAtkDmg() << " power. ";
