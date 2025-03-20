@@ -55,8 +55,8 @@ int main (void)
 	std::cout << BipBip.getName() << " has " << BipBip.getAtkDmg() << " power. ";
 	std::cout << "Also, " << BipBip.getHitPnts() << " health and " << BipBip.getEnergyPnts() << " energy.\n" << std::endl;
 
-	ScavTrap	BugsBunny(BipBip); //WIP Não está a funcionar
-	ScavTrap	DaffyDuck = Coyote; //WIP Não está a funcionar
+	ScavTrap	BugsBunny(BipBip);
+	ScavTrap	DaffyDuck = Coyote;
 	BugsBunny.setName("Bugs Bunny");
 	DaffyDuck.setName("Daffy Duck");
 	std::cout << "\n" << DaffyDuck.getName() << " has " << DaffyDuck.getAtkDmg() << " power. ";
