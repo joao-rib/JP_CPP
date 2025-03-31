@@ -26,7 +26,7 @@ int main (void)
 	std::cout << Barney.getName() << " has " << Barney.getAtkDmg() << " power. ";
 	std::cout << "Also, " << Barney.getHitPnts() << " health and " << Barney.getEnergyPnts() << " energy.\n" << std::endl;
 
-	Barney.highFivesGuy();
+	Barney.highFivesGuys();
 	Marshall.attack("Barney");
 	Barney.takeDamage(Marshall.getAtkDmg());
 

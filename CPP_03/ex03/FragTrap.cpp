@@ -1,18 +1,5 @@
 #include "FragTrap.hpp"
 
-/*void FragTrap::attack(const std::string &target)
-{
-	if (this->getHitPnts() == 0)
-		std::cout << this->getName() << " can't slap " << target << ", the arms are as dead as the body." << std::endl;
-	else if (this->getEnergyPnts() == 0)
-		std::cout << this->getName() << " is too tired (or drunk, or hungover, etc). Gotta rest before slapping " << target << "!" << std::endl;
-	else
-	{
-		std::cout << this->getName() << " the FragTrap outright slaps " << target << "!" << std::endl;
-		this->setEnergyPnts(this->getEnergyPnts() - 1);
-	}
-}*/
-
 void FragTrap::highFivesGuys(void)
 {
 	std::cout << this->getName() << " the FragTrap requests the highest of fives. Up top!" << std::endl;

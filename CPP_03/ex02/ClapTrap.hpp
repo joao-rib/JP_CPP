@@ -16,7 +16,6 @@ private:
 	unsigned int _energy_pnts;
 	unsigned int _attack_dmg;
 public:
-	//ClapTrap();
 	ClapTrap(std::string name);
 	ClapTrap(const ClapTrap &orig);
 	ClapTrap &operator = (const ClapTrap &orig);
