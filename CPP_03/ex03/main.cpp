@@ -26,7 +26,7 @@ int main (void)
 	std::cout << Enemy.getName() << " has " << Enemy.getAtkDmg() << " power. ";
 	std::cout << "Also, " << Enemy.getHitPnts() << " health and " << Enemy.getEnergyPnts() << " energy.\n" << std::endl;
 
-	/*DiamondTrap	Arnie2(Arnie);
+	DiamondTrap	Arnie2(Arnie);
 	DiamondTrap	Enemy2 = Enemy;
 	Arnie2.setName("Ex-Terminator");
 	Enemy2.setName("Teh-Doeish-Mil");
@@ -36,7 +36,7 @@ int main (void)
 	std::cout << "\n" << Arnie2.getName() << " has " << Arnie2.getAtkDmg() << " power. ";
 	std::cout << "Also, " << Arnie2.getHitPnts() << " health and " << Arnie2.getEnergyPnts() << " energy." << std::endl;
 	std::cout << Enemy2.getName() << " has " << Enemy2.getAtkDmg() << " power. ";
-	std::cout << "Also, " << Enemy2.getHitPnts() << " health and " << Enemy2.getEnergyPnts() << " energy.\n" << std::endl;*/
+	std::cout << "Also, " << Enemy2.getHitPnts() << " health and " << Enemy2.getEnergyPnts() << " energy.\n" << std::endl;
 
 	return 0;
 }
