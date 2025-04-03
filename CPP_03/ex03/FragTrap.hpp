@@ -7,6 +7,10 @@
 
 class FragTrap: virtual public ClapTrap
 {
+protected:
+	void 	initHitPnts(void);
+	void 	initEnergyPnts(void);
+	void 	initAtkDmg(void);
 public:
 	FragTrap(std::string name);
 	FragTrap(const FragTrap &orig);

@@ -11,7 +11,6 @@ class DiamondTrap: public ScavTrap, public FragTrap
 {
 private:
 	std::string _name;
-	void	baseStats(void);
 public:
 	DiamondTrap(std::string name);
 	DiamondTrap(const DiamondTrap &orig);

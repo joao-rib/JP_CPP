@@ -28,8 +28,8 @@ int main (void)
 
 	DiamondTrap	Arnie2(Arnie);
 	DiamondTrap	Enemy2 = Enemy;
-	Arnie2.setName("Ex-Terminator");
-	Enemy2.setName("Teh-Doeish-Mil");
+	//Arnie2.setName("Ex-Terminator");
+	//Enemy2.setName("Teh-Doeish-Mil");
 
 	Arnie2.whoAmI();
 	Enemy2.whoAmI();

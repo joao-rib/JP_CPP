@@ -18,14 +18,29 @@ void ScavTrap::guardGate(void)
 	std::cout << this->getName() << " is guardGating. It is a ScavTrap, after all." << std::endl;
 }
 
+void ScavTrap::initHitPnts(void)
+{
+	this->setHitPnts(100);
+}
+
+void ScavTrap::initEnergyPnts(void)
+{
+	this->setEnergyPnts(50);
+}
+
+void ScavTrap::initAtkDmg(void)
+{
+	this->setAtkDmg(20);
+}
+
 ScavTrap &ScavTrap::operator = (const ScavTrap &orig)
 {
 	if (this != &orig)
 	{
 		ClapTrap::operator = (orig);
-		this->setHitPnts(100);
-		this->setEnergyPnts(50);
-		this->setAtkDmg(20);
+		initHitPnts();
+		initEnergyPnts();
+		initAtkDmg();
 	}
 	std::cout << "Copy assignment of ScavTrap " << this->getName() << ", by ACME!" << std::endl;
 	return (*this);
@@ -39,9 +54,9 @@ ScavTrap::ScavTrap(const ScavTrap &orig): ClapTrap(orig)
 
 ScavTrap::ScavTrap(std::string name): ClapTrap(name)
 {
-	this->setHitPnts(100);
-	this->setEnergyPnts(50);
-	this->setAtkDmg(20);
+	initHitPnts();
+	initEnergyPnts();
+	initAtkDmg();
 	std::cout << "ScavTrap " << this->getName() << " was tuned into existence!" << std::endl;
 }
 
