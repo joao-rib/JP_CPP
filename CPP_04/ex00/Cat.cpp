@@ -1,54 +1,31 @@
-#include "ScavTrap.hpp"
+#include "Cat.hpp"
 
-void ScavTrap::attack(const std::string &target)
+void	makeSound(void)
 {
-	if (this->getHitPnts() == 0)
-		std::cout << this->getName() << " can't attack " << target << ", it's kaput." << std::endl;
-	else if (this->getEnergyPnts() == 0)
-		std::cout << this->getName() << " is too tired. Gotta drink some milk before attacking " << target << "!" << std::endl;
-	else
-	{
-		std::cout << this->getName() << " the ScavTrap hilariously attacks " << target << "!" << std::endl;
-		this->setEnergyPnts(this->getEnergyPnts() - 1);
-	}
+	std::cout << "A cat made a sound: MEOW!" << std::endl;
 }
 
-void ScavTrap::guardGate(void)
-{
-	std::cout << this->getName() << " is guardGating. It is a ScavTrap, after all." << std::endl;
-}
-
-ScavTrap &ScavTrap::operator = (const ScavTrap &orig)
+Cat &Cat::operator = (const Cat &orig)
 {
 	if (this != &orig)
-	{
-		ClapTrap::operator = (orig);
-		//this->setName(orig.getName());
-		this->setHitPnts(100);
-		this->setEnergyPnts(50);
-		this->setAtkDmg(20);
-	}
-	std::cout << "Copy assignment of ScavTrap " << this->getName() << ", by ACME!" << std::endl;
+		this->setType(orig.getType());
+	std::cout << "A Cat was copy assigned." << std::endl;
 	return (*this);
 }
 
-ScavTrap::ScavTrap(const ScavTrap &orig): ClapTrap(orig)
+Cat::Cat(const Cat &orig)
 {
 	*this = orig;
-	std::cout << "ScavTrap " << this->getName() << " was copy constructed, cartoonishly." << std::endl;
+	std::cout << "A Cat was cloned." << std::endl;
 }
 
-ScavTrap::ScavTrap(std::string name): ClapTrap(name)
+Cat::Cat(void)
 {
-	//this->setName(name);
-	this->setHitPnts(100);
-	this->setEnergyPnts(50);
-	this->setAtkDmg(20);
-	std::cout << "ScavTrap " << this->getName() << " was tuned into existence!" << std::endl;
+	this->setType("Cat");
+	std::cout << "A kitty was born." << std::endl;
 }
 
-ScavTrap::~ScavTrap(void)
+Cat::~Cat(void)
 {
-	std::cout << this->getName() << " was destroyed. That's all, folks!" << std::endl;
+	std::cout << "A Cat just died! Was it the stick?" << std::endl;
 }
-

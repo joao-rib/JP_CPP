@@ -1,38 +1,19 @@
 #pragma once
 
-#ifndef CLAPTRAP_H
-#define CLAPTRAP_H
+#ifndef DOG_H
+#define DOG_H
 
-#include <iostream>
-#include <locale>
-#include <iomanip>
-#include <cstdlib>
+#include "Animal.hpp"
 
-class ClapTrap
+class Dog: public Animal
 {
-private:
-	std::string _name;
-	unsigned int _hit_pnts;
-	unsigned int _energy_pnts;
-	unsigned int _attack_dmg;
 public:
-	ClapTrap(std::string name);
-	ClapTrap(const ClapTrap &orig);
-	ClapTrap &operator = (const ClapTrap &orig);
-	~ClapTrap();
+	Dog();
+	Dog(const Dog &orig);
+	Dog &operator = (const Dog &orig);
+	~Dog();
 
-	std::string		getName(void) const;
-	void			setName(std::string name);
-	unsigned int	getHitPnts(void) const;
-	void			setHitPnts(unsigned int value);
-	unsigned int	getEnergyPnts(void) const;
-	void			setEnergyPnts(unsigned int value);
-	unsigned int	getAtkDmg(void) const;
-	void			setAtkDmg(unsigned int value);
-
-	void			attack(const std::string &target);
-	void			takeDamage(unsigned int amount);
-	void			beRepaired(unsigned int amount);
+	void	makeSound(void);
 };
 
 #endif
