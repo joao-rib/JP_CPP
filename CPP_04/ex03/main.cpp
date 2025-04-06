@@ -19,3 +19,8 @@ int main()
 	delete src;
 	return 0;
 }
+
+/*$> clang++ -W -Wall -Werror *.cpp
+$> ./a.out | cat -e
+* shoots an ice bolt at bob *$
+* heals bob's wounds *$*/
