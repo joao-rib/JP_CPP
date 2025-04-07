@@ -1,6 +1,6 @@
 #include "Cat.hpp"
 
-void	makeSound(void)
+void	Cat::makeSound(void) const
 {
 	std::cout << "A cat made a sound: MEOW!" << std::endl;
 }
@@ -13,15 +13,15 @@ Cat &Cat::operator = (const Cat &orig)
 	return (*this);
 }
 
-Cat::Cat(const Cat &orig)
+Cat::Cat(const Cat &orig): Animal(orig)
 {
 	*this = orig;
 	std::cout << "A Cat was cloned." << std::endl;
 }
 
-Cat::Cat(void)
+Cat::Cat(void): Animal("Cat")
 {
-	this->setType("Cat");
+	//this->setType("Cat");
 	std::cout << "A kitty was born." << std::endl;
 }
 

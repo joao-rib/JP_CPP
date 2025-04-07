@@ -1,6 +1,6 @@
 #include "Animal.hpp"
 
-void	makeSound(void)
+void	Animal::makeSound(void) const
 {
 	std::cout << "An unspecified animal made a sound." << std::endl;
 }
@@ -37,7 +37,7 @@ Animal::Animal(std::string type)
 
 Animal::Animal(void)
 {
-	this->setType(NULL);
+	this->setType("Typical Animal");
 	std::cout << "An animal was born." << std::endl;
 }
 

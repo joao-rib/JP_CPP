@@ -17,16 +17,15 @@ public:
 	Animal(std::string type);
 	Animal(const Animal &orig);
 	Animal &operator = (const Animal &orig);
-	~Animal();
+	virtual ~Animal();
 
-	void			makeSound(void);
+	virtual void	makeSound(void) const;
 	std::string		getType(void) const;
 	void			setType(std::string name);
 };
 
 // CONFIRMAR
 //
-//	virtual ~Animal(void);
 //	virtual void	makeSound(void) const;
 //
 // obs.: When using polymorphism, it is recommended to make the destructor virtual

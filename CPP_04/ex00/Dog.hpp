@@ -11,9 +11,9 @@ public:
 	Dog();
 	Dog(const Dog &orig);
 	Dog &operator = (const Dog &orig);
-	~Dog();
+	virtual ~Dog();
 
-	void	makeSound(void);
+	void	makeSound(void) const; //override, when using C++11
 };
 
 #endif

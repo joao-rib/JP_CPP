@@ -1,6 +1,6 @@
 #include "Dog.hpp"
 
-void	makeSound(void)
+void	Dog::makeSound(void) const
 {
 	std::cout << "A Dog made a sound: WOOF WOOF!" << std::endl;
 }
@@ -13,15 +13,15 @@ Dog &Dog::operator = (const Dog &orig)
 	return (*this);
 }
 
-Dog::Dog(const Dog &orig)
+Dog::Dog(const Dog &orig): Animal(orig)
 {
 	*this = orig;
 	std::cout << "A Dog was cloned." << std::endl;
 }
 
-Dog::Dog(void)
+Dog::Dog(void): Animal("Dog")
 {
-	this->setType("Dog");
+	//this->setType("Dog");
 	std::cout << "A puppy was born." << std::endl;
 }
 

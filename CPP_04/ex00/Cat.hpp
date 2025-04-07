@@ -11,9 +11,9 @@ public:
 	Cat();
 	Cat(const Cat &orig);
 	Cat &operator = (const Cat &orig);
-	~Cat();
+	virtual ~Cat();
 
-	void	makeSound(void);
+	void	makeSound(void) const; //override, when using C++11
 };
 
 #endif
