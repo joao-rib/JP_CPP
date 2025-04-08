@@ -1,25 +1,25 @@
 #pragma once
 
-#ifndef ANIMAL_H
-#define ANIMAL_H
+#ifndef WRONGANIMAL_H
+#define WRONGANIMAL_H
 
 #include <iostream>
 #include <locale>
 #include <iomanip>
 #include <cstdlib>
 
-class Animal
+class WrongAnimal
 {
 protected:
 	std::string _type;
 public:
-	Animal();
-	Animal(std::string type);
-	Animal(const Animal &orig);
-	Animal &operator = (const Animal &orig);
-	virtual ~Animal();
+	WrongAnimal();
+	WrongAnimal(std::string type);
+	WrongAnimal(const WrongAnimal &orig);
+	WrongAnimal &operator = (const WrongAnimal &orig);
+	virtual ~WrongAnimal();
 
-	virtual void	makeSound(void) const;
+	void			makeSound(void) const;
 	std::string		getType(void) const;
 	void			setType(std::string name);
 };
