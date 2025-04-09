@@ -11,9 +11,9 @@ public:
 	WrongCat();
 	WrongCat(const WrongCat &orig);
 	WrongCat &operator = (const WrongCat &orig);
-	virtual ~WrongCat();
+	~WrongCat();
 
-	void	makeSound(void) const; //override, when using C++11
+	void	makeSound(void) const; //override, only when using C++11
 };
 
 #endif

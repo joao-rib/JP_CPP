@@ -19,30 +19,30 @@ WrongAnimal &WrongAnimal::operator = (const WrongAnimal &orig)
 {
 	if (this != &orig)
 		this->setType(orig.getType());
-	std::cout << "An WrongAnimal was copy assigned." << std::endl;
+	std::cout << "A WrongAnimal was copy assigned." << std::endl;
 	return (*this);
 }
 
 WrongAnimal::WrongAnimal(const WrongAnimal &orig)
 {
 	*this = orig;
-	std::cout << "An WrongAnimal was cloned." << std::endl;
+	std::cout << "A WrongAnimal was cloned." << std::endl;
 }
 
 WrongAnimal::WrongAnimal(std::string type)
 {
 	this->setType(type);
-	std::cout << "An WrongAnimal, like a " << this->getType() << ", was born." << std::endl;
+	std::cout << "A WrongAnimal, like a " << this->getType() << ", was born." << std::endl;
 }
 
 WrongAnimal::WrongAnimal(void)
 {
 	this->setType("Typical WrongAnimal");
-	std::cout << "An WrongAnimal was born." << std::endl;
+	std::cout << "A WrongAnimal was born." << std::endl;
 }
 
 WrongAnimal::~WrongAnimal(void)
 {
-	std::cout << "An WrongAnimal just died!" << std::endl;
+	std::cout << "A WrongAnimal just died!" << std::endl;
 }
 

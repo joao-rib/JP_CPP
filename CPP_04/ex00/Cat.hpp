@@ -13,7 +13,7 @@ public:
 	Cat &operator = (const Cat &orig);
 	virtual ~Cat();
 
-	void	makeSound(void) const; //override, when using C++11
+	void	makeSound(void) const; //override, only when using C++11
 };
 
 #endif

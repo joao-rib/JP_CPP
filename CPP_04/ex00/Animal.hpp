@@ -24,7 +24,4 @@ public:
 	void			setType(std::string name);
 };
 
-// obs.: When using polymorphism, it is recommended to make the destructor virtual
-// so that the destructor of the derived class is called when deleting a base class pointer.
-
 #endif

@@ -22,7 +22,7 @@ WrongCat::WrongCat(const WrongCat &orig): WrongAnimal(orig)
 WrongCat::WrongCat(void): WrongAnimal("WrongCat")
 {
 	//this->setType("WrongCat");
-	std::cout << "A kitty was born." << std::endl;
+	std::cout << "A WrongKitty was born." << std::endl;
 }
 
 WrongCat::~WrongCat(void)

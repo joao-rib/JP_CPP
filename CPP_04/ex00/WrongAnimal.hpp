@@ -17,14 +17,11 @@ public:
 	WrongAnimal(std::string type);
 	WrongAnimal(const WrongAnimal &orig);
 	WrongAnimal &operator = (const WrongAnimal &orig);
-	virtual ~WrongAnimal();
+	~WrongAnimal();
 
 	void			makeSound(void) const;
 	std::string		getType(void) const;
 	void			setType(std::string name);
 };
-
-// obs.: When using polymorphism, it is recommended to make the destructor virtual
-// so that the destructor of the derived class is called when deleting a base class pointer.
 
 #endif

@@ -2,7 +2,7 @@ NAME = Polymorphism
 CPP = c++
 FLAGS = -Wall -Werror -Wextra -std=c++98
 MAIN = main.cpp
-SRC = Animal.cpp Dog.cpp Cat.cpp
+SRC = Animal.cpp Dog.cpp Cat.cpp WrongAnimal.cpp WrongCat.cpp
 RM = rm -fr
 
 all: $(NAME)
