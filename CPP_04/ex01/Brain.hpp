@@ -1,27 +1,22 @@
 #pragma once
 
-#ifndef ANIMAL_H
-#define ANIMAL_H
+#ifndef BRAIN_H
+#define BRAIN_H
 
 #include <iostream>
 #include <locale>
 #include <iomanip>
 #include <cstdlib>
 
-class Animal
+class Brain
 {
 protected:
-	std::string _type;
+	std::string _ideas[100];
 public:
-	Animal();
-	Animal(std::string type);
-	Animal(const Animal &orig);
-	Animal &operator = (const Animal &orig);
-	virtual ~Animal();
-
-	virtual void	makeSound(void) const;
-	std::string		getType(void) const;
-	void			setType(std::string name);
+	Brain();
+	Brain(const Brain &orig);
+	Brain &operator = (const Brain &orig);
+	virtual ~Brain();
 };
 
 #endif

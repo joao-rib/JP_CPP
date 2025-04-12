@@ -1,48 +1,48 @@
-#include "Animal.hpp"
+#include "Brain.hpp"
 
-void	Animal::makeSound(void) const
+void	Brain::makeSound(void) const
 {
-	std::cout << "An unspecified animal made a sound." << std::endl;
+	std::cout << "An unspecified Brain made a sound." << std::endl;
 }
 
-std::string Animal::getType(void) const
+std::string Brain::getType(void) const
 {
 	return (this->_type);
 }
 
-void Animal::setType(std::string type)
+void Brain::setType(std::string type)
 {
 	this->_type = type;
 }
 
-Animal &Animal::operator = (const Animal &orig)
+Brain &Brain::operator = (const Brain &orig)
 {
 	if (this != &orig)
 		this->setType(orig.getType());
-	std::cout << "An animal was copy assigned." << std::endl;
+	std::cout << "An Brain was copy assigned." << std::endl;
 	return (*this);
 }
 
-Animal::Animal(const Animal &orig)
+Brain::Brain(const Brain &orig)
 {
 	*this = orig;
-	std::cout << "An animal was cloned." << std::endl;
+	std::cout << "An Brain was cloned." << std::endl;
 }
 
-Animal::Animal(std::string type)
+Brain::Brain(std::string type)
 {
 	this->setType(type);
-	std::cout << "An animal, like a " << this->getType() << ", was born." << std::endl;
+	std::cout << "An Brain, like a " << this->getType() << ", was born." << std::endl;
 }
 
-Animal::Animal(void)
+Brain::Brain(void)
 {
-	this->setType("Typical Animal");
-	std::cout << "An animal was born." << std::endl;
+	this->setType("Typical Brain");
+	std::cout << "An Brain was born." << std::endl;
 }
 
-Animal::~Animal(void)
+Brain::~Brain(void)
 {
-	std::cout << "An animal just died!" << std::endl;
+	std::cout << "An Brain just died!" << std::endl;
 }
 
