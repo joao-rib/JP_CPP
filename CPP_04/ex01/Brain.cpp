@@ -1,48 +1,77 @@
 #include "Brain.hpp"
 
-void	Brain::makeSound(void) const
+static std::string	itoa(int n)
 {
-	std::cout << "An unspecified Brain made a sound." << std::endl;
+	size_t	count;
+	long	c;
+
+	count = 2;
+	c = (long)n;
+	if (n < 0)
+	{
+		c *= -1;
+		count++;
+	}
+	while (c >= 10)
+	{
+		c /= 10;
+		count++;
+	}
+	char	final_num[count];
+	c = (long)n;
+	count--;
+	final_num[count] = '\0';
+	count--;
+	if (n < 0)
+	{
+		c *= -1;
+		final_num[0] = '-';
+	}
+	if (n == 0)
+		final_num[0] = '0';
+	while (c > 0)
+	{
+		final_num[count] = (c % 10) + '0';
+		c /= 10;
+		count--;
+	}
+	return (std::string(final_num));
+}
+//GETTERS & SETTERS
+
+std::string Brain::getIdea(int i)
+{
+	return (this->_ideas[i]);
 }
 
-std::string Brain::getType(void) const
-{
-	return (this->_type);
-}
-
-void Brain::setType(std::string type)
-{
-	this->_type = type;
-}
+//CONSTRUCTORS & DESTRUCTORS
 
 Brain &Brain::operator = (const Brain &orig)
 {
 	if (this != &orig)
-		this->setType(orig.getType());
-	std::cout << "An Brain was copy assigned." << std::endl;
+	{
+		for (int i = 0; i < 100; i++)
+			_ideas[i] = "Idea number " + itoa(i + 1);
+	}
+	std::cout << "Brain was copy assigned." << std::endl;
 	return (*this);
 }
 
 Brain::Brain(const Brain &orig)
 {
 	*this = orig;
-	std::cout << "An Brain was cloned." << std::endl;
-}
-
-Brain::Brain(std::string type)
-{
-	this->setType(type);
-	std::cout << "An Brain, like a " << this->getType() << ", was born." << std::endl;
+	std::cout << "Brain was cloned." << std::endl;
 }
 
 Brain::Brain(void)
 {
-	this->setType("Typical Brain");
-	std::cout << "An Brain was born." << std::endl;
+	for (int i = 0; i < 100; i++)
+		_ideas[i] = "Idea number " + itoa(i + 1);
+	std::cout << "Brain is brim with bright ideas." << std::endl;
 }
 
 Brain::~Brain(void)
 {
-	std::cout << "An Brain just died!" << std::endl;
+	std::cout << "Brain...dead" << std::endl;
 }
 

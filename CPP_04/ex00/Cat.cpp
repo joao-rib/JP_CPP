@@ -2,8 +2,10 @@
 
 void	Cat::makeSound(void) const
 {
-	std::cout << "A cat made a sound: MEOW!" << std::endl;
+	std::cout << "A Cat made a sound: MEOW!" << std::endl;
 }
+
+//CONSTRUCTORS & DESTRUCTORS
 
 Cat &Cat::operator = (const Cat &orig)
 {

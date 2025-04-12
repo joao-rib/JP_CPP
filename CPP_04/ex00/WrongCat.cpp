@@ -5,6 +5,8 @@ void	WrongCat::makeSound(void) const
 	std::cout << "A WrongCat made a sound: MEOW!" << std::endl;
 }
 
+//CONSTRUCTORS & DESTRUCTORS
+
 WrongCat &WrongCat::operator = (const WrongCat &orig)
 {
 	if (this != &orig)

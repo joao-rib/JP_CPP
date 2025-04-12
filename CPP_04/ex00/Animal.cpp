@@ -5,6 +5,8 @@ void	Animal::makeSound(void) const
 	std::cout << "An unspecified animal made a sound." << std::endl;
 }
 
+//GETTERS & SETTERS
+
 std::string Animal::getType(void) const
 {
 	return (this->_type);
@@ -14,6 +16,8 @@ void Animal::setType(std::string type)
 {
 	this->_type = type;
 }
+
+//CONSTRUCTORS & DESTRUCTORS
 
 Animal &Animal::operator = (const Animal &orig)
 {

@@ -5,6 +5,8 @@ void	WrongAnimal::makeSound(void) const
 	std::cout << "An unspecified WrongAnimal made a sound." << std::endl;
 }
 
+//GETTERS & SETTERS
+
 std::string WrongAnimal::getType(void) const
 {
 	return (this->_type);
@@ -14,6 +16,8 @@ void WrongAnimal::setType(std::string type)
 {
 	this->_type = type;
 }
+
+//CONSTRUCTORS & DESTRUCTORS
 
 WrongAnimal &WrongAnimal::operator = (const WrongAnimal &orig)
 {

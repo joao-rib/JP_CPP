@@ -5,6 +5,8 @@ void	Dog::makeSound(void) const
 	std::cout << "A Dog made a sound: WOOF WOOF!" << std::endl;
 }
 
+//CONSTRUCTORS & DESTRUCTORS
+
 Dog &Dog::operator = (const Dog &orig)
 {
 	if (this != &orig)

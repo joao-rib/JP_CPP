@@ -2,8 +2,17 @@
 
 void	Cat::makeSound(void) const
 {
-	std::cout << "A cat made a sound: MEOW!" << std::endl;
+	std::cout << "A Cat made a sound: MEOW!" << std::endl;
 }
+
+//GETTERS & SETTERS
+
+std::string Cat::findIdea(int i)
+{
+	return (this->_brain->getIdea(i - 1));
+}
+
+//CONSTRUCTORS & DESTRUCTORS
 
 Cat &Cat::operator = (const Cat &orig)
 {
@@ -21,11 +30,12 @@ Cat::Cat(const Cat &orig): Animal(orig)
 
 Cat::Cat(void): Animal("Cat")
 {
-	//this->setType("Cat");
+	this->_brain = new Brain();
 	std::cout << "A kitty was born." << std::endl;
 }
 
 Cat::~Cat(void)
 {
 	std::cout << "A Cat just died! Was it the stick?" << std::endl;
+	delete this->_brain;
 }

@@ -4,16 +4,21 @@
 #define DOG_H
 
 #include "Animal.hpp"
+#include "Brain.hpp"
 
 class Dog: public Animal
 {
+private:
+	Brain	*_brain;
 public:
 	Dog();
 	Dog(const Dog &orig);
 	Dog &operator = (const Dog &orig);
 	virtual ~Dog();
 
-	void	makeSound(void) const; //override, when using C++11
+	std::string	findIdea(int i);
+
+	void	makeSound(void) const;
 };
 
 #endif
