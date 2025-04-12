@@ -7,7 +7,7 @@ void	Dog::makeSound(void) const
 
 //GETTERS & SETTERS
 
-std::string Dog::findIdea(int i)
+std::string Dog::findIdea(int i) const
 {
 	return (this->_brain->getIdea(i - 1));
 }

@@ -7,7 +7,7 @@ void	Cat::makeSound(void) const
 
 //GETTERS & SETTERS
 
-std::string Cat::findIdea(int i)
+std::string Cat::findIdea(int i) const
 {
 	return (this->_brain->getIdea(i - 1));
 }

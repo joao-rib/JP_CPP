@@ -7,6 +7,12 @@ void	Animal::makeSound(void) const
 
 //GETTERS & SETTERS
 
+std::string Animal::findIdea(int i) const
+{
+	(void)i;
+	return ("no Animal idea");
+}
+
 std::string Animal::getType(void) const
 {
 	return (this->_type);

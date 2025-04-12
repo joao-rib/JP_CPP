@@ -41,7 +41,10 @@ static std::string	itoa(int n)
 
 std::string Brain::getIdea(int i)
 {
-	return (this->_ideas[i]);
+	if (i >= 0 && i <= 100)
+		return (this->_ideas[i]);
+	else
+		return("no idea");
 }
 
 //CONSTRUCTORS & DESTRUCTORS
@@ -51,7 +54,7 @@ Brain &Brain::operator = (const Brain &orig)
 	if (this != &orig)
 	{
 		for (int i = 0; i < 100; i++)
-			_ideas[i] = "Idea number " + itoa(i + 1);
+			_ideas[i] = "idea number " + itoa(i + 1);
 	}
 	std::cout << "Brain was copy assigned." << std::endl;
 	return (*this);
@@ -66,7 +69,7 @@ Brain::Brain(const Brain &orig)
 Brain::Brain(void)
 {
 	for (int i = 0; i < 100; i++)
-		_ideas[i] = "Idea number " + itoa(i + 1);
+		_ideas[i] = "idea number " + itoa(i + 1);
 	std::cout << "Brain is brim with bright ideas." << std::endl;
 }
 

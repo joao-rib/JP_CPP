@@ -16,7 +16,7 @@ public:
 	Cat &operator = (const Cat &orig);
 	virtual ~Cat();
 
-	std::string	findIdea(int i);
+	std::string	findIdea(int i) const;
 
 	void	makeSound(void) const;
 };

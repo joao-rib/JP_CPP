@@ -21,6 +21,7 @@ public:
 
 	std::string			getType(void) const;
 	void				setType(std::string name);
+	virtual std::string	findIdea(int i) const;
 
 	virtual void		makeSound(void) const;
 };
