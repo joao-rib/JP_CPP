@@ -24,6 +24,8 @@ int main()
 	}
 	std::cout.rdbuf(orig_buf); // Restore output
 
+	// Animal a; //Impossible in an abstract class
+
 	int	a1 = 25;
 	int	a2 = 48;
 	int i1 = 22;
