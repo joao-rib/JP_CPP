@@ -1,8 +1,8 @@
-NAME = Polymorphism
+NAME = Materia
 CPP = c++
 FLAGS = -Wall -Werror -Wextra -std=c++98
 MAIN = main.cpp
-SRC = Animal.cpp Dog.cpp Cat.cpp
+SRC = AMateria.cpp Character.cpp Cure.cpp Ice.cpp MateriaSource.cpp
 RM = rm -fr
 
 all: $(NAME)
