@@ -46,12 +46,21 @@ int main()
 	return 0;
 }
 
-/*	Cat	*tareco = new Cat();
+/*int main()
+{
+	Cat	*tareco = new Cat();
 	Dog *bobi = new Dog();
-	std::cout << "tareco came up with " << tareco->findIdea(0) << std::endl;
-	std::cout << "bobi came up with " << bobi->findIdea(100) << std::endl;
+	Cat	*felix = new Cat(*tareco);
+	Dog	*rex = new Dog(*bobi);
+	rex->makeSound();
+	felix->makeSound();
 	delete tareco;
-	delete bobi;*/
+	delete bobi;
+	std::cout << felix->getType() << " came up with " << felix->findIdea(35) << std::endl;
+	std::cout << rex->getType() << " came up with " << rex->findIdea(40) << std::endl;
+	delete rex;
+	delete felix;
+}*/
 
 /*int main()
 {

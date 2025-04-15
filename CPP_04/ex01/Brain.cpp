@@ -54,7 +54,7 @@ Brain &Brain::operator = (const Brain &orig)
 	if (this != &orig)
 	{
 		for (int i = 0; i < 100; i++)
-			_ideas[i] = "idea number " + itoa(i + 1);
+			_ideas[i] = orig._ideas[i];
 	}
 	std::cout << "Brain was copy assigned." << std::endl;
 	return (*this);

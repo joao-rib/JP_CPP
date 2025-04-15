@@ -17,14 +17,19 @@ std::string Dog::findIdea(int i) const
 Dog &Dog::operator = (const Dog &orig)
 {
 	if (this != &orig)
+	{
 		this->setType(orig.getType());
+		if (this->_brain)
+			delete this->_brain;
+		this->_brain = new Brain(*orig._brain);
+	}
 	std::cout << "A Dog was copy assigned." << std::endl;
 	return (*this);
 }
 
 Dog::Dog(const Dog &orig): Animal(orig)
 {
-	*this = orig;
+	this->_brain = new Brain(*orig._brain);
 	std::cout << "A Dog was cloned." << std::endl;
 }
 

@@ -17,14 +17,20 @@ std::string Cat::findIdea(int i) const
 Cat &Cat::operator = (const Cat &orig)
 {
 	if (this != &orig)
+	{
 		this->setType(orig.getType());
+		if (this->_brain)
+			delete this->_brain;
+		this->_brain = new Brain(*orig._brain);
+	}
 	std::cout << "A Cat was copy assigned." << std::endl;
 	return (*this);
 }
 
 Cat::Cat(const Cat &orig): Animal(orig)
 {
-	*this = orig;
+	//*this = orig;
+	this->_brain = new Brain(*orig._brain);
 	std::cout << "A Cat was cloned." << std::endl;
 }
 
