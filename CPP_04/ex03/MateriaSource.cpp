@@ -1,52 +1,82 @@
-#include "WrongAnimal.hpp"
+#include "MateriaSource.hpp"
 
-void	WrongAnimal::makeSound(void) const
+//MEMBER FUNCTIONS
+
+void	MateriaSource::learnMateria(AMateria *m)
 {
-	std::cout << "An unspecified WrongAnimal made a sound." << std::endl;
+	int	i = 0;
+	while (i < 4)
+	{
+		if (!this->_source[i])
+		{
+			this->_source[i] = m->clone();
+			std::cout << m->getType() << " Materia learned." << std::endl;
+			return ;
+		}
+		else if (i == 3)
+			std::cout << "This MateriaSource cannot register any more Materias" << std::endl;
+		i++;
+	}
 }
 
-//GETTERS & SETTERS
-
-std::string WrongAnimal::getType(void) const
+AMateria	*MateriaSource::createMateria(std::string const &type)
 {
-	return (this->_type);
-}
-
-void WrongAnimal::setType(std::string type)
-{
-	this->_type = type;
+	int	i = 0;
+	while (i < 4)
+	{
+		if (this->_source[i] && this->_source[i]->getType() == type)
+		{
+			std::cout << type << " Materia created." << std::endl;
+			return (this->_source[i]->clone());
+		}
+		else if (i == 3)
+			std::cout << "This MateriaSource does not contain that Materia type" << std::endl;
+		i++;
+	}
+	return (NULL);
 }
 
 //CONSTRUCTORS & DESTRUCTORS
 
-WrongAnimal &WrongAnimal::operator = (const WrongAnimal &orig)
+MateriaSource &MateriaSource::operator = (const MateriaSource &orig)
 {
-	if (this != &orig)
-		this->setType(orig.getType());
-	std::cout << "A WrongAnimal was copy assigned." << std::endl;
+	for (int i = 0; i < 4; i++)
+	{
+		if (orig._source[i])
+			this->_source[i] = orig._source[i]->clone();
+		else
+			this->_source[i] = NULL;
+	}
+	//std::cout << "A MateriaSource was copy assigned." << std::endl;
 	return (*this);
 }
 
-WrongAnimal::WrongAnimal(const WrongAnimal &orig)
+MateriaSource::MateriaSource(const MateriaSource &orig)
 {
-	*this = orig;
-	std::cout << "A WrongAnimal was cloned." << std::endl;
+	for (int i = 0; i < 4; i++)
+	{
+		if (orig._source[i])
+			this->_source[i] = orig._source[i]->clone();
+		else
+			this->_source[i] = NULL;
+	}
+	//std::cout << "A MateriaSource was copied." << std::endl;
 }
 
-WrongAnimal::WrongAnimal(std::string type)
+MateriaSource::MateriaSource(void)
 {
-	this->setType(type);
-	std::cout << "A WrongAnimal, like a " << this->getType() << ", was born." << std::endl;
+	for (int i = 0; i < 4; i++)
+		this->_source[i] = NULL;
+	//std::cout << "A MateriaSource was compiled" << std::endl;
 }
 
-WrongAnimal::WrongAnimal(void)
+MateriaSource::~MateriaSource(void)
 {
-	this->setType("Typical WrongAnimal");
-	std::cout << "A WrongAnimal was born." << std::endl;
-}
-
-WrongAnimal::~WrongAnimal(void)
-{
-	std::cout << "A WrongAnimal just died!" << std::endl;
+	for (int i = 0; i < 4; i++)
+	{
+		if (this->_source[i])
+			delete (this->_source[i]);
+	}
+	//std::cout << "This MateriaSource has been erased" << std::endl;
 }
 

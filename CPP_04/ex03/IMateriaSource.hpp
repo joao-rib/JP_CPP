@@ -8,6 +8,8 @@
 #include <iomanip>
 #include <cstdlib>
 
+#include "AMateria.hpp"
+
 class IMateriaSource
 {
 //protected:
@@ -17,7 +19,7 @@ public:
 //	IMateriaSource(std::string type);
 //	IMateriaSource(const IMateriaSource &orig);
 //	IMateriaSource &operator = (const IMateriaSource &orig);
-	~IMateriaSource() {};
+	virtual ~IMateriaSource() {}; //WIP esclarecer
 
 	virtual void		learnMateria(AMateria*) = 0;
 	virtual AMateria	*createMateria(std::string const &type) = 0;

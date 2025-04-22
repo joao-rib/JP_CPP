@@ -1,28 +1,27 @@
 #pragma once
 
-#ifndef WRONGANIMAL_H
-#define WRONGANIMAL_H
+#ifndef MATERIASOURCE_H
+#define MATERIASOURCE_H
 
 #include <iostream>
 #include <locale>
 #include <iomanip>
 #include <cstdlib>
 
-class WrongAnimal
+#include "IMateriaSource.hpp"
+
+class MateriaSource: public IMateriaSource
 {
 protected:
-	std::string _type;
+	AMateria *_source[4];
 public:
-	WrongAnimal();
-	WrongAnimal(std::string type);
-	WrongAnimal(const WrongAnimal &orig);
-	WrongAnimal &operator = (const WrongAnimal &orig);
-	~WrongAnimal();
+	MateriaSource();
+	MateriaSource(const MateriaSource &orig);
+	MateriaSource &operator = (const MateriaSource &orig);
+	~MateriaSource();
 
-	std::string		getType(void) const;
-	void			setType(std::string name);
-
-	void			makeSound(void) const;
+	virtual void		learnMateria(AMateria *m);
+	virtual AMateria	*createMateria(std::string const &type);
 };
 
 #endif
