@@ -1,5 +1,7 @@
 #include "Ice.hpp"
 
+//MEMBER FUNCTIONS
+
 AMateria*	Ice::clone(void) const
 {
 	//std::cout << "Ice was cloned" << std::endl;

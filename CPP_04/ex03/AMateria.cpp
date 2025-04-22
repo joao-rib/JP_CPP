@@ -1,16 +1,12 @@
 #include "AMateria.hpp"
 #include "ICharacter.hpp"
 
+//MEMBER FUNCTIONS
+
 void	AMateria::use(ICharacter &target)
 {
 	std::cout << this->getType() << " was used on " << target.getName() << std::endl;
 }
-
-/*AMateria*	AMateria::clone(void) const
-{
-	//std::cout << this->getType() << " was cloned" << std::endl;
-	return (new AMateria(*this));
-}*/
 
 //GETTERS & SETTERS
 

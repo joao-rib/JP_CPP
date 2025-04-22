@@ -12,8 +12,8 @@ class AMateria;
 
 class ICharacter
 {
-protected:
-	std::string const _name;
+//protected:
+//	std::string const _name;
 public:
 //	ICharacter();
 //	ICharacter(const ICharacter &orig);

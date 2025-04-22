@@ -1,24 +1,31 @@
 #pragma once
 
-#ifndef BRAIN_H
-#define BRAIN_H
+#ifndef CHARACTER_H
+#define CHARACTER_H
 
 #include <iostream>
 #include <locale>
 #include <iomanip>
 #include <cstdlib>
 
-class Brain
+#include "ICharacter.hpp"
+
+class Character: public ICharacter
 {
 protected:
-	std::string _ideas[100];
+	std::string const	_name;
+	AMateria			*_slot[4];
 public:
-	Brain();
-	Brain(const Brain &orig);
-	Brain &operator = (const Brain &orig);
-	virtual ~Brain();
+	Character(std::string const name);
+	Character(const Character &orig);
+	Character &operator = (const Character &orig);
+	virtual ~Character();
 
-	std::string	getIdea(int i);
+	virtual std::string	const	&getName(void) const;
+
+	virtual void	equip(AMateria *m);
+	virtual void	unequip(int idx);
+	virtual void	use(int idx, ICharacter &target);
 };
 
 #endif
