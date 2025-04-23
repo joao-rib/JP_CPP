@@ -17,7 +17,7 @@ public:
 	//std::string const	&getType(void) const;
 
 	virtual AMateria	*clone() const;
-	//virtual void		use(ICharacter &target);
+	virtual void		use(ICharacter &target);
 };
 
 #endif

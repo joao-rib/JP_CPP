@@ -19,7 +19,7 @@ public:
 //	IMateriaSource(std::string type);
 //	IMateriaSource(const IMateriaSource &orig);
 //	IMateriaSource &operator = (const IMateriaSource &orig);
-	virtual ~IMateriaSource() {}; //WIP esclarecer
+	virtual ~IMateriaSource() {};
 
 	virtual void		learnMateria(AMateria*) = 0;
 	virtual AMateria	*createMateria(std::string const &type) = 0;

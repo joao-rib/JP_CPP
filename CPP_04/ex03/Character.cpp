@@ -5,6 +5,11 @@
 
 void	Character::equip(AMateria *m)
 {
+	if (!m)
+	{
+		std::cout << "No Materia for " << this->getName() << " to equip" << std::endl;
+		return ;
+	}
 	int	i = 0;
 	while (i < 4)
 	{
@@ -61,7 +66,6 @@ std::string const &Character::getName(void) const
 
 //CONSTRUCTORS & DESTRUCTORS
 
-//WIP?
 /*Character &Character::operator = (const Character &orig)
 {
 	if (this != &orig)

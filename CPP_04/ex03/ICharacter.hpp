@@ -18,7 +18,7 @@ public:
 //	ICharacter();
 //	ICharacter(const ICharacter &orig);
 //	ICharacter &operator = (const ICharacter &orig);
-	virtual ~ICharacter() {}; //WIP esclarecer
+	virtual ~ICharacter() {};
 
 	virtual std::string	const	&getName(void) const = 0;
 

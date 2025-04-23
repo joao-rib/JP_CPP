@@ -9,7 +9,7 @@ void	MateriaSource::learnMateria(AMateria *m)
 	{
 		if (!this->_source[i])
 		{
-			this->_source[i] = m->clone();
+			this->_source[i] = m;
 			std::cout << m->getType() << " Materia learned." << std::endl;
 			return ;
 		}

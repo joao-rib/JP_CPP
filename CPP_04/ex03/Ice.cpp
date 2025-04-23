@@ -1,6 +1,12 @@
 #include "Ice.hpp"
+#include "ICharacter.hpp"
 
 //MEMBER FUNCTIONS
+
+void	Ice::use(ICharacter &target)
+{
+	std::cout << "Ice spell freezes " << target.getName() << " to the bone" << std::endl;
+}
 
 AMateria*	Ice::clone(void) const
 {

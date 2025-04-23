@@ -1,6 +1,12 @@
 #include "Cure.hpp"
+#include "ICharacter.hpp"
 
 //MEMBER FUNCTIONS
+
+void	Cure::use(ICharacter &target)
+{
+	std::cout << target.getName() << " is healed by some nice Cure magic" << std::endl;
+}
 
 AMateria*	Cure::clone(void) const
 {

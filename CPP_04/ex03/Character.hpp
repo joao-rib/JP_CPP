@@ -18,7 +18,7 @@ protected:
 public:
 	Character(std::string const name);
 	Character(const Character &orig);
-	Character &operator = (const Character &orig);
+	//Character &operator = (const Character &orig);
 	virtual ~Character();
 
 	virtual std::string	const	&getName(void) const;
