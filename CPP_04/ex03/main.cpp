@@ -22,8 +22,11 @@ int main()
 	me->equip(tmp);
 	me->unequip(1);
 	me->equip(tmp);
+	me->unequip(3);
 	ICharacter* Cloud = new Character("Cloud");
 	ICharacter* Sephiroth = new Character("Sephiroth");
+	me->use(0, *Sephiroth);
+	me->use(1, *Cloud);
 	me->use(2, *Sephiroth);
 	me->use(3, *Cloud);
 	delete Cloud;
