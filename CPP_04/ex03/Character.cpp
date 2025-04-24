@@ -13,6 +13,17 @@ void	Character::equip(AMateria *m)
 	int	i = 0;
 	while (i < 4)
 	{
+		if (this->_slot[i] == m)
+		{
+			this->_slot[i] = m;
+			std::cout << this->getName() << " already equipped this " << m->getType() << " Materia to inventory slot " << i << std::endl;
+			return ;
+		}
+		i++;
+	}
+	i = 0;
+	while (i < 4)
+	{
 		if (!this->_slot[i])
 		{
 			this->_slot[i] = m;
@@ -37,8 +48,8 @@ void	Character::unequip(int idx)
 		std::cout << "Inventory slot " << idx << " does not contain any Materia" << std::endl;
 		return ;
 	}
-	this->_slot[idx] = NULL;
 	std::cout << this->getName() << " unequipped " << this->_slot[idx]->getType() << " from inventory slot " << idx << std::endl;
+	this->_slot[idx] = NULL;
 }
 
 void	Character::use(int idx, ICharacter &target)

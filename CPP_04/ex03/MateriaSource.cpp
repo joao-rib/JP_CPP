@@ -14,7 +14,10 @@ void	MateriaSource::learnMateria(AMateria *m)
 			return ;
 		}
 		else if (i == 3)
-			std::cout << "This MateriaSource cannot register any more Materias" << std::endl;
+		{
+			std::cout << "This MateriaSource cannot register any more Materias. Best to destroy this one, trust me on this" << std::endl;
+			delete m;
+		}
 		i++;
 	}
 }
