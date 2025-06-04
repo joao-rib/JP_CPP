@@ -8,7 +8,7 @@
 #include <iomanip>
 #include <cstdlib>
 
-class Bureaucrat
+class Bureaucrat: std::exception
 {
 protected:
 	const std::string _name;
@@ -17,16 +17,19 @@ public:
 	Bureaucrat();
 	Bureaucrat(std::string const &name, int grade);
 	Bureaucrat(const Bureaucrat &orig);
-	Bureaucrat &operator = (const Bureaucrat &orig);
 	virtual ~Bureaucrat();
 
-	std::string		getName(void) const;
-	int				getGrade(void);
-	void			incGrade(void);
-	void			decGrade(void);
+	std::string const		&getName(void) const;
+	int	const 				&getGrade(void) const;
+	void					incGrade(void);
+	void					decGrade(void);
+
+/*	Bureaucrat &operator ++ (void); //pre
+	Bureaucrat operator ++ (int); //post
+	Bureaucrat &operator -- (void); //pre
+	Bureaucrat operator -- (int); //post*/
 };
 
-//std::ostream& operator << (std::ostream& out, const Fixed& fp_num); WIP name
-//std::ostream& operator << (std::ostream& out, const Fixed& fp_num); WIP grade
+std::ostream& operator << (std::ostream& out, const Bureaucrat& bureau);
 
 #endif

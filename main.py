@@ -36,9 +36,12 @@ def hangman():
             attempts -= 1
             print(f"Incorrect! You have {attempts} attempts left.")
 
-        ###
-        ## Include the missing code here to complete the game ##
-        ###
+        if display(word, guessed_letters) == word:
+            print(f"Congratulations! You guessed the word: {word}")
+            return
+
+        if guess in word:
+            print(f"Correct! The letter {guess} is in the word. You still have {attempts} attempts left.")
 
     print(f"Game over! The word was: {word}")
 
