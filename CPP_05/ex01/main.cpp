@@ -18,13 +18,7 @@ try
 	std::cout << Hitman << " is mismatched in grade." << std::endl;
 	Hitman.decGrade();
 	std::cout << Hitman << " is back in the correct grade." << std::endl;
-/*
-	Bureaucrat	Hitmanito = Hitman;
-	Hitmanito.incGrade();
-	std::cout << Hitmanito << " is mismatched in grade." << std::endl;
-	Hitmanito.decGrade();
-	std::cout << Hitmanito << " is back in the correct grade." << std::endl;
-*/
+
 	//Bureaucrat	NEO("Keanu", 0);
 	//Bureaucrat	France("Glass Joe", 151);
 	//Matrix.incGrade();
