@@ -29,15 +29,16 @@ public:
 	int	const 				&getSignGrade(void) const;
 	int	const 				&getExecGrade(void) const;
 	bool const				&getSignature(void) const;
+	void					setSignature(bool sign);
 
-	void	beSigned(Bureaucrat bureau);
+	void	beSigned(Bureaucrat &bureau);
 
 	class GradeTooHighException: public std::exception
 	{
 	private:
 		std::string _msg;
 	public:
-		GradeTooHighException(const Form &paper);
+		GradeTooHighException(const Form &paper, const std::string &reason);
 		virtual ~GradeTooHighException() throw();
 		virtual const char *what() const throw();
 	};
@@ -47,7 +48,7 @@ public:
 	private:
 		std::string _msg;
 	public:
-		GradeTooLowException(const Form &paper);
+		GradeTooLowException(const Form &paper, const std::string &reason);
 		virtual ~GradeTooLowException() throw();
 		virtual const char *what() const throw();
 	};

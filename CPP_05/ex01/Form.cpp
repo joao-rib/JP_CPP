@@ -3,17 +3,18 @@
 
 //MEMBER FUNCTIONS
 
-void	Form::beSigned(Bureaucrat bureau)
+void	Form::beSigned(Bureaucrat &bureau)
 {
-	if (this->_signature = true)
-		std::cout << this << " is already signed." << std::endl;
+	if (this->_signature == true)
+		std::cout << *this << " is already signed." << std::endl;
 	else if (bureau.getGrade() <= this->getSignGrade())
 	{
-		this->_signature = true;
-		std::cout << bureau << " signed " << this << "." << std::endl;
+		//this->_signature = true;
+		this->setSignature(true);
+		std::cout << bureau << " signed " << *this << "." << std::endl;
 	}
 	else
-		throw GradeTooLowException(*this); // WIP
+		throw GradeTooHighException(*this, " cannot be signed by a Bureaucrat of lower grade.");
 }
 
 //GETTERS & SETTERS
@@ -38,6 +39,11 @@ bool const &Form::getSignature(void) const
 	return (this->_signature);
 }
 
+void Form::setSignature(bool sign)
+{
+	this->_signature = sign;
+}
+
 //CONSTRUCTORS & DESTRUCTORS
 
 Form &Form::operator = (const Form &orig)
@@ -57,9 +63,9 @@ Form::Form(const Form &orig): _name(orig._name), _grade_sign(orig._grade_sign), 
 Form::Form(std::string const &name, int grade_sign, int grade_exec): _name(name), _grade_sign(grade_sign), _grade_exec(grade_exec)
 {
 	if (grade_sign < 1 || grade_exec < 1)
-		throw GradeTooHighException(*this);
+		throw GradeTooHighException(*this, " cannot be higher than 1.");
 	if (grade_sign > 150 || grade_exec > 150)
-		throw GradeTooLowException(*this);
+		throw GradeTooLowException(*this, " cannot be lower than 150.");
 	this->_signature = false;
 	//std::cout << this << " was printed." << std::endl;
 }
@@ -85,10 +91,10 @@ std::ostream& operator << (std::ostream& out, const Form& paper)
 
 // EXCEPTIONS
 
-Form::GradeTooHighException::GradeTooHighException(const Form &paper)
+Form::GradeTooHighException::GradeTooHighException(const Form &paper, const std::string &reason)
 {
 	std::ostringstream out;
-	out << paper << " shows grade higher than 1.";
+	out << paper << reason;
 	_msg = out.str();
 }
 
@@ -102,10 +108,10 @@ const char *Form::GradeTooHighException::what() const throw()
 	return (this->_msg.c_str());
 }
 
-Form::GradeTooLowException::GradeTooLowException(const Form &paper)
+Form::GradeTooLowException::GradeTooLowException(const Form &paper, const std::string &reason)
 {
 	std::ostringstream out;
-	out << paper << " shows lower than 150.";
+	out << paper << reason;
 	_msg = out.str();
 }
 

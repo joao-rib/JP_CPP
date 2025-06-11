@@ -3,7 +3,7 @@
 
 //MEMBER FUNCTIONS
 
-void	Bureaucrat::signForm(Form paper)
+void	Bureaucrat::signForm(Form &paper)
 {
 	paper.beSigned(*this);
 }
