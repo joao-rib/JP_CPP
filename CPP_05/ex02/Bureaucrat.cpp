@@ -6,6 +6,13 @@
 void	Bureaucrat::signForm(AForm &paper)
 {
 	paper.beSigned(*this);
+	std::cout << *this << " signed " << paper << "." << std::endl;
+}
+
+void	Bureaucrat::executeForm(AForm const &form)
+{
+	form.execute(*this);
+	std::cout << *this << " executed " << form << "." << std::endl;
 }
 
 //GETTERS & SETTERS

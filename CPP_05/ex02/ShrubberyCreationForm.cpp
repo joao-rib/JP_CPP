@@ -3,23 +3,20 @@
 
 //MEMBER FUNCTIONS
 
-void	ShrubberyCreationForm::beSigned(Bureaucrat &bureau)
+void	ShrubberyCreationForm::execute(Bureaucrat const &executor) const
 {
-	if (this->_signature == true)
-		std::cout << *this << " is already signed." << std::endl;
-	else if (bureau.getGrade() <= this->getSignGrade())
+	if (this->getSignature() == false)
+		std::cout << *this << " is not signed." << std::endl; //WIP throw
+	else if (executor.getGrade() > this->getExecGrade())
 	{
-		//this->_signature = true;
-		this->setSignature(true);
-		std::cout << bureau << " signed " << *this << "." << std::endl;
+		throw GradeTooHighException(*this, " cannot be executed by a Bureaucrat of lower grade."); //WIP corrigir mensagem de erro
 	}
-	else
-		throw GradeTooHighException(*this, " cannot be signed by a Bureaucrat of lower grade.");
+	// WIP Create <target>_shrubbery in the working directory and writes ASCII trees inside it
 }
 
 //GETTERS & SETTERS
 
-int const &ShrubberyCreationForm::getSignGrade(void) const
+/*int const &ShrubberyCreationForm::getSignGrade(void) const
 {
 	return (this->_grade_sign);
 }
@@ -42,37 +39,26 @@ bool const &ShrubberyCreationForm::getSignature(void) const
 void ShrubberyCreationForm::setSignature(bool sign)
 {
 	this->_signature = sign;
-}
+}*/
 
 //CONSTRUCTORS & DESTRUCTORS
 
 ShrubberyCreationForm &ShrubberyCreationForm::operator = (const ShrubberyCreationForm &orig)
 {
 	if (this != &orig)
-		this->_signature = orig.getSignature();
+		this->setSignature(orig.getSignature());
 	//std::cout << this << " was fax-photocopied." << std::endl;
 	return (*this);
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &orig): _name(orig._name), _grade_sign(orig._grade_sign), _grade_exec(orig._grade_exec)
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &orig): AForm("Shrubbery Creation", 145, 137), _target(orig._target)
 {
 	//std::cout << this << " was photocopied." << std::endl;
-	this->_signature = orig.getSignature();
+	this->setSignature(orig.getSignature());
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(std::string const &name, int grade_sign, int grade_exec): _name(name), _grade_sign(grade_sign), _grade_exec(grade_exec)
+ShrubberyCreationForm::ShrubberyCreationForm(std::string const &target): AForm("Shrubbery Creation", 145, 137), _target(target)
 {
-	if (grade_sign < 1 || grade_exec < 1)
-		throw GradeTooHighException(*this, " cannot be higher than 1.");
-	if (grade_sign > 150 || grade_exec > 150)
-		throw GradeTooLowException(*this, " cannot be lower than 150.");
-	this->_signature = false;
-	//std::cout << this << " was printed." << std::endl;
-}
-
-ShrubberyCreationForm::ShrubberyCreationForm(void): _name("Generic"), _grade_sign(150), _grade_exec(150)
-{
-	this->_signature = false;
 	//std::cout << this << " was printed." << std::endl;
 }
 
@@ -85,13 +71,13 @@ ShrubberyCreationForm::~ShrubberyCreationForm(void)
 
 std::ostream& operator << (std::ostream& out, const ShrubberyCreationForm& paper)
 {
-	out << paper.getName() << " ShrubberyCreationForm (Signature grade " << paper.getSignGrade() << ", Execution grade " << paper.getExecGrade() << ")";
+	out << paper.getName() << " Form (Signature grade " << paper.getSignGrade() << ", Execution grade " << paper.getExecGrade() << ")";
 	return (out);
 }
 
 // EXCEPTIONS
 
-ShrubberyCreationForm::GradeTooHighException::GradeTooHighException(const ShrubberyCreationForm &paper, const std::string &reason)
+/*ShrubberyCreationForm::GradeTooHighException::GradeTooHighException(const ShrubberyCreationForm &paper, const std::string &reason)
 {
 	std::ostringstream out;
 	out << paper << reason;
@@ -123,4 +109,4 @@ ShrubberyCreationForm::GradeTooLowException::~GradeTooLowException() throw()
 const char *ShrubberyCreationForm::GradeTooLowException::what() const throw()
 {
 	return (this->_msg.c_str());
-}
+}*/

@@ -1,5 +1,5 @@
 #include "Bureaucrat.hpp"
-#include "AForm.hpp"
+#include "ShrubberyCreationForm.hpp"
 
 int	main()
 {
@@ -9,20 +9,17 @@ try
 	Bureaucrat	Hitman("Agent 47", 47);
 	Bureaucrat	MIB("J", 150);
 	Bureaucrat	goon;
-	AForm		IRS("Impostos", 149, 2);
-	AForm		Job_opening("Candidatura 42", 42, 42);
+	ShrubberyCreationForm		scf("Home");
 
 	std::cout << Matrix << " is on the scene." << std::endl;
 	std::cout << Hitman << " is on the scene." << std::endl;
 	std::cout << MIB << " is on the scene." << std::endl;
 	std::cout << goon << " is on the scene." << std::endl;
-	std::cout << IRS << " needs to be filled." << std::endl;
-	std::cout << Job_opening << " needs to be filled." << std::endl;
+	std::cout << scf << " needs to be filled." << std::endl;
 
-	Hitman.signForm(IRS);
-	goon.signForm(IRS);
-	//Hitman.signForm(Job_opening);
-	Matrix.signForm(Job_opening);
+	MIB.signForm(scf);
+	Hitman.signForm(scf);
+	goon.signForm(scf);
 }
 catch (std::exception &e)
 {

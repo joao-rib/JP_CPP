@@ -11,10 +11,10 @@ void	AForm::beSigned(Bureaucrat &bureau)
 	{
 		//this->_signature = true;
 		this->setSignature(true);
-		std::cout << bureau << " signed " << *this << "." << std::endl;
+		//std::cout << bureau << " signed " << *this << "." << std::endl;
 	}
 	else
-		throw GradeTooHighException(*this, " cannot be signed by a Bureaucrat of lower grade.");
+		throw GradeTooLowException(*this, " cannot be signed by a Bureaucrat of lower grade."); //WIP corrigir mensagem de erro
 }
 
 //GETTERS & SETTERS
@@ -85,7 +85,7 @@ AForm::~AForm(void)
 
 std::ostream& operator << (std::ostream& out, const AForm& paper)
 {
-	out << paper.getName() << " AForm (Signature grade " << paper.getSignGrade() << ", Execution grade " << paper.getExecGrade() << ")";
+	out << paper.getName() << " Form (Signature grade " << paper.getSignGrade() << ", Execution grade " << paper.getExecGrade() << ")";
 	return (out);
 }
 
