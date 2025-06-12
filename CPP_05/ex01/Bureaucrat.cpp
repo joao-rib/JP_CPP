@@ -12,14 +12,20 @@ void	Bureaucrat::signForm(Form &paper)
 
 void Bureaucrat::incGrade(void)
 {
-	if (--this->_grade < 1)
+	if (this->_grade == 1)
 		throw GradeTooHighException(*this);
+	this->_grade--;
+	//if (--this->_grade < 1)
+	//	throw GradeTooHighException(*this);
 }
 
 void Bureaucrat::decGrade(void)
 {
-	if (++this->_grade > 150)
+	if (this->_grade == 150)
 		throw GradeTooLowException(*this);
+	this->_grade++;
+	//if (++this->_grade > 150)
+	//	throw GradeTooLowException(*this);
 }
 
 int const &Bureaucrat::getGrade(void) const
