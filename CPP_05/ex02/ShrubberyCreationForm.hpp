@@ -4,6 +4,7 @@
 #define SHRUBBERYCREATIONFORM_H
 
 #include "AForm.hpp"
+#include <fstream>
 
 //#include <iostream>
 //#include <sstream>

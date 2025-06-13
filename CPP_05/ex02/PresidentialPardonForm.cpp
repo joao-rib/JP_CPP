@@ -9,7 +9,7 @@ void	PresidentialPardonForm::execute(Bureaucrat const &executor) const
 		throw CannotExecuteException(*this, " is not signed.");
 	else if (executor.getGrade() > this->getExecGrade())
 		throw CannotExecuteException(*this, " cannot be executed by a Bureaucrat of lower grade.");
-	// WIP <target> has been pardoned by Zaphod Beeblebrox
+	std::cout << this->_target << " has been pardoned by His Majesty, El Presidente CEO Supreme Zaphod Beeblebrox." << std::endl;
 }
 
 //CONSTRUCTORS & DESTRUCTORS

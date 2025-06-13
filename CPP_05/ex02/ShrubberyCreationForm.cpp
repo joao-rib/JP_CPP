@@ -9,7 +9,24 @@ void	ShrubberyCreationForm::execute(Bureaucrat const &executor) const
 		throw CannotExecuteException(*this, " is not signed.");
 	else if (executor.getGrade() > this->getExecGrade())
 		throw CannotExecuteException(*this, " cannot be executed by a Bureaucrat of lower grade.");
-	// WIP Create <target>_shrubbery in the working directory and writes ASCII trees inside it
+
+	std::string newFileName = this->_target + "_shrubbery";
+	std::ofstream newFile(newFileName.c_str());
+	if (!newFile.is_open())
+		throw CannotExecuteException(*this, " the shrubbery file could not be opened.");
+
+	newFile << "        ^        " << std::endl;
+	newFile << "       $$$       " << std::endl;
+	newFile << "      $$$$$      " << std::endl;
+	newFile << "     $$$$$$$     " << std::endl;
+	newFile << "    $$$$$$$$$    " << std::endl;
+	newFile << "   $$$$$$$$$$$   " << std::endl;
+	newFile << "  $$$$$$$$$$$$$  " << std::endl;
+	newFile << " $$$$$$$$$$$$$$$ " << std::endl;
+	newFile << "       |||       " << std::endl;
+	newFile << "       |||       " << std::endl;
+
+	newFile.close();
 }
 
 //CONSTRUCTORS & DESTRUCTORS

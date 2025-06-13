@@ -41,7 +41,7 @@ int	main(int argc, char** argv)
 	std::ofstream newFile(newFileName.c_str());
 	if (!newFile.is_open())
 	{
-		std::cout << "Could not open output file" << std::endl;;
+		std::cout << "Could not open output file" << std::endl;
 		return (0);
 	}
 	//Copy argv[1] content

@@ -9,7 +9,13 @@ void	RobotomyRequestForm::execute(Bureaucrat const &executor) const
 		throw CannotExecuteException(*this, " is not signed.");
 	else if (executor.getGrade() > this->getExecGrade())
 		throw CannotExecuteException(*this, " cannot be executed by a Bureaucrat of lower grade.");
-	// WIP Drilling noises. Then <target> has been robotomized. Or not. 50/50
+
+	std::cout << "*CREEPY AND VICIOUS DRILLING NOISES*" << std::endl;
+	std::srand(std::time(0));
+	if (std::rand() % 2 == 0)
+		std::cout << this->_target << " is now faster, stronger, robotomized." << std::endl;
+	else
+		std::cout << this->_target << " is now... oh... oh no... To be fair, they never said they were a doctor." << std::endl;
 }
 
 //CONSTRUCTORS & DESTRUCTORS

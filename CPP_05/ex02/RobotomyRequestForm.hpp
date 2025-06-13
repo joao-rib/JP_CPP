@@ -4,6 +4,7 @@
 #define ROBOTOMYREQUESTFORM_H
 
 #include "AForm.hpp"
+#include <ctime>
 
 //#include <iostream>
 //#include <sstream>
