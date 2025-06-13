@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef SHRUBBERYCREATIONFORM_H
-#define SHRUBBERYCREATIONFORM_H
+#ifndef ROBOTOMYREQUESTFORM_H
+#define ROBOTOMYREQUESTFORM_H
 
 #include "AForm.hpp"
 
@@ -13,7 +13,7 @@
 
 //class Bureaucrat;
 
-class ShrubberyCreationForm: public AForm
+class RobotomyRequestForm: public AForm
 {
 private:
 //	const std::string _name;
@@ -22,10 +22,10 @@ private:
 //	bool 		_signature;
 	const std::string _target;
 public:
-	ShrubberyCreationForm(std::string const &target);
-	ShrubberyCreationForm(const ShrubberyCreationForm &orig);
-	ShrubberyCreationForm &operator = (const ShrubberyCreationForm &orig);
-	virtual ~ShrubberyCreationForm();
+	RobotomyRequestForm(std::string const &target);
+	RobotomyRequestForm(const RobotomyRequestForm &orig);
+	RobotomyRequestForm &operator = (const RobotomyRequestForm &orig);
+	virtual ~RobotomyRequestForm();
 
 //	std::string const		&getName(void) const;
 //	int	const 				&getSignGrade(void) const;
@@ -77,6 +77,6 @@ public:
 	};	*/
 };
 
-std::ostream& operator << (std::ostream& out, const ShrubberyCreationForm& paper);
+std::ostream& operator << (std::ostream& out, const RobotomyRequestForm& paper);
 
 #endif
