@@ -21,7 +21,7 @@ try
 
 	Hitman.signForm(IRS);
 	goon.signForm(IRS);
-	//Hitman.signForm(Job_opening);
+	Hitman.signForm(Job_opening);
 	Matrix.signForm(Job_opening);
 }
 catch (std::exception &e)

@@ -5,8 +5,15 @@
 
 void	Bureaucrat::signForm(Form &paper)
 {
+try
+{
 	paper.beSigned(*this);
 	std::cout << *this << " signed " << paper << "." << std::endl;
+}
+catch (std::exception &e)
+{
+	std::cout << *this << " could not sign " << paper.getName() << " because " << e.what() << std::endl;
+}
 }
 
 //GETTERS & SETTERS

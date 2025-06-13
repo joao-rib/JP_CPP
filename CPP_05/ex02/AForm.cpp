@@ -6,15 +6,10 @@
 void	AForm::beSigned(Bureaucrat &bureau)
 {
 	if (this->_signature == true)
-		std::cout << *this << " is already signed." << std::endl;
-	else if (bureau.getGrade() <= this->getSignGrade())
-	{
-		//this->_signature = true;
-		this->setSignature(true);
-		//std::cout << bureau << " signed " << *this << "." << std::endl;
-	}
-	else
-		throw GradeTooLowException(*this, " cannot be signed by a Bureaucrat of lower grade."); //WIP corrigir mensagem de erro
+		throw CannotSignException(*this, " is already signed.");
+	else if (bureau.getGrade() > this->getSignGrade())
+		throw CannotSignException(*this, " cannot be signed by a Bureaucrat of lower grade.");
+	this->setSignature(true);
 }
 
 //GETTERS & SETTERS
@@ -121,6 +116,23 @@ AForm::GradeTooLowException::~GradeTooLowException() throw()
 }
 
 const char *AForm::GradeTooLowException::what() const throw()
+{
+	return (this->_msg.c_str());
+}
+
+AForm::CannotSignException::CannotSignException(const AForm &paper, const std::string &reason)
+{
+	std::ostringstream out;
+	out << paper << reason;
+	_msg = out.str();
+}
+
+AForm::CannotSignException::~CannotSignException() throw()
+{
+	//std::cout << "Error message destroyed" << std::endl;
+}
+
+const char *AForm::CannotSignException::what() const throw()
 {
 	return (this->_msg.c_str());
 }
