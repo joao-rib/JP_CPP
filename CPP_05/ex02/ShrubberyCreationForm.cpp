@@ -6,40 +6,11 @@
 void	ShrubberyCreationForm::execute(Bureaucrat const &executor) const
 {
 	if (this->getSignature() == false)
-		std::cout << *this << " is not signed." << std::endl; //WIP throw
+		throw CannotExecuteException(*this, " is not signed.");
 	else if (executor.getGrade() > this->getExecGrade())
-	{
-		throw GradeTooHighException(*this, " cannot be executed by a Bureaucrat of lower grade."); //WIP corrigir mensagem de erro
-	}
+		throw CannotExecuteException(*this, " cannot be executed by a Bureaucrat of lower grade.");
 	// WIP Create <target>_shrubbery in the working directory and writes ASCII trees inside it
 }
-
-//GETTERS & SETTERS
-
-/*int const &ShrubberyCreationForm::getSignGrade(void) const
-{
-	return (this->_grade_sign);
-}
-
-int const &ShrubberyCreationForm::getExecGrade(void) const
-{
-	return (this->_grade_exec);
-}
-
-std::string const &ShrubberyCreationForm::getName(void) const
-{
-	return (this->_name);
-}
-
-bool const &ShrubberyCreationForm::getSignature(void) const
-{
-	return (this->_signature);
-}
-
-void ShrubberyCreationForm::setSignature(bool sign)
-{
-	this->_signature = sign;
-}*/
 
 //CONSTRUCTORS & DESTRUCTORS
 
@@ -74,39 +45,3 @@ std::ostream& operator << (std::ostream& out, const ShrubberyCreationForm& paper
 	out << paper.getName() << " Form (Signature grade " << paper.getSignGrade() << ", Execution grade " << paper.getExecGrade() << ")";
 	return (out);
 }
-
-// EXCEPTIONS
-
-/*ShrubberyCreationForm::GradeTooHighException::GradeTooHighException(const ShrubberyCreationForm &paper, const std::string &reason)
-{
-	std::ostringstream out;
-	out << paper << reason;
-	_msg = out.str();
-}
-
-ShrubberyCreationForm::GradeTooHighException::~GradeTooHighException() throw()
-{
-	//std::cout << "Error message destroyed" << std::endl;
-}
-
-const char *ShrubberyCreationForm::GradeTooHighException::what() const throw()
-{
-	return (this->_msg.c_str());
-}
-
-ShrubberyCreationForm::GradeTooLowException::GradeTooLowException(const ShrubberyCreationForm &paper, const std::string &reason)
-{
-	std::ostringstream out;
-	out << paper << reason;
-	_msg = out.str();
-}
-
-ShrubberyCreationForm::GradeTooLowException::~GradeTooLowException() throw()
-{
-	//std::cout << "Error message destroyed" << std::endl;
-}
-
-const char *ShrubberyCreationForm::GradeTooLowException::what() const throw()
-{
-	return (this->_msg.c_str());
-}*/

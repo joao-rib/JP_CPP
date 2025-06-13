@@ -63,6 +63,16 @@ public:
 		virtual ~CannotSignException() throw();
 		virtual const char *what() const throw();
 	};
+
+	class CannotExecuteException: public std::exception
+	{
+	private:
+		std::string _msg;
+	public:
+		CannotExecuteException(const AForm &paper, const std::string &reason);
+		virtual ~CannotExecuteException() throw();
+		virtual const char *what() const throw();
+	};
 };
 
 std::ostream& operator << (std::ostream& out, const AForm& paper);

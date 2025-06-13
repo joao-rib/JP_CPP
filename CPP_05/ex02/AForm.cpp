@@ -136,3 +136,20 @@ const char *AForm::CannotSignException::what() const throw()
 {
 	return (this->_msg.c_str());
 }
+
+AForm::CannotExecuteException::CannotExecuteException(const AForm &paper, const std::string &reason)
+{
+	std::ostringstream out;
+	out << paper << reason;
+	_msg = out.str();
+}
+
+AForm::CannotExecuteException::~CannotExecuteException() throw()
+{
+	//std::cout << "Error message destroyed" << std::endl;
+}
+
+const char *AForm::CannotExecuteException::what() const throw()
+{
+	return (this->_msg.c_str());
+}

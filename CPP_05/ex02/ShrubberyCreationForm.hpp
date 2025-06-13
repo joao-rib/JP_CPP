@@ -54,7 +54,27 @@ public:
 		GradeTooLowException(const ShrubberyCreationForm &paper, const std::string &reason);
 		virtual ~GradeTooLowException() throw();
 		virtual const char *what() const throw();
-	};*/
+	};
+
+	class CannotSignException: public std::exception
+	{
+	private:
+		std::string _msg;
+	public:
+		CannotSignException(const AForm &paper, const std::string &reason);
+		virtual ~CannotSignException() throw();
+		virtual const char *what() const throw();
+	};
+
+	class CannotExecuteException: public std::exception
+	{
+	private:
+		std::string _msg;
+	public:
+		CannotExecuteException(const AForm &paper, const std::string &reason);
+		virtual ~CannotExecuteException() throw();
+		virtual const char *what() const throw();
+	};	*/
 };
 
 std::ostream& operator << (std::ostream& out, const ShrubberyCreationForm& paper);

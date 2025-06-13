@@ -5,21 +5,28 @@
 
 void	Bureaucrat::signForm(AForm &paper)
 {
-try
-{
-	paper.beSigned(*this);
-	std::cout << *this << " signed " << paper << "." << std::endl;
-}
-catch (std::exception &e)
-{
-	std::cout << *this << " could not sign " << paper.getName() << " because " << e.what() << std::endl;
-}
+	try
+	{
+		paper.beSigned(*this);
+		std::cout << *this << " signed " << paper << "." << std::endl;
+	}
+	catch (std::exception &e)
+	{
+		std::cout << *this << " could not sign " << paper.getName() << " because " << e.what() << std::endl;
+	}
 }
 
 void	Bureaucrat::executeForm(AForm const &form)
 {
-	form.execute(*this);
-	std::cout << *this << " executed " << form << "." << std::endl;
+	try
+	{
+		form.execute(*this);
+		std::cout << *this << " executed " << form << "." << std::endl;
+	}
+	catch(const std::exception& e)
+	{
+		std::cout << *this << " could not execute " << form.getName() << " because " << e.what() << std::endl;
+	}
 }
 
 //GETTERS & SETTERS
