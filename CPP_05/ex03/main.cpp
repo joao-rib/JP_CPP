@@ -1,4 +1,5 @@
 #include "Bureaucrat.hpp"
+#include "Intern.hpp"
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
@@ -12,8 +13,12 @@ try
 	Bureaucrat	MIB("Agent J", 142);
 	Bureaucrat	goon;
 	ShrubberyCreationForm		scf("Av_Aliados");		// Sign 145, Exec 137
-	RobotomyRequestForm			rrf("Coporob");			// Sign 72, Exec 45
+	//RobotomyRequestForm			rrf("Coporob");			// Sign 72, Exec 45
 	PresidentialPardonForm		ppf("Nelson Mandela");	// Sign 25, Exec 5
+
+	Intern someRandomIntern;
+	AForm* rrf;
+	rrf = someRandomIntern.makeForm("Robotomy Request", "Bender");
 
 	std::cout << Matrix << " is on the scene." << std::endl;
 	std::cout << Hitman << " is on the scene." << std::endl;
@@ -28,12 +33,12 @@ try
 	MIB.executeForm(scf);
 	Hitman.executeForm(scf);
 
-	std::cout << std::endl << rrf << " needs to be signed and executed." << std::endl; // Sign 72, Exec 45
-	Hitman.executeForm(rrf);
-	MIB.signForm(rrf);
-	Hitman.signForm(rrf);
-	Hitman.executeForm(rrf);
-	Matrix.executeForm(rrf);
+	std::cout << std::endl << *rrf << " needs to be signed and executed." << std::endl; // Sign 72, Exec 45
+	Hitman.executeForm(*rrf);
+	MIB.signForm(*rrf);
+	Hitman.signForm(*rrf);
+	Hitman.executeForm(*rrf);
+	Matrix.executeForm(*rrf);
 
 	std::cout << std::endl << ppf << " needs to be signed and executed." << std::endl; // Sign 25, Exec 5
 	Matrix.executeForm(ppf);
