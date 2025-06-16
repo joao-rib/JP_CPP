@@ -3,54 +3,74 @@
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
 
+//HELPER FUNCTIONS
+
+AForm*	makeShrubbery(std::string const &target)
+{
+	return (new ShrubberyCreationForm(target));
+}
+
+AForm*	makeRobotomy(std::string const &target)
+{
+	return (new RobotomyRequestForm(target));
+}
+
+AForm*	makePardon(std::string const &target)
+{
+	return (new PresidentialPardonForm(target));
+}
+
+std::string capitalize(std::string str)
+{
+	for (unsigned int i = 0; i < str.length(); i++)
+	{
+		if (std::isalpha(str[i]))
+			str[i] = std::toupper(str[i]);
+	}
+	return (str);
+}
+
 //MEMBER FUNCTIONS
 
 AForm*	Intern::makeForm(std::string const &name, std::string const &target)
 {
-	/*void (Intern::*form_method[3])(std::string const &target) = 
+	AForm* (*form_method[])(std::string const &target) = 
 	{
-		&ShrubberyCreationForm::ShrubberyCreationForm(std::string const &target),
-		&RobotomyRequestForm::RobotomyRequestForm(std::string const &target),
-		&PresidentialPardonForm::PresidentialPardonForm(std::string const &target),
-	};*/
-	std::string form_name[3] = 
-	{
-		"Shrubbery Creation",
-		"Robotomy Request",
-		"Presidential Pardon",
+		makeShrubbery,
+		makeRobotomy,
+		makePardon,
 	};
-	try
+	const std::string form_name[] = 
 	{
-		AForm* new_form;
-		for (int i = 0; i < 3; i++)
+		"SHRUBBERY CREATION",
+		"ROBOTOMY REQUEST",
+		"PRESIDENTIAL PARDON",
+	};
+	
+	//AForm* new_form;
+	for (int i = 0; i < 3; i++)
+	{
+		if (capitalize(name) == form_name[i])
 		{
-			if (name == form_name[i])
+			/*switch (i)
 			{
-				switch (i)
-				{
-				case 0:
-					new_form = new ShrubberyCreationForm(target);
-					break;
-				case 1:
-					new_form = new RobotomyRequestForm(target);
-					break;
-				case 2:
-					new_form = new PresidentialPardonForm(target);
-					break;
-				default:
-					throw NoFormException();
-				}
-				std::cout << "Intern created the " << name << "." << std::endl;
-				return (new_form);
-			}
+			case 0:
+				new_form = new ShrubberyCreationForm(target);
+				break;
+			case 1:
+				new_form = new RobotomyRequestForm(target);
+				break;
+			case 2:
+				new_form = new PresidentialPardonForm(target);
+				break;
+			default:
+				throw NoFormException(name);
+			}*/
+			std::cout << "Intern created the " << name << "." << std::endl;
+			return (form_method[i](target));
 		}
-		throw NoFormException();
 	}
-	catch (std::exception &e)
-	{
-		std::cout << name << e.what() << std::endl;
-	}
-	throw NoFormException();
+	throw NoFormException(name);
 }
 
 //CONSTRUCTORS & DESTRUCTORS
@@ -80,10 +100,10 @@ Intern::~Intern(void)
 
 // EXCEPTIONS
 
-Intern::NoFormException::NoFormException()
+Intern::NoFormException::NoFormException(std::string const &name)
 {
 	std::ostringstream out;
-	out << " does not exist in the Form archives.";
+	out << name << " does not exist in the Form archives.";
 	_msg = out.str();
 }
 

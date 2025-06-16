@@ -26,7 +26,7 @@ public:
 	private:
 		std::string _msg;
 	public:
-		NoFormException();
+		NoFormException(std::string const &name);
 		virtual ~NoFormException() throw();
 		virtual const char *what() const throw();
 	};

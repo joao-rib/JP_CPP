@@ -18,7 +18,7 @@ try
 
 	Intern someRandomIntern;
 	AForm* rrf;
-	rrf = someRandomIntern.makeForm("Robotomy Request", "Bender");
+	rrf = someRandomIntern.makeForm("robotomy request", "Bender");
 
 	std::cout << Matrix << " is on the scene." << std::endl;
 	std::cout << Hitman << " is on the scene." << std::endl;
@@ -39,6 +39,7 @@ try
 	Hitman.signForm(*rrf);
 	Hitman.executeForm(*rrf);
 	Matrix.executeForm(*rrf);
+	delete rrf;
 
 	std::cout << std::endl << ppf << " needs to be signed and executed." << std::endl; // Sign 25, Exec 5
 	Matrix.executeForm(ppf);
