@@ -9,48 +9,25 @@
 #include <cstdlib>
 #include <cmath>
 
-class ScalarCoverter
+class ScalarConverter
 {
 private:
-	int _num;
-	const static int _bits = 8;
+	ScalarConverter();
+	ScalarConverter(const ScalarConverter &orig);
+	ScalarConverter &operator = (const ScalarConverter &orig);
+	virtual ~ScalarConverter();
 public:
-	ScalarCoverter();
-	ScalarCoverter(const int num);
-	ScalarCoverter(const float num);
-	ScalarCoverter(const ScalarCoverter &orig);
-	~ScalarCoverter();
+	static void converter(std::string const &str);
 
-	ScalarCoverter &operator = (const ScalarCoverter &orig);
-
-	bool operator == (const ScalarCoverter &another) const;
-	bool operator != (const ScalarCoverter &another) const;
-	bool operator < (const ScalarCoverter &another) const;
-	bool operator <= (const ScalarCoverter &another) const;
-	bool operator > (const ScalarCoverter &another) const;
-	bool operator >= (const ScalarCoverter &another) const;
-
-	ScalarCoverter operator + (const ScalarCoverter &amount) const;
-	ScalarCoverter operator - (const ScalarCoverter &amount) const;
-	ScalarCoverter operator * (const ScalarCoverter &amount) const;
-	ScalarCoverter operator / (const ScalarCoverter &amount) const;
-
-	ScalarCoverter &operator ++ (void); //pre
-	ScalarCoverter operator ++ (int); //post
-	ScalarCoverter &operator -- (void); //pre
-	ScalarCoverter operator -- (int); //post
-
-	static ScalarCoverter &min(ScalarCoverter &n1, ScalarCoverter &n2);
-	static const ScalarCoverter &min(const ScalarCoverter &n1, const ScalarCoverter &n2);
-	static ScalarCoverter &max(ScalarCoverter &n1, ScalarCoverter &n2);
-	static const ScalarCoverter &max(const ScalarCoverter &n1, const ScalarCoverter &n2);
-
-	int getRawBits(void) const;
-	void setRawBits(int const raw);
-	float toFloat(void) const;
-	int toInt(void) const;
+	class NoCharException: public std::exception
+	{
+	private:
+		std::string _msg;
+	public:
+		NoCharException(const std::string &reason);
+		virtual ~NoCharException() throw();
+		virtual const char *what() const throw();
+	};
 };
-
-std::ostream& operator << (std::ostream& out, const ScalarCoverter& fp_num);
 
 #endif
