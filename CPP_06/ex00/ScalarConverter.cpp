@@ -8,15 +8,16 @@
 
 //HELPER FUNCTIONS
 
-std::string const &printChar(double num)
+void	printChar(double num)
 {
 	try
 	{
+		std::cout << "Char: ";
 		if (num < 0 || num > 127)
-			throw noCharException(" not a character.");
+			throw OutsideScopeException("not a character.");
 		else if (num < 32 || num == 127)
-			throw noCharException(" not a printable character.");
-		std::cout << "Char: " << static_cast<char>(num) << std::endl;
+			throw OutsideScopeException("not a printable character.");
+		std::cout << static_cast<char>(num) << std::endl;
 	}
 	catch(const std::exception& e)
 	{
@@ -25,28 +26,41 @@ std::string const &printChar(double num)
 	
 }
 
-std::string const &printInt(double num)
+void	printInt(double num)
 {
+	try
+	{
+		std::cout << "Int: ";
+		if (num > INT_MAX || num < INT_MIN)
+			throw OutsideScopeException("outside of the acceptable range of int values.");
+		std::cout << static_cast<int>(num) << std::endl;
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << "Input is " << e.what() << '\n';
+	}
 
 }
 
-std::string const &printFloat(double num)
+void	printFloat(double num)
 {
-
+	std::cout << "Float: ";
+	std::cout << static_cast<float>(num) << std::endl;
 }
 
-std::string const &printDouble(double num)
+void	printDouble(double num)
 {
-
+	std::cout << "Double: ";
+	std::cout << num << std::endl;
 }
 
 void ScalarConverter::converter(std::string const &str)
 {
 	double num = atof(str.c_str()); //WIP averiguar
-	std::cout << "Char: " << printChar(num) << std::endl; //WIP tochar
-	std::cout << "Int: " << printInt(num) << std::endl; //WIP toint
-	std::cout << "Float: " << printFloat(num) << std::endl; //WIP tofloat
-	std::cout << "Double: " << printDouble(num) << std::endl; //WIP todouble
+	printChar(num); //WIP test
+	printInt(num); //WIP test
+	printFloat(num); //WIP test. Handle +inff, -inff, nanf
+	printDouble(num); //WIP test. Handle +inf, -inf, nan
 }
 
 //GETTERS & SETTERS
@@ -80,19 +94,19 @@ ScalarConverter::~ScalarConverter(void)
 
 //EXCEPTIONS
 
-ScalarConverter::NoCharException::NoCharException(const std::string &reason)
+ScalarConverter::OutsideScopeException::OutsideScopeException(const std::string &reason)
 {
 	std::ostringstream out;
 	out << reason;
 	_msg = out.str();
 }
 
-ScalarConverter::NoCharException::~NoCharException() throw()
+ScalarConverter::OutsideScopeException::~OutsideScopeException() throw()
 {
 	//std::cout << "Error message destroyed" << std::endl;
 }
 
-const char *ScalarConverter::NoCharException::what() const throw()
+const char *ScalarConverter::OutsideScopeException::what() const throw()
 {
 	return (this->_msg.c_str());
 }

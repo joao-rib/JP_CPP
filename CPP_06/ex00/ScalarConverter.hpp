@@ -8,6 +8,7 @@
 #include <iomanip>
 #include <cstdlib>
 #include <cmath>
+#include <climits>
 
 class ScalarConverter
 {
@@ -19,13 +20,13 @@ private:
 public:
 	static void converter(std::string const &str);
 
-	class NoCharException: public std::exception
+	class OutsideScopeException: public std::exception
 	{
 	private:
 		std::string _msg;
 	public:
-		NoCharException(const std::string &reason);
-		virtual ~NoCharException() throw();
+		OutsideScopeException(const std::string &reason);
+		virtual ~OutsideScopeException() throw();
 		virtual const char *what() const throw();
 	};
 };
