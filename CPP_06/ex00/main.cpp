@@ -5,7 +5,8 @@ int	main(int argc, char **argv)
 try
 {
 	if (argc != 2)
-		throw ;
+		throw ScalarConverter::OutsideScopeException("Only one argument permitted.");
+	ScalarConverter::converter(argv[1]);
 }
 catch (std::exception &e)
 {

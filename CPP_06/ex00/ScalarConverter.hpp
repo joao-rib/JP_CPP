@@ -4,6 +4,7 @@
 #define SCALARCONVERTER_H
 
 #include <iostream>
+#include <sstream>
 #include <locale>
 #include <iomanip>
 #include <cstdlib>

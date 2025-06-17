@@ -14,9 +14,9 @@ void	printChar(double num)
 	{
 		std::cout << "Char: ";
 		if (num < 0 || num > 127)
-			throw OutsideScopeException("not a character.");
+			throw ScalarConverter::OutsideScopeException("not a character.");
 		else if (num < 32 || num == 127)
-			throw OutsideScopeException("not a printable character.");
+			throw ScalarConverter::OutsideScopeException("not a printable character.");
 		std::cout << static_cast<char>(num) << std::endl;
 	}
 	catch(const std::exception& e)
@@ -32,12 +32,12 @@ void	printInt(double num)
 	{
 		std::cout << "Int: ";
 		if (num > INT_MAX || num < INT_MIN)
-			throw OutsideScopeException("outside of the acceptable range of int values.");
+			throw ScalarConverter::OutsideScopeException("outside of the acceptable range of int values.");
 		std::cout << static_cast<int>(num) << std::endl;
 	}
 	catch(const std::exception& e)
 	{
-		std::cerr << "Input is " << e.what() << '\n';
+		std::cerr << "Input is " << e.what() << std::endl;
 	}
 
 }
@@ -54,13 +54,15 @@ void	printDouble(double num)
 	std::cout << num << std::endl;
 }
 
+//MEMBER FUNCTIONS
+
 void ScalarConverter::converter(std::string const &str)
 {
-	double num = atof(str.c_str()); //WIP averiguar
-	printChar(num); //WIP test
-	printInt(num); //WIP test
-	printFloat(num); //WIP test. Handle +inff, -inff, nanf
-	printDouble(num); //WIP test. Handle +inf, -inf, nan
+	double num = atof(str.c_str()); //WIP averiguar. Sanitize?
+	printChar(num); //WIP more tests. Accept actual characters?
+	printInt(num); //WIP more tests.
+	printFloat(num); //WIP more tests. Four decimals? Handle +inff, -inff, nanf
+	printDouble(num); //WIP more tests. Four decimals? Handle +inf, -inf, nan
 }
 
 //GETTERS & SETTERS
