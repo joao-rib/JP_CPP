@@ -8,6 +8,40 @@
 
 //HELPER FUNCTIONS
 
+bool	ft_isdelim(int c)
+{
+	if (c == ' ' || c == '\t' || c == '\n'
+		|| c == '\v' || c == '\f' || c == '\r')
+		return (true);
+	else
+		return (false);
+}
+
+std::string parse_input(std::string const &str)
+{
+	int	i = 0;
+	int	l = str.length();
+	if (l <= 1)
+		return str;
+	l--;
+	while (i < l && ft_isdelim(str[i]))
+		i++;
+	while (l > i && ft_isdelim(str[l]))
+		l--;
+	std::string parsed = str.substr(i, l - i + 1);
+
+	if (str[l] == 'f' )
+	{
+		char* endptr = 0;
+		std::string buff = str.substr(i, l - i);
+		std::strtod(buff.c_str(), &endptr); //(void)?
+		if (*endptr == 0)
+			parsed = str.substr(i, l - i);
+	}
+
+	return (parsed);
+}
+
 void	printChar(double num)
 {
 	try
@@ -58,11 +92,15 @@ void	printDouble(double num)
 
 void ScalarConverter::converter(std::string const &str)
 {
-	double num = atof(str.c_str()); //WIP averiguar. Sanitize?
-	printChar(num); //WIP more tests. Accept actual characters?
+	std::string buff = parse_input(str);
+	// WIP Handle nan
+	//char* endptr = 0;
+	//double num = strtod(buff.c_str(), &endptr); //WIP averiguar. Que se passa se nao for numero?
+	double num = atof(buff.c_str()); //WIP averiguar. Que se passa se nao for numero?
+	printChar(num); //WIP more tests.
 	printInt(num); //WIP more tests.
-	printFloat(num); //WIP more tests. Four decimals? Handle +inff, -inff, nanf
-	printDouble(num); //WIP more tests. Four decimals? Handle +inf, -inf, nan
+	printFloat(num); //WIP more tests. Four decimals?
+	printDouble(num); //WIP more tests. Four decimals?
 }
 
 //GETTERS & SETTERS
