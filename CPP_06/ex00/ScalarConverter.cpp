@@ -92,9 +92,9 @@ void	printFloat(double num, bool valid_num)
 {
 	std::cout << "Float: ";
 	if (!valid_num)
-		std::cout << "nan" << std::endl;
+		std::cout << "nanf" << std::endl;
 	else
-		std::cout << static_cast<float>(num) << std::endl;
+		std::cout << std::setprecision(2) << static_cast<float>(num) << "f" << std::endl;
 }
 
 void	printDouble(double num, bool valid_num)
@@ -103,7 +103,7 @@ void	printDouble(double num, bool valid_num)
 	if (!valid_num)
 		std::cout << "nan" << std::endl;
 	else
-		std::cout << num << std::endl;
+		std::cout << std::setprecision(2) << num << std::endl;
 }
 
 //MEMBER FUNCTIONS
@@ -124,8 +124,8 @@ void ScalarConverter::converter(std::string const &str)
 		printChar(num, valid_num); 
 		printInt(num, valid_num);
 	}
-	printFloat(num, valid_num); //WIP more tests. Four decimals? f at the end?
-	printDouble(num, valid_num); //WIP more tests. Four decimals?
+	printFloat(num, valid_num); //WIP more tests. One decimal.
+	printDouble(num, valid_num); //WIP more tests. One decimal.
 }
 
 //GETTERS & SETTERS
