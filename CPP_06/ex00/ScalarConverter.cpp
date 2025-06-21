@@ -17,6 +17,16 @@ bool	ft_isdelim(int c)
 		return (false);
 }
 
+std::string capitalize(std::string str)
+{
+	for (unsigned int i = 0; i < str.length(); i++)
+	{
+		if (std::isalpha(str[i]))
+			str[i] = std::toupper(str[i]);
+	}
+	return (str);
+}
+
 std::string parse_input(std::string const &str)
 {
 	int	i = 0;
@@ -34,7 +44,7 @@ std::string parse_input(std::string const &str)
 	{
 		char* endptr = 0;
 		std::string buff = str.substr(i, l - i);
-		std::strtod(buff.c_str(), &endptr); //(void)?
+		std::strtod(buff.c_str(), &endptr);
 		if (*endptr == 0)
 			parsed = str.substr(i, l - i);
 	}
@@ -42,12 +52,14 @@ std::string parse_input(std::string const &str)
 	return (parsed);
 }
 
-void	printChar(double num)
+void	printChar(double num, bool valid_num)
 {
 	try
 	{
 		std::cout << "Char: ";
-		if (num < 0 || num > 127)
+		if (!valid_num)
+			throw ScalarConverter::OutsideScopeException("an impossible value.");
+		else if (num < 0 || num > 127)
 			throw ScalarConverter::OutsideScopeException("not a character.");
 		else if (num < 32 || num == 127)
 			throw ScalarConverter::OutsideScopeException("not a printable character.");
@@ -57,15 +69,16 @@ void	printChar(double num)
 	{
 		std::cerr << "Input is " << e.what() << std::endl;
 	}
-	
 }
 
-void	printInt(double num)
+void	printInt(double num, bool valid_num)
 {
 	try
 	{
 		std::cout << "Int: ";
-		if (num > INT_MAX || num < INT_MIN)
+		if (!valid_num)
+			throw ScalarConverter::OutsideScopeException("an impossible value.");
+		else if (num > INT_MAX || num < INT_MIN)
 			throw ScalarConverter::OutsideScopeException("outside of the acceptable range of int values.");
 		std::cout << static_cast<int>(num) << std::endl;
 	}
@@ -73,19 +86,24 @@ void	printInt(double num)
 	{
 		std::cerr << "Input is " << e.what() << std::endl;
 	}
-
 }
 
-void	printFloat(double num)
+void	printFloat(double num, bool valid_num)
 {
 	std::cout << "Float: ";
-	std::cout << static_cast<float>(num) << std::endl;
+	if (!valid_num)
+		std::cout << "nan" << std::endl;
+	else
+		std::cout << static_cast<float>(num) << std::endl;
 }
 
-void	printDouble(double num)
+void	printDouble(double num, bool valid_num)
 {
 	std::cout << "Double: ";
-	std::cout << num << std::endl;
+	if (!valid_num)
+		std::cout << "nan" << std::endl;
+	else
+		std::cout << num << std::endl;
 }
 
 //MEMBER FUNCTIONS
@@ -93,14 +111,21 @@ void	printDouble(double num)
 void ScalarConverter::converter(std::string const &str)
 {
 	std::string buff = parse_input(str);
-	// WIP Handle nan
-	//char* endptr = 0;
-	//double num = strtod(buff.c_str(), &endptr); //WIP averiguar. Que se passa se nao for numero?
-	double num = atof(buff.c_str()); //WIP averiguar. Que se passa se nao for numero?
-	printChar(num); //WIP more tests.
-	printInt(num); //WIP more tests.
-	printFloat(num); //WIP more tests. Four decimals?
-	printDouble(num); //WIP more tests. Four decimals?
+	char* endptr = 0;
+	double num = strtod(buff.c_str(), &endptr);
+	bool valid_num = endptr != buff.c_str() && *endptr == '\0';
+	if (capitalize(buff) == "NAN" || capitalize(buff) == "-NAN")
+	{
+		printChar(num, false);
+		printInt(num, false);
+	}
+	else
+	{
+		printChar(num, valid_num); 
+		printInt(num, valid_num);
+	}
+	printFloat(num, valid_num); //WIP more tests. Four decimals? f at the end?
+	printDouble(num, valid_num); //WIP more tests. Four decimals?
 }
 
 //GETTERS & SETTERS
