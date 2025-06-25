@@ -8,15 +8,6 @@
 
 //HELPER FUNCTIONS
 
-bool	ft_isdelim(int c)
-{
-	if (c == ' ' || c == '\t' || c == '\n'
-		|| c == '\v' || c == '\f' || c == '\r')
-		return (true);
-	else
-		return (false);
-}
-
 std::string capitalize(std::string str)
 {
 	for (unsigned int i = 0; i < str.length(); i++)
@@ -25,6 +16,31 @@ std::string capitalize(std::string str)
 			str[i] = std::toupper(str[i]);
 	}
 	return (str);
+}
+
+bool	is_numerical(std::string str)
+{
+	if (str == "INF" || str == "-INF" || str == "INFF" || str == "-INFF" || str == "NAN" || str == "-NAN")
+		return (true);
+	int i = 0;
+	if (str[i] == '+' || str[i] == '-')
+		i++;
+	while (str[i])
+	{
+		if (str[i] < '0' || str[i] > '9')
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
+bool	ft_isdelim(int c)
+{
+	if (c == ' ' || c == '\t' || c == '\n'
+		|| c == '\v' || c == '\f' || c == '\r')
+		return (true);
+	else
+		return (false);
 }
 
 std::string parse_input(std::string const &str)
@@ -94,7 +110,7 @@ void	printFloat(double num, bool valid_num)
 	if (!valid_num)
 		std::cout << "nanf" << std::endl;
 	else
-		std::cout << std::setprecision(2) << static_cast<float>(num) << "f" << std::endl;
+		std::cout << std::fixed << std::setprecision(1) << static_cast<float>(num) << "f" << std::endl;
 }
 
 void	printDouble(double num, bool valid_num)
@@ -103,7 +119,7 @@ void	printDouble(double num, bool valid_num)
 	if (!valid_num)
 		std::cout << "nan" << std::endl;
 	else
-		std::cout << std::setprecision(2) << num << std::endl;
+		std::cout << std::fixed << std::setprecision(1) << num << std::endl;
 }
 
 //MEMBER FUNCTIONS
@@ -111,6 +127,11 @@ void	printDouble(double num, bool valid_num)
 void ScalarConverter::converter(std::string const &str)
 {
 	std::string buff = parse_input(str);
+	if (!is_numerical(capitalize(buff)))
+	{
+		std::cout << "Input is not a number" << std::endl;
+		return;
+	}
 	char* endptr = 0;
 	double num = strtod(buff.c_str(), &endptr);
 	bool valid_num = endptr != buff.c_str() && *endptr == '\0';
@@ -124,8 +145,8 @@ void ScalarConverter::converter(std::string const &str)
 		printChar(num, valid_num); 
 		printInt(num, valid_num);
 	}
-	printFloat(num, valid_num); //WIP more tests. One decimal.
-	printDouble(num, valid_num); //WIP more tests. One decimal.
+	printFloat(num, valid_num);
+	printDouble(num, valid_num);
 }
 
 //GETTERS & SETTERS
