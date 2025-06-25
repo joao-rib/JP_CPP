@@ -25,6 +25,8 @@ bool	is_numerical(std::string str)
 	int i = 0;
 	if (str[i] == '+' || str[i] == '-')
 		i++;
+	if (!str[i])
+		return (false);
 	while (str[i])
 	{
 		if (str[i] < '0' || str[i] > '9')
@@ -128,10 +130,7 @@ void ScalarConverter::converter(std::string const &str)
 {
 	std::string buff = parse_input(str);
 	if (!is_numerical(capitalize(buff)))
-	{
-		std::cout << "Input is not a number" << std::endl;
-		return;
-	}
+		throw OutsideScopeException("Input is not a number");
 	char* endptr = 0;
 	double num = strtod(buff.c_str(), &endptr);
 	bool valid_num = endptr != buff.c_str() && *endptr == '\0';
