@@ -27,9 +27,12 @@ bool	is_numerical(std::string str)
 		i++;
 	if (!str[i])
 		return (false);
+	bool is_fraction = false;
 	while (str[i])
 	{
-		if (str[i] < '0' || str[i] > '9')
+		if (str[i] == '.' && !is_fraction)
+			is_fraction = true;
+		else if (str[i] < '0' || str[i] > '9')
 			return (false);
 		i++;
 	}
