@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef SERIALIZER_H
-#define SERIALIZER_H
+#ifndef WHATEVER_H
+#define WHATEVER_H
 
 #include <iostream>
 #include <sstream>

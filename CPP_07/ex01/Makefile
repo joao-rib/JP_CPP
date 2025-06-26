@@ -1,8 +1,8 @@
-NAME = Whatever
+NAME = Iter
 CPP = c++
 FLAGS = -Wall -Werror -Wextra -std=c++98
 MAIN = main.cpp
-#SRC = whatever.cpp
+#SRC = iter.cpp
 RM = rm -fr
 
 all: $(NAME)
