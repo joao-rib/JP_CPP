@@ -16,24 +16,23 @@ template<typename T>
 class Array
 {
 private:
-	T&				_value;
+	T&				_values;
 	unsigned int	_size;
 public:
-	Array(); //WIP empty array
-	Array(unsigned int n); //WIP n elements, initialised by default
-	Array(const Array &orig); //WIP deep copy
-	Array &operator = (const Array &orig); //WIP deep copy
-	~Array(); //WIP build it
+	Array();
+	Array(unsigned int n);
+	Array(const Array &orig);
+	Array &operator = (const Array &orig);
+	~Array();
 
 	unsigned int	size(void) const;
 
-	//WIP build it
 	class OutOfBoundsException: public std::exception
 	{
 	private:
 		std::string _msg;
 	public:
-		OutOfBoundsException(const Array &paper, const std::string &reason);
+		OutOfBoundsException(const Array &arr, unsigned int pos);
 		virtual ~OutOfBoundsException() throw();
 		virtual const char *what() const throw();
 	};
