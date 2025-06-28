@@ -27,6 +27,8 @@ public:
 
 	unsigned int	size(void) const;
 
+	T&	operator [] (unsigned int index);
+
 	class OutOfBoundsException: public std::exception
 	{
 	private:

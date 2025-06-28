@@ -43,7 +43,7 @@ Array<T>::Array(const Array &orig): _values(orig._values), _size(orig._size)
 {
 	_size = orig.size();
 	if (this->_values)
-		delete[] _values;
+		delete[] &_values;
 	_values = new T[this->size()];
 	for (unsigned int i = 0 ; i < this->size() ; i++)
 		_values[i] = orig._values[i];
@@ -67,7 +67,7 @@ template<typename T>
 Array<T>::~Array(void)
 {
 	//std::cout << "Array starting with " << this->_values << " will be destroyed...";
-	delete[] _values;
+	delete[] &_values;
 	//std::cout << "...done. All " << this->size() << " elements were destroyed" << std::endl;
 }
 
@@ -75,7 +75,32 @@ Array<T>::~Array(void)
 //OVERLOAD OPERATIONS
 //
 
-//WIP
+template<typename T>
+T&	Array<T>::operator [] (unsigned int index)
+{
+	if (index >= this->size())
+		throw OutOfBoundsException(this*, index);
+	return (_values[index]);
+}
+
+/*// T& operator[]( unsigned int index );
+template <typename T>
+T& Array<T>::operator[]( unsigned int index )
+{
+  if ( index >= _arraySize )
+    throw Array::OutOfBoundsException();
+  return _elements[index];
+}
+
+
+// const T& operator[]( unsigned int index ) const;
+template <typename T>
+const T& Array<T>::operator[]( unsigned int index ) const
+{
+  if ( index >= _arraySize )
+    throw Array::OutOfBoundsException();
+  return _elements[index];
+}*/
 
 //
 //EXCEPTIONS
