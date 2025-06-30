@@ -7,35 +7,41 @@
 
 int main(void)
 {
-	//Array<int>	empt = Array<int>();
+	Array<int>	empt = Array<int>();
+    std::cout << "Empty array is of size " << empt.size() << std::endl;
+
 	Array<int>	numbers(MAX_VAL);
 	int* mirror = new int[MAX_VAL];
 	srand(time(NULL));
 	for (int i = 0; i < MAX_VAL; i++)
 	{
-        const int value = rand();
-        numbers[i] = value;
-        mirror[i] = value;
-    }
-    //SCOPE
-    {
-        Array<int> tmp = numbers;
-        Array<int> test(tmp);
-    }
+		const int value = rand();
+		numbers[i] = value;
+		mirror[i] = value;
+	}
 
-    for (int i = 0; i < MAX_VAL; i++)
-    {
-        if (mirror[i] != numbers[i])
-        {
-            std::cerr << "didn't save the same value!!" << std::endl;
-            return 1;
-        }
-    }
-    try
-    {
-        std::cout << "Position 2 of the Numbers array contains the number " << numbers[2] << std::endl;
-        numbers[-2] = 0;
-    }
+	{
+		Array<int> tmp = numbers;
+		std::cout << "Position 2 of the tmp array contains the number " << tmp[2] << std::endl;
+		std::cout << "Position 749 of the tmp array contains the number " << tmp[MAX_VAL - 1] << std::endl;
+		Array<int> test(tmp);
+		std::cout << "Position 2 of the test array contains the number " << test[2] << std::endl;
+		std::cout << "Position 749 of the test array contains the number " << test[MAX_VAL - 1] << std::endl;
+	}
+
+	for (int i = 0; i < MAX_VAL; i++)
+	{
+		if (mirror[i] != numbers[i])
+		{
+			std::cerr << "didn't save the same value!!" << std::endl;
+			return 1;
+		}
+	}
+	try
+	{
+		std::cout << "Position 2 of the Numbers array contains the number " << numbers[2] << std::endl;
+		numbers[-2] = 0;
+	}
     catch(const std::exception& e)
     {
         std::cerr << e.what() << '\n';
@@ -58,7 +64,7 @@ int main(void)
     try
     {
         std::cout << '\n' << "Position 2 of the Numbers array now contains the number " << numbers[2] << std::endl;
-        std::cout << "Position 2 of the Mirror array contains the number " << numbers[2] << std::endl;
+        std::cout << "Position 2 of the Mirror array contains the number " << mirror[2] << std::endl;
     }
     catch(const std::exception& e)
     {
@@ -67,7 +73,7 @@ int main(void)
     try
     {
         std::cout << "Position 749 of the Numbers array now contains the number " << numbers[MAX_VAL - 1] << std::endl;
-        std::cout << "Position 749 of the Mirror array contains the number " << numbers[MAX_VAL - 1] << std::endl;
+        std::cout << "Position 749 of the Mirror array contains the number " << mirror[MAX_VAL - 1] << std::endl;
     }
     catch(const std::exception& e)
     {
@@ -80,42 +86,34 @@ int main(void)
 
 /*int main(void)
 {
-  // Constructor
-  Array<int> emptyArray;
-  std::cout << "Size of emptyArray: "
-            << emptyArray.size() << std::endl << std::endl;
+    Array<std::string> stringArray(10);
+    std::cout << "stringArray contains " << stringArray.size() << " strings." << std::endl << std::endl;
+    stringArray[0] = "String 1";
+    stringArray[1] = "String 2";
+    stringArray[2] = "String 3";
+    stringArray[3] = "String 4";
+    stringArray[4] = "String 5";
+    stringArray[5] = "String 6";
+    stringArray[6] = "String 7";
+    stringArray[7] = "String 8";
+    stringArray[8] = "String 9";
+    stringArray[9] = "String 10";
 
-  // Constructor with argument
-  Array<std::string> stringArray( 10 );
-  std::cout << "Size of stringArray: "
-          << stringArray.size() << std::endl << std::endl;
-  stringArray[0] = "String 1";
-  stringArray[1] = "String 2";
-  stringArray[2] = "String 3";
-  stringArray[3] = "String 4";
-  stringArray[4] = "String 5";
-  stringArray[5] = "String 6";
-  stringArray[6] = "String 7";
-  stringArray[7] = "String 8";
-  stringArray[8] = "String 9";
-  stringArray[9] = "String 10";
+    for ( unsigned int i = 0; i < stringArray.size(); i++ )
+        std::cout << stringArray[i] << std::endl << std::endl;
 
-  for ( unsigned int i = 0; i < stringArray.size(); i++ ) {
-    std::cout << stringArray[i] << std::endl << std::endl;
-  }
+    try
+    {
+        std::cout << stringArray[10] << std::endl << std::endl ;
+    }
+    catch( std::exception& e )
+    {
+        std::cout << "Error caught: " << e.what() << std::endl << std::endl;
+    }
 
-  // Forcing an Out of Bounds exception
-  try {
-    std::cout << stringArray[10] << std::endl << std::endl ;
-  } catch( std::exception& e ) {
-    std::cout << "Error caught: " << e.what() << std::endl << std::endl;
-  }
-
-  // Copy and Assignment constructors
-  Array<std::string> copyStringArray( stringArray );
-
-  Array<std::string> assignmentStringArray;
-  assignmentStringArray = stringArray;
+    Array<std::string> copyStringArray( stringArray );
+    Array<std::string> assignmentStringArray;
+    assignmentStringArray = stringArray;
 
   std::cout << "stringArray value: " << stringArray[0] << std::endl
             << "copyStringArray value: " <<  copyStringArray[0] << std::endl
