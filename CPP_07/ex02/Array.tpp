@@ -28,8 +28,8 @@ Array<T> &Array<T>::operator = (const Array &orig)
 	if (this != &orig)
 	{
 		_size = orig.size();
-		if (this->_values)
-			delete[] _values;
+		//if (this->_values)
+		delete[] _values;
 		_values = new T[this->size()];
 		for (unsigned int i = 0 ; i < this->size() ; i++)
 			_values[i] = orig._values[i];
@@ -39,12 +39,12 @@ Array<T> &Array<T>::operator = (const Array &orig)
 }
 
 template<typename T>
-Array<T>::Array(const Array &orig): _values(orig._values), _size(orig._size)
+Array<T>::Array(const Array &orig): _values(NULL), _size(orig._size)
 {
 	_size = orig.size();
-	if (this->_values)
-		delete[] &_values;
-	_values = new T[this->size()];
+	//if (this->_values)
+	delete[] _values;
+	_values = new T[orig.size()];
 	for (unsigned int i = 0 ; i < this->size() ; i++)
 		_values[i] = orig._values[i];
 	//std::cout << "Array of size " << this->size() << " was copy constructed." << std::endl;
@@ -54,7 +54,7 @@ template<typename T>
 Array<T>::Array(unsigned int n): _size(n)
 {
 	_values = new T[this->size()];
-	//std::cout << "Array of size " << this->size() << ", starting with " << this->_values << ", was created" << std::endl;
+	//std::cout << "Array of size " << this->size() << ", starting with " << *this->_values << ", was created" << std::endl;
 }
 
 template<typename T>
@@ -66,8 +66,8 @@ Array<T>::Array(void): _values(NULL), _size(0)
 template<typename T>
 Array<T>::~Array(void)
 {
-	//std::cout << "Array starting with " << this->_values << " will be destroyed...";
-	delete[] &_values;
+	//std::cout << "Array starting with " << *this->_values << " will be destroyed...";
+	delete[] _values;
 	//std::cout << "...done. All " << this->size() << " elements were destroyed" << std::endl;
 }
 
@@ -76,10 +76,10 @@ Array<T>::~Array(void)
 //
 
 template<typename T>
-T&	Array<T>::operator [] (unsigned int index)
+T&	Array<T>::operator [] (long index)
 {
-	if (index >= this->size())
-		throw OutOfBoundsException(this*, index);
+	if (index >= this->size() || index < 0)
+		throw OutOfBoundsException(*this, index);
 	return (_values[index]);
 }
 
@@ -107,7 +107,7 @@ const T& Array<T>::operator[]( unsigned int index ) const
 //
 
 template<typename T>
-Array<T>::OutOfBoundsException::OutOfBoundsException(const Array &arr, unsigned int pos)
+Array<T>::OutOfBoundsException::OutOfBoundsException(const Array &arr, long pos)
 {
 	std::ostringstream out;
 	out << "Position "<< pos << " lies outside of the bounds of an array of size " << arr.size();

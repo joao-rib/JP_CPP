@@ -16,7 +16,7 @@ template<typename T>
 class Array
 {
 private:
-	T&				_values;
+	T*				_values;
 	unsigned int	_size;
 public:
 	Array();
@@ -27,14 +27,14 @@ public:
 
 	unsigned int	size(void) const;
 
-	T&	operator [] (unsigned int index);
+	T&	operator [] (long index);
 
 	class OutOfBoundsException: public std::exception
 	{
 	private:
 		std::string _msg;
 	public:
-		OutOfBoundsException(const Array &arr, unsigned int pos);
+		OutOfBoundsException(const Array &arr, long pos);
 		virtual ~OutOfBoundsException() throw();
 		virtual const char *what() const throw();
 	};
