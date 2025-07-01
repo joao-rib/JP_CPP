@@ -19,4 +19,11 @@ void	iter(T* arr_add, unsigned int len, void (*funct)(T&))
 		funct(arr_add[i]);
 }
 
+template<typename T>
+void	iter(T* arr_add, unsigned int len, void (*funct)(const T&))
+{
+	for (unsigned int i = 0; i < len; i++)
+		funct(arr_add[i]);
+}
+
 #endif

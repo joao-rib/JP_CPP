@@ -15,6 +15,11 @@ void capitalize(std::string &str)
 	//return (str);
 }
 
+void print_capitals(std::string const &str)
+{
+	std::cout << '\t' << str << std::endl;
+}
+
 int	main(void)
 {
 	//STRINGS
@@ -38,6 +43,23 @@ int	main(void)
 	std::cout << '\t' << array[1] << std::endl;
 	std::cout << '\t' << array[2] << std::endl << std::endl;
 
+	//CONST STRINGS
+
+	const std::string const_array[] = 
+	{
+		"ConString1",
+		"ConString2",
+		"ConString3",
+	};
+
+	std::cout << "Before iter: " << std::endl;
+	std::cout << '\t' << const_array[0] << std::endl;
+	std::cout << '\t' << const_array[1] << std::endl;
+	std::cout << '\t' << const_array[2] << std::endl;
+
+	std::cout << "This is const iter: " << std::endl;
+	::iter(const_array, 3, print_capitals);
+
 	//NUMBERS
 
 	double numbers[] = 
@@ -47,7 +69,7 @@ int	main(void)
 		1200.465,
 	};
 
-	std::cout << "Before iter: " << std::endl;
+	std::cout << '\n' << "Before iter: " << std::endl;
 	std::cout << '\t' << numbers[0] << std::endl;
 	std::cout << '\t' << numbers[1] << std::endl;
 	std::cout << '\t' << numbers[2] << std::endl;

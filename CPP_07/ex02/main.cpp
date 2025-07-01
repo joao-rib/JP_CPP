@@ -71,12 +71,17 @@ int main(void)
     try
     {
         std::cout << "Position 749 of the Numbers array now contains the number " << numbers[MAX_VAL - 1] << std::endl;
-        std::cout << "Position 749 of the Mirror array contains the number " << mirror[MAX_VAL - 1] << std::endl;
+        std::cout << "Position 749 of the Mirror array contains the number " << mirror[MAX_VAL - 1] << std::endl << std::endl;
     }
     catch(const std::exception& e)
     {
         std::cerr << e.what() << '\n';
     }
+
+    // Const version of operator []
+    const Array<int> constArray(numbers);
+    std::cout << "constArray value [2]: " << constArray[2] << std::endl;
+    std::cout << "constArray size: " << constArray.size() << std::endl;
 
     delete [] mirror;
     return 0;

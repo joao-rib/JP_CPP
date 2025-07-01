@@ -28,6 +28,7 @@ public:
 	unsigned int	size(void) const;
 
 	T&	operator [] (long index);
+	const T&	operator [] (long index) const;
 
 	class OutOfBoundsException: public std::exception
 	{

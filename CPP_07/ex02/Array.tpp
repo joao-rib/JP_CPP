@@ -83,6 +83,14 @@ T&	Array<T>::operator [] (long index)
 	return (_values[index]);
 }
 
+template<typename T>
+const T&	Array<T>::operator [] (long index) const
+{
+	if (index >= this->size() || index < 0)
+		throw OutOfBoundsException(*this, index);
+	return (_values[index]);
+}
+
 //
 //EXCEPTIONS
 //
