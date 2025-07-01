@@ -3,8 +3,6 @@
 
 #define MAX_VAL 750
 
-//WIP Test the assigment and copy constructors
-
 int main(void)
 {
 	Array<int>	empt = Array<int>();

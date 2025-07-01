@@ -83,25 +83,6 @@ T&	Array<T>::operator [] (long index)
 	return (_values[index]);
 }
 
-/*// T& operator[]( unsigned int index );
-template <typename T>
-T& Array<T>::operator[]( unsigned int index )
-{
-  if ( index >= _arraySize )
-    throw Array::OutOfBoundsException();
-  return _elements[index];
-}
-
-
-// const T& operator[]( unsigned int index ) const;
-template <typename T>
-const T& Array<T>::operator[]( unsigned int index ) const
-{
-  if ( index >= _arraySize )
-    throw Array::OutOfBoundsException();
-  return _elements[index];
-}*/
-
 //
 //EXCEPTIONS
 //
