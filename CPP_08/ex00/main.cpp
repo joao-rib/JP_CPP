@@ -27,5 +27,21 @@ int	main(void)
 	std::list<int>				list_values;
 	//std::list<std::string>	list_names;
 
+	list_values.push_back(21);
+	list_values.push_back(10);
+	list_values.push_back(1989);
+	/*list_names.push_back("Day");
+	list_names.push_back("Month");
+	list_names.push_back("Year");*/
+
+	try {
+		//::easyfind(list_names, 10);
+		::easyfind(list_values, 10);
+		std::cout << "10 was found in list_values, not in list_names" << std::endl;
+	}
+	catch(const std::exception& e) {
+		std::cerr << e.what() << std::endl;
+	}
+
 	return 0;
 }
