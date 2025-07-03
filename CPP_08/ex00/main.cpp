@@ -7,6 +7,14 @@ int	main(void)
 	std::vector<int>			vec_values;
 	//std::vector<std::string>	vec_names;
 
+	try {
+		::easyfind(vec_values, 42);
+		std::cout << "No values yet" << std::endl;
+	}
+	catch(const std::exception& e) {
+		std::cerr << e.what() << std::endl;
+	}
+
 	vec_values.push_back(21);
 	vec_values.push_back(10);
 	vec_values.push_back(1989);

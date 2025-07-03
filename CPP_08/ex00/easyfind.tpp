@@ -11,23 +11,6 @@
 template<typename T>
 typename T::iterator	easyfind(T& int_container, int num)
 {
-/*  typename T::iterator searchResult;
-  searchResult = std::find( container.begin(), container.end(), value );
-
-  if ( searchResult == container.end() )
-    throw ::NotFoundException();
-
-  return searchResult;*/
-
-	/*typename T::iterator result = NULL;
-	int cont_size = int_container.size();
-
-	for (int i = 0; i < cont_size; i++) {
-		if (int_container[i] == num)
-			return (int_container[i]);
-	}
-	
-	throw NoOccurrenceException(" was not found in this container.", num);*/
 	if (int_container.empty())
 		throw ::NoOccurrenceException(" cannot be found in an empty container.", num);
 
