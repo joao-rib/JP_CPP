@@ -78,10 +78,18 @@ int main(void)
         std::cerr << e.what() << '\n';
     }
 
-    // Const version of operator []
     const Array<int> constArray(numbers);
     std::cout << "constArray value [2]: " << constArray[2] << std::endl;
     std::cout << "constArray size: " << constArray.size() << std::endl;
+
+    try
+    {
+        std::cout << "constArray value [-2]: " << constArray[-2] << std::endl;
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
 
     delete [] mirror;
     return 0;
