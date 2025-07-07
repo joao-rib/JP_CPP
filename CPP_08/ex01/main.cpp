@@ -9,8 +9,17 @@ int main()
 		sp.addNumber(17);
 		sp.addNumber(9);
 		sp.addNumber(11);
-	
-		std::cout << sp.shortestSpan() << std::endl; //WIP Not working properly. Returning 0.
+		//sp.addNumber(-34);
+
+		/*srand(time(NULL));
+		unsigned int len = 100000;
+		Span sp = Span(len);
+		for (unsigned int i = 0; i < len; i++) {
+			sp.addNumber(rand());
+		}*/
+		//sp.addNumber(rand());
+
+		std::cout << sp.shortestSpan() << std::endl;
 		std::cout << sp.longestSpan() << std::endl;
 	}
 	catch (std::exception &e) {

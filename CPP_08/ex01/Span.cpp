@@ -22,7 +22,7 @@ void	Span::addNumber(int num)
 		throw FullSpanException(this->_size);
 
 	this->_int_vec.push_back(num);
-	std::cout << num << " has been added to the integer array." << std::endl;
+	//std::cout << num << " has been added to the integer array." << std::endl;
 }
 
 unsigned int	Span::shortestSpan(void) const
@@ -38,7 +38,9 @@ unsigned int	Span::shortestSpan(void) const
 	{
 		for (unsigned int j = 0; j < s; j++)
 		{
-			if (diff(_int_vec[i], _int_vec[j]) < r)
+			if (i == j)
+				continue ;
+			else if (diff(_int_vec[i], _int_vec[j]) < r)
 				r = diff(_int_vec[i], _int_vec[j]);
 		}
 	}
