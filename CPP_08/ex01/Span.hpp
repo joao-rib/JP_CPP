@@ -33,10 +33,10 @@ public:
 	unsigned int	longestSpan(void) const;
 
 	void	addNumber(int num);
-	//void	addMultiNumbers(void);
+	//void	addManyRandomNumbers(void); // WIP optional, should do
 
-	//T&	operator [] (long index);
-	//const T&	operator [] (long index) const;
+	//T&	operator [] (long index); // WIP optional, might do
+	//const T&	operator [] (long index) const; // WIP optional, might do
 
 	class FullSpanException: public std::exception
 	{
