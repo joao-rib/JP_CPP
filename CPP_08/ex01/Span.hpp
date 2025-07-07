@@ -17,12 +17,11 @@
 #include <algorithm>
 #include <typeinfo>
 
-template<typename T>
 class Span
 {
 private:
-	std::vector<int	_int_vec;
-	unsigned int	_size;
+	std::vector<int> _int_vec;
+	unsigned int	 _size;
 public:
 	Span();
 	Span(unsigned int N);
@@ -30,8 +29,8 @@ public:
 	Span &operator = (const Span &orig);
 	~Span();
 
-	int		shortestSpan(void) const;
-	int		longestSpan(void) const;
+	unsigned int	shortestSpan(void) const;
+	unsigned int	longestSpan(void) const;
 
 	void	addNumber(int num);
 	//void	addMultiNumbers(void);
@@ -59,7 +58,5 @@ public:
 		virtual const char *what() const throw();
 	};
 };
-
-#include "Span.tpp"
 
 #endif
