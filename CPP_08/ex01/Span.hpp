@@ -33,10 +33,10 @@ public:
 	unsigned int	longestSpan(void) const;
 
 	void	addNumber(int num);
-	//void	addManyRandomNumbers(void); // WIP optional, should do
+	void	addManyRandomNumbers(unsigned int num);
 
-	//T&	operator [] (long index); // WIP optional, might do
-	//const T&	operator [] (long index) const; // WIP optional, might do
+	int	&operator [] (long index);
+	const int	&operator [] (long index) const;
 
 	class FullSpanException: public std::exception
 	{
@@ -55,6 +55,16 @@ public:
 	public:
 		NoSpanException();
 		virtual ~NoSpanException() throw();
+		virtual const char *what() const throw();
+	};
+
+	class OutOfBoundsException: public std::exception
+	{
+	private:
+		std::string _msg;
+	public:
+		OutOfBoundsException(const Span &arr, long pos);
+		virtual ~OutOfBoundsException() throw();
 		virtual const char *what() const throw();
 	};
 };

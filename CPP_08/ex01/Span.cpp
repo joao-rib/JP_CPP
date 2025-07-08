@@ -25,6 +25,20 @@ void	Span::addNumber(int num)
 	//std::cout << num << " has been added to the integer array." << std::endl;
 }
 
+void	Span::addManyRandomNumbers(unsigned int num)
+{
+	unsigned int rem = this->_size - this->_int_vec.size();
+
+	if (num > rem)
+		throw FullSpanException(rem);
+
+	srand(time(NULL));
+	for (unsigned int i = 0; i < num; i++) {
+		this->addNumber(rand());
+	}
+	//std::cout << num << " integers have been added to the integer array." << std::endl;
+}
+
 unsigned int	Span::shortestSpan(void) const
 {
 	unsigned int s = this->_int_vec.size();
@@ -101,6 +115,20 @@ Span::~Span(void)
 // OVERLOAD OPERATIONS
 //
 
+int	&Span::operator [] (long index)
+{
+	if (static_cast<unsigned long>(index) >= this->_int_vec.size() || index < 0)
+		throw OutOfBoundsException(*this, index);
+	return (_int_vec[index]);
+}
+
+const int	&Span::operator [] (long index) const
+{
+	if (static_cast<unsigned long>(index) >= this->_int_vec.size() || index < 0)
+		throw OutOfBoundsException(*this, index);
+	return (_int_vec[index]);
+}
+
 //
 // EXCEPTIONS
 //
@@ -135,6 +163,23 @@ Span::NoSpanException::~NoSpanException() throw()
 }
 
 const char *Span::NoSpanException::what() const throw()
+{
+	return (this->_msg.c_str());
+}
+
+Span::OutOfBoundsException::OutOfBoundsException(const Span &arr, long pos)
+{
+	std::ostringstream out;
+	out << "Position "<< pos << " lies outside of the bounds of a container of size " << arr._size;
+	_msg = out.str();
+}
+
+Span::OutOfBoundsException::~OutOfBoundsException() throw()
+{
+	//std::cout << "Error message destroyed" << std::endl;
+}
+
+const char *Span::OutOfBoundsException::what() const throw()
 {
 	return (this->_msg.c_str());
 }

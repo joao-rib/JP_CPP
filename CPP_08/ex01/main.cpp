@@ -11,16 +11,23 @@ int main()
 		sp.addNumber(11);
 		//sp.addNumber(-34);
 
-		/*srand(time(NULL));
-		unsigned int len = 100000;
-		Span sp = Span(len);
-		for (unsigned int i = 0; i < len; i++) {
-			sp.addNumber(rand());
-		}*/
-		//sp.addNumber(rand());
+		unsigned int len = 10000;
+		Span multi = Span(len);
+		multi.addManyRandomNumbers(len);
+		//sp.addNumber(42);
 
 		std::cout << sp.shortestSpan() << std::endl;
 		std::cout << sp.longestSpan() << std::endl;
+
+		std::cout << multi.shortestSpan() << std::endl;
+		std::cout << multi.longestSpan() << std::endl;
+
+		std::cout << sp[2] << std::endl;
+		std::cout << multi[2] << std::endl;
+		//std::cout << sp[8] << std::endl;
+		//std::cout << multi[10000] << std::endl;
+		//std::cout << sp[-2] << std::endl;
+		//std::cout << multi[-2] << std::endl;
 	}
 	catch (std::exception &e) {
 		std::cerr << e.what() << std::endl;
