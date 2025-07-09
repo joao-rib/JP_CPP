@@ -95,42 +95,8 @@ MutantStack<T>::~MutantStack(void)
 //OVERLOAD OPERATIONS
 //
 
-/*template<typename T>
-T&	MutantStack<T>::operator [] (long index)
-{
-	if (index >= this->size() || index < 0)
-		throw OutOfBoundsException(*this, index);
-	return (_values[index]);
-}
-
-template<typename T>
-const T&	MutantStack<T>::operator [] (long index) const
-{
-	if (index >= this->size() || index < 0)
-		throw OutOfBoundsException(*this, index);
-	return (_values[index]);
-}*/
-
 //
 //EXCEPTIONS
 //
 
-/*template<typename T>
-MutantStack<T>::OutOfBoundsException::OutOfBoundsException(const MutantStack &arr, long pos)
-{
-	std::ostringstream out;
-	out << "Position "<< pos << " lies outside of the bounds of an MutantStack of size " << arr.size();
-	_msg = out.str();
-}
 
-template<typename T>
-MutantStack<T>::OutOfBoundsException::~OutOfBoundsException() throw()
-{
-	//std::cout << "Error message destroyed" << std::endl;
-}
-
-template<typename T>
-const char *MutantStack<T>::OutOfBoundsException::what() const throw()
-{
-	return (this->_msg.c_str());
-}*/

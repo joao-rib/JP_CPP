@@ -44,18 +44,6 @@ public:
 	const_reverse_iterator rbegin(void) const;
 	const_reverse_iterator rend(void) const;
 
-	//T&	operator [] (long index);
-	//const T&	operator [] (long index) const;
-
-	/*class OutOfBoundsException: public std::exception
-	{
-	private:
-		std::string _msg;
-	public:
-		OutOfBoundsException(const MutantStack &arr, long pos);
-		virtual ~OutOfBoundsException() throw();
-		virtual const char *what() const throw();
-	};*/
 };
 
 #include "MutantStack.tpp"
