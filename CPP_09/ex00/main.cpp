@@ -1,48 +1,22 @@
 #include "BitcoinExchange.hpp"
 
-int	main()
+static bool parse_file(std::string filename)
+{
+	;
+}
+
+int	main(int argc, char **argv)
 {
 try
 {
-	Bureaucrat	Matrix("Agent Smith", 1);
-	Bureaucrat	Hitman("Agent 47", 47);
-	Bureaucrat	MIB("Agent J", 142);
-	Bureaucrat	goon;
-	ShrubberyCreationForm		scf("Av_Aliados");		// Sign 145, Exec 137
-	//RobotomyRequestForm			rrf("Coporob");			// Sign 72, Exec 45
-	PresidentialPardonForm		ppf("Nelson Mandela");	// Sign 25, Exec 5
-
-	Intern someRandomIntern;
-	AForm* rrf;
-	rrf = someRandomIntern.makeForm("robotomy request", "Bender");
-
-	std::cout << Matrix << " is on the scene." << std::endl;
-	std::cout << Hitman << " is on the scene." << std::endl;
-	std::cout << MIB << " is on the scene." << std::endl;
-	std::cout << goon << " is on the scene." << std::endl;
-
-	std::cout << std::endl << scf << " needs to be signed and executed." << std::endl; // Sign 145, Exec 137
-	Hitman.executeForm(scf);
-	goon.signForm(scf);
-	MIB.signForm(scf);
-	Hitman.signForm(scf);
-	MIB.executeForm(scf);
-	Hitman.executeForm(scf);
-
-	std::cout << std::endl << *rrf << " needs to be signed and executed." << std::endl; // Sign 72, Exec 45
-	Hitman.executeForm(*rrf);
-	MIB.signForm(*rrf);
-	Hitman.signForm(*rrf);
-	Hitman.executeForm(*rrf);
-	Matrix.executeForm(*rrf);
-	delete rrf;
-
-	std::cout << std::endl << ppf << " needs to be signed and executed." << std::endl; // Sign 25, Exec 5
-	Matrix.executeForm(ppf);
-	Hitman.signForm(ppf);
-	Matrix.signForm(ppf);
-	Hitman.executeForm(ppf);
-	Matrix.executeForm(ppf);
+	if (argc != 2)
+		throw ; //WIP write exception
+	if (!check_data())
+		throw ; //WIP write function, see if data.csv exists, and is valid... maybe store values already.
+	if (!parse_file(argv[1]))
+		throw ; //WIP write function, open file, check formatting
+	std::vector bitcoin_vec = store_values(argv[1]); //WIP write function, calculate exchange, save values
+	print_values(bitcoin_vec); //WIP write function
 }
 catch (std::exception &e)
 {
