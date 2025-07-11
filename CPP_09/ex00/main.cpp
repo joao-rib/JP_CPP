@@ -1,5 +1,7 @@
 #include "BitcoinExchange.hpp"
 
+//WIP build structures
+
 static bool parse_file(std::string filename)
 {
 	;
