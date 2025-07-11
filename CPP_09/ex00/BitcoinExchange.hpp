@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef MUTANTSTACK_H
-#define MUTANTSTACK_H
+#ifndef BITCOINEXCHANGE_H
+#define BITCOINEXCHANGE_H
 
 #include <iostream>
 #include <sstream>
@@ -18,8 +18,7 @@
 #include <typeinfo>
 #include <stack>
 
-template<typename T>
-class MutantStack: public std::stack<T>
+class BitcoinExchange: public std::stack<T>
 {
 public:
 	typedef typename std::stack<T>::container_type::iterator iterator;
@@ -27,10 +26,10 @@ public:
 	typedef typename std::stack<T>::container_type::reverse_iterator reverse_iterator;
 	typedef typename std::stack<T>::container_type::const_reverse_iterator const_reverse_iterator;
 
-	MutantStack();
-	MutantStack(const MutantStack &orig);
-	MutantStack &operator = (const MutantStack &orig);
-	virtual ~MutantStack();
+	BitcoinExchange();
+	BitcoinExchange(const BitcoinExchange &orig);
+	BitcoinExchange &operator = (const BitcoinExchange &orig);
+	virtual ~BitcoinExchange();
 
 	iterator begin(void);
 	iterator end(void);
@@ -43,7 +42,5 @@ public:
 	const_reverse_iterator rend(void) const;
 
 };
-
-#include "MutantStack.tpp"
 
 #endif
