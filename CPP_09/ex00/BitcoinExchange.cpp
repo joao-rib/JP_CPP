@@ -43,27 +43,56 @@ bool	isDate(std::string str)
 
 void	BitcoinExchange::print_values()
 {
-try
-{
-	; // WIP write function
-}
-catch (std::exception &e)
-{
-	std::cerr << "Error: " << e.what() << std::endl;
-}
+	for (unsigned int i = 0; i < this->size(); i++)
+	{
+	try
+	{
+		; // WIP write function
+	}
+	catch (std::exception &e)
+	{
+		std::cerr << "Error: " << e.what() << std::endl;
+	}
+	}
 }
 
 // |----------------------
 // | GETTERS & SETTERS
 // |----------------------
 
-void	BitcoinExchange::store_data()
+unsigned int const	&BitcoinExchange::size(void) const
 {
-	; // WIP write function
+	return (this->_size);
+}
+
+void	BitcoinExchange::store_data(void)
+{
+	std::ifstream	data("./data.csv");
+	std::string		line;
+
+	//WIP trim whitespace
+	//WIP handle lines without commas
+	while(getline(data, line))
+	{
+		size_t	sep = line.find(',');
+		this->_data[line.substr(0, sep)] = std::strtof(line.substr(sep + 1, line.size() - sep).c_str(), NULL); //WIP maybe needs a check
+	}
+	data.close();
 }
 
 void	BitcoinExchange::store_input(std::string input)
 {
+	std::ifstream	inp(input);
+	std::string		line;
+
+	//WIP trim whitespace
+	//WIP handle lines without separators
+	while(getline(inp, line))
+	{
+		size_t	sep = line.find('|');
+		this->_input[line.substr(0, sep)] = std::strtof(line.substr(sep + 1, line.size() - sep).c_str(), NULL); //WIP maybe needs a check
+	}
+	inp.close();
 	; // WIP write function
 }
 
@@ -110,6 +139,19 @@ BitcoinExchange::~BitcoinExchange(void)
 // | OVERLOAD OPERATIONS
 // |----------------------
 
+/*int	&BitcoinExchange::operator [] (long index)
+{
+	if (static_cast<unsigned long>(index) >= this->_int_vec.size() || index < 0)
+		throw OutOfBoundsException(*this, index);
+	return (_int_vec[index]);
+}
+
+const int	&BitcoinExchange::operator [] (long index) const
+{
+	if (static_cast<unsigned long>(index) >= this->_int_vec.size() || index < 0)
+		throw OutOfBoundsException(*this, index);
+	return (_int_vec[index]);
+}*/
 
 // |----------------------
 // | EXCEPTIONS

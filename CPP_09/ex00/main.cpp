@@ -6,8 +6,9 @@ static bool check_file(std::string filename)
 
 	if (filename == "./data.csv")
 		;
-	else if (len < 4 || filename.substr(len - 4, 4) != ".txt")
+	else if (len < 4 || filename.substr(len - 4, 4) != ".txt") //WIP confirmar
 		return (false);
+
 	std::ifstream file(filename);
 	if (!file.is_open())
 		return (false);

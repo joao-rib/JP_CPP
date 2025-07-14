@@ -30,11 +30,14 @@ public:
 	BitcoinExchange &operator = (const BitcoinExchange &orig);
 	virtual ~BitcoinExchange();
 
-	void	store_data(void);
-	void	store_input(std::string input);
+	unsigned int const	&size(void) const;
+	void				store_data(void);
+	void				store_input(std::string input);
 
 	void	print_values(void);
 
+	//int	&operator [] (long index); WIP optional
+	//const int	&operator [] (long index) const; WIP optional
 };
 
 class InputException: public std::exception
