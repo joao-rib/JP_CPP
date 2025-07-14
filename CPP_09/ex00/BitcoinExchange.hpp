@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <sstream>
+#include <fstream>
 #include <locale>
 #include <iomanip>
 #include <cstdlib>
@@ -12,35 +13,38 @@
 #include <climits>
 #include <stdint.h>
 
-#include <vector>
-#include <list>
+#include <map>
 #include <algorithm>
 #include <typeinfo>
-#include <stack>
 
-class BitcoinExchange: public std::stack<T>
+class BitcoinExchange
 {
+private:
+	std::map<std::string, float> _data;
+	std::map<std::string, float> _input;
+	unsigned int	 _size;
 public:
-	typedef typename std::stack<T>::container_type::iterator iterator;
-	typedef typename std::stack<T>::container_type::const_iterator const_iterator;
-	typedef typename std::stack<T>::container_type::reverse_iterator reverse_iterator;
-	typedef typename std::stack<T>::container_type::const_reverse_iterator const_reverse_iterator;
-
 	BitcoinExchange();
+	BitcoinExchange(std::string input);
 	BitcoinExchange(const BitcoinExchange &orig);
 	BitcoinExchange &operator = (const BitcoinExchange &orig);
 	virtual ~BitcoinExchange();
 
-	iterator begin(void);
-	iterator end(void);
-	const_iterator begin(void) const;
-	const_iterator end(void) const;
+	void	store_data(void);
+	void	store_input(std::string input);
 
-	reverse_iterator rbegin(void);
-	reverse_iterator rend(void);
-	const_reverse_iterator rbegin(void) const;
-	const_reverse_iterator rend(void) const;
+	void	print_values(void);
 
+};
+
+class InputException: public std::exception
+{
+private:
+	std::string _msg;
+public:
+	InputException(std::string msg);
+	virtual ~InputException() throw();
+	virtual const char *what() const throw();
 };
 
 #endif

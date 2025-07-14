@@ -1,10 +1,17 @@
 #include "BitcoinExchange.hpp"
 
-//WIP build structures
-
-static bool parse_file(std::string filename)
+static bool check_file(std::string filename)
 {
-	;
+	size_t len = filename.size();
+
+	if (filename == "./data.csv")
+		;
+	else if (len < 4 || filename.substr(len - 4, 4) != ".txt")
+		return (false);
+	std::ifstream file(filename);
+	if (!file.is_open())
+		return (false);
+	return (true);
 }
 
 int	main(int argc, char **argv)
@@ -12,17 +19,20 @@ int	main(int argc, char **argv)
 try
 {
 	if (argc != 2)
-		throw ; //WIP write exception
-	if (!check_data())
-		throw ; //WIP write function, see if data.csv exists, and is valid... maybe store values already.
-	if (!parse_file(argv[1]))
-		throw ; //WIP write function, open file, check formatting
-	std::vector bitcoin_vec = store_values(argv[1]); //WIP write function, calculate exchange, save values
-	print_values(bitcoin_vec); //WIP write function
+		throw InputException("could not open file");
+	if (!check_file("./data.csv"))
+		throw InputException("There must be a valid .csv file");
+	if (!check_file(argv[1]))
+		throw InputException("Argument must be a valid .txt file");
+
+	//BitcoinExchange bitcoin_map = BitcoinExchange();
+	//bitcoin_map.store_input(argv[1]);
+	BitcoinExchange bitcoin_map = BitcoinExchange(argv[1]); //WIP functions to write
+	bitcoin_map.print_values(); //WIP write function
 }
 catch (std::exception &e)
 {
-	std::cout << "Error: " << e.what() << std::endl;
+	std::cerr << "Error: " << e.what() << std::endl;
 }
 	return 0;
 }
