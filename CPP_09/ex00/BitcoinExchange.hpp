@@ -31,6 +31,7 @@ public:
 	virtual ~BitcoinExchange();
 
 	unsigned int const	&size(void) const;
+	void				incSize(void);
 	void				store_data(void);
 	void				store_input(std::string input);
 
@@ -38,6 +39,16 @@ public:
 
 	//int	&operator [] (long index); WIP optional
 	//const int	&operator [] (long index) const; WIP optional
+
+	class InvalidValueException: public std::exception
+	{
+	private:
+		std::string _msg;
+	public:
+		InvalidValueException(std::string msg, std::string value);
+		virtual ~InvalidValueException() throw();
+		virtual const char *what() const throw();
+	};
 };
 
 class InputException: public std::exception

@@ -4,6 +4,29 @@
 // | HELPER FUNCTIONS
 // |----------------------
 
+bool	isDelim(char c)
+{
+	if (c == ' ' || c == '\t' || c == '\n'
+		|| c == '\v' || c == '\f' || c == '\r')
+		return (true);
+	else
+		return (false);
+}
+
+const std::string	trim_whitespace(const std::string& str)
+{
+	int i = 0;
+	while (isDelim(str[i]))
+		i++;
+	if (!str[i])
+		return ("");
+
+	size_t j = str.size() - 1;
+	while (isDelim(str[j]))
+		j--;
+	return (str.substr(i, j - i + 1));
+}
+
 bool	isDigit(char c)
 {
 	if (c >= '0' && c <= '9')
@@ -43,11 +66,22 @@ bool	isDate(std::string str)
 
 void	BitcoinExchange::print_values()
 {
-	for (unsigned int i = 0; i < this->size(); i++)
+	std::map<std::string, float>::iterator it = this->_input.begin();
+
+	for (unsigned int i = 0; i < this->size(); i++, it++)
 	{
 	try
 	{
-		; // WIP write function
+		// WIP store_input() is not saving duplicates!!
+		if (!isDate(it->first) || it->second == 0)
+			throw InvalidValueException("bad input => ", it->first);
+		else if (it->second < 0)
+			throw InvalidValueException("not a positive number.", "");
+		else if (it->second > 1000)
+			throw InvalidValueException("too large a number.", "");
+		float exchanged = it->second * this->_data[it->first];
+		// WIP If date is not in data, find closest lower date
+		std::cout << it->first << " => " << it->second << " => " << exchanged << std::endl;
 	}
 	catch (std::exception &e)
 	{
@@ -65,35 +99,59 @@ unsigned int const	&BitcoinExchange::size(void) const
 	return (this->_size);
 }
 
+void	BitcoinExchange::incSize(void)
+{
+	this->_size++;
+}
+
 void	BitcoinExchange::store_data(void)
 {
 	std::ifstream	data("./data.csv");
 	std::string		line;
 
-	//WIP trim whitespace
-	//WIP handle lines without commas
+	getline(data, line);
+	if (line != "date,exchange_rate")
+		throw InputException("data.csv lacks proper header (date,exchange_rate)");
+
 	while(getline(data, line))
 	{
 		size_t	sep = line.find(',');
-		this->_data[line.substr(0, sep)] = std::strtof(line.substr(sep + 1, line.size() - sep).c_str(), NULL); //WIP maybe needs a check
+		if (sep == std::string::npos)
+			continue ;
+		std::string date = trim_whitespace(line.substr(0, sep));
+		char* safeguard;
+		this->_data[date] = std::strtof(trim_whitespace(line.substr(sep + 1, line.size() - sep)).c_str(), &safeguard);
+		if (date == safeguard || *safeguard != '\0')
+			throw InputException("data.csv is not properly formatted");
 	}
 	data.close();
 }
 
 void	BitcoinExchange::store_input(std::string input)
 {
-	std::ifstream	inp(input);
+	std::ifstream	inp(input.c_str());
 	std::string		line;
 
-	//WIP trim whitespace
-	//WIP handle lines without separators
+	getline(inp, line);
+	if (line != "date | value")
+		throw InputException("Argument file lacks proper header (date | value)");
+
 	while(getline(inp, line))
 	{
 		size_t	sep = line.find('|');
-		this->_input[line.substr(0, sep)] = std::strtof(line.substr(sep + 1, line.size() - sep).c_str(), NULL); //WIP maybe needs a check
+		if (sep == std::string::npos)
+			this->_input[line.substr(0, line.size())] = 0;
+		else
+		{
+			std::string date = trim_whitespace(line.substr(0, sep));
+			char* safeguard;
+			this->_input[date] = std::strtof(trim_whitespace(line.substr(sep + 1, line.size() - sep)).c_str(), &safeguard);
+			if (date == safeguard || *safeguard != '\0')
+				this->_input[date] = 0;
+		}
+		this->incSize();
 	}
 	inp.close();
-	; // WIP write function
 }
 
 // |----------------------
@@ -120,6 +178,7 @@ BitcoinExchange::BitcoinExchange(const BitcoinExchange &orig): _data(orig._data)
 BitcoinExchange::BitcoinExchange(std::string input)
 {
 	this->store_data();
+	this->_size = 0;
 	this->store_input(input);
 	//std::cout << "BitcoinExchange constructed." << std::endl;
 }
@@ -127,6 +186,7 @@ BitcoinExchange::BitcoinExchange(std::string input)
 BitcoinExchange::BitcoinExchange(void)
 {
 	this->store_data();
+	this->_size = 0;
 	//std::cout << "BitcoinExchange constructed." << std::endl;
 }
 
@@ -139,23 +199,26 @@ BitcoinExchange::~BitcoinExchange(void)
 // | OVERLOAD OPERATIONS
 // |----------------------
 
-/*int	&BitcoinExchange::operator [] (long index)
-{
-	if (static_cast<unsigned long>(index) >= this->_int_vec.size() || index < 0)
-		throw OutOfBoundsException(*this, index);
-	return (_int_vec[index]);
-}
-
-const int	&BitcoinExchange::operator [] (long index) const
-{
-	if (static_cast<unsigned long>(index) >= this->_int_vec.size() || index < 0)
-		throw OutOfBoundsException(*this, index);
-	return (_int_vec[index]);
-}*/
-
 // |----------------------
 // | EXCEPTIONS
 // |----------------------
+
+BitcoinExchange::InvalidValueException::InvalidValueException(std::string msg, std::string value)
+{
+	std::ostringstream out;
+	out << msg << value;
+	_msg = out.str();
+}
+
+BitcoinExchange::InvalidValueException::~InvalidValueException() throw()
+{
+	//std::cout << "Error message destroyed" << std::endl;
+}
+
+const char *BitcoinExchange::InvalidValueException::what() const throw()
+{
+	return (this->_msg.c_str());
+}
 
 InputException::InputException(std::string msg)
 {

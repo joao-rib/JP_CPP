@@ -2,14 +2,7 @@
 
 static bool check_file(std::string filename)
 {
-	size_t len = filename.size();
-
-	if (filename == "./data.csv")
-		;
-	else if (len < 4 || filename.substr(len - 4, 4) != ".txt") //WIP confirmar
-		return (false);
-
-	std::ifstream file(filename);
+	std::ifstream file(filename.c_str());
 	if (!file.is_open())
 		return (false);
 	return (true);
@@ -20,16 +13,16 @@ int	main(int argc, char **argv)
 try
 {
 	if (argc != 2)
-		throw InputException("could not open file");
+		throw InputException("could not open file.");
 	if (!check_file("./data.csv"))
-		throw InputException("There must be a valid .csv file");
+		throw InputException("Could not open data.csv");
 	if (!check_file(argv[1]))
 		throw InputException("Argument must be a valid .txt file");
 
 	//BitcoinExchange bitcoin_map = BitcoinExchange();
 	//bitcoin_map.store_input(argv[1]);
-	BitcoinExchange bitcoin_map = BitcoinExchange(argv[1]); //WIP functions to write
-	bitcoin_map.print_values(); //WIP write function
+	BitcoinExchange bitcoin_map = BitcoinExchange(argv[1]);
+	bitcoin_map.print_values();
 }
 catch (std::exception &e)
 {
