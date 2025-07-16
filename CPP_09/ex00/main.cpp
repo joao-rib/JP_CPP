@@ -12,17 +12,15 @@ int	main(int argc, char **argv)
 {
 try
 {
+	// Validate arguments and files
 	if (argc != 2)
 		throw InputException("could not open file.");
 	if (!check_file("./data.csv"))
 		throw InputException("Could not open data.csv");
 	if (!check_file(argv[1]))
-		throw InputException("Argument must be a valid .txt file");
+		throw InputException("Could not open input file");
 
-	//BitcoinExchange bitcoin_map = BitcoinExchange();
-	//bitcoin_map.store_input(argv[1]);
-	BitcoinExchange bitcoin_map = BitcoinExchange(argv[1]);
-	bitcoin_map.print_values();
+	BitcoinExchange().print_values(argv[1]);
 }
 catch (std::exception &e)
 {

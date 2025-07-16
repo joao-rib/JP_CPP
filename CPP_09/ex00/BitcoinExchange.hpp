@@ -21,24 +21,21 @@ class BitcoinExchange
 {
 private:
 	std::map<std::string, float> _data;
-	std::map<std::string, float> _input;
-	unsigned int	 _size;
+	//std::map<std::string, float> _input;
+	//unsigned int	 _size;
 public:
 	BitcoinExchange();
-	BitcoinExchange(std::string input);
+	//BitcoinExchange(std::string input);
 	BitcoinExchange(const BitcoinExchange &orig);
 	BitcoinExchange &operator = (const BitcoinExchange &orig);
 	virtual ~BitcoinExchange();
 
-	unsigned int const	&size(void) const;
-	void				incSize(void);
-	void				store_data(void);
-	void				store_input(std::string input);
+	//unsigned int const	&size(void) const;
+	//void					incSize(void);
+	void				set_data(void);
+	//void				set_input(std::string input);
 
-	void	print_values(void);
-
-	//int	&operator [] (long index); WIP optional
-	//const int	&operator [] (long index) const; WIP optional
+	void		print_values(std::string input);
 
 	class InvalidValueException: public std::exception
 	{

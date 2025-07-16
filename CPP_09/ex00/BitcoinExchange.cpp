@@ -36,7 +36,7 @@ bool	isDigit(char c)
 
 bool	isDate(std::string str)
 {
-	// Syntax
+	// Syntax validation
 	if (str.size() != 10)
 		return (false);
 	if (str[4] != '-' || str[7] != '-')
@@ -52,10 +52,12 @@ bool	isDate(std::string str)
 			return (false);
 	}
 
-	// Number validation
-	if (std::atoi(str.substr(5, 2).c_str()) > 12 || std::atoi(str.substr(8, 2).c_str()) > 31)
+	// Calendar validation
+	int month = std::atoi(str.substr(5, 2).c_str());
+	int day = std::atoi(str.substr(8, 2).c_str());
+	if (month > 12 || day > 31 || (month == 2 && day > 29)
+		|| (day == 31 && (month == 4 || month == 6 || month == 9 || month == 11 )))
 		return (false);
-	// WIP more robust date-checking
 
 	return (true);
 }
@@ -64,94 +66,97 @@ bool	isDate(std::string str)
 // | MEMBER FUNCTIONS
 // |----------------------
 
-void	BitcoinExchange::print_values()
+void	BitcoinExchange::print_values(std::string input)
 {
-	std::map<std::string, float>::iterator it = this->_input.begin();
+	std::ifstream	inp(input.c_str());
+	std::string		line;
 
-	for (unsigned int i = 0; i < this->size(); i++, it++)
+	// Check input header
+	getline(inp, line);
+	if (line != "date | value")
+		throw InputException("Argument file lacks proper header (date | value)");
+
+	// Printing loop, once per line in input file
+	while (getline(inp, line))
 	{
 	try
 	{
-		// WIP store_input() is not saving duplicates!!
-		if (!isDate(it->first) || it->second == 0)
-			throw InvalidValueException("bad input => ", it->first);
-		else if (it->second < 0)
+		// Register date and value
+		std::string	date;
+		float		value;
+		size_t	sep = line.find('|');
+		if (sep == std::string::npos)
+		{
+			date = line.substr(0, line.size());
+			value = 0;
+		}
+		else
+		{
+			date = trim_whitespace(line.substr(0, sep));
+			char* safeguard;
+			value = std::strtof(trim_whitespace(line.substr(sep + 1, line.size() - sep)).c_str(), &safeguard);
+			if (date == safeguard || *safeguard != '\0')
+				value = 0;
+		}
+
+		// Validate date and value
+		if (!isDate(date) || value == 0)
+			throw InvalidValueException("bad input => ", date);
+		else if (value < 0)
 			throw InvalidValueException("not a positive number.", "");
-		else if (it->second > 1000)
+		else if (value > 1000)
 			throw InvalidValueException("too large a number.", "");
-		float exchanged = it->second * this->_data[it->first];
-		// WIP If date is not in data, find closest lower date
-		std::cout << it->first << " => " << it->second << " => " << exchanged << std::endl;
+
+		// Find corresponding date (or lower) in data.csv
+		std::map<std::string, float>::iterator it_data = this->_data.lower_bound(date);
+		if (it_data->first != date)
+			it_data--;
+		float exchanged = value * it_data->second;
+
+		// Print valid results
+		std::cout << date << " => " << value << " => " << exchanged << std::endl;
 	}
 	catch (std::exception &e)
 	{
 		std::cerr << "Error: " << e.what() << std::endl;
 	}
 	}
+	// Close input file
+	inp.close();
 }
 
 // |----------------------
 // | GETTERS & SETTERS
 // |----------------------
 
-unsigned int const	&BitcoinExchange::size(void) const
-{
-	return (this->_size);
-}
-
-void	BitcoinExchange::incSize(void)
-{
-	this->_size++;
-}
-
-void	BitcoinExchange::store_data(void)
+void	BitcoinExchange::set_data(void)
 {
 	std::ifstream	data("./data.csv");
 	std::string		line;
 
+	// Check data.csv header
 	getline(data, line);
 	if (line != "date,exchange_rate")
 		throw InputException("data.csv lacks proper header (date,exchange_rate)");
 
+	// Setting loop, once per line in input file
 	while(getline(data, line))
 	{
+		// Validate separator
 		size_t	sep = line.find(',');
 		if (sep == std::string::npos)
 			continue ;
+
+		// Validate and register date and value
 		std::string date = trim_whitespace(line.substr(0, sep));
 		char* safeguard;
-		this->_data[date] = std::strtof(trim_whitespace(line.substr(sep + 1, line.size() - sep)).c_str(), &safeguard);
+		this->_data[date] = std::strtof(trim_whitespace(line.substr(sep + 1, line.size() - sep)).c_str(), &safeguard); // Map-specific insertion method
+		//this->_data.insert(std::make_pair(date, std::strtof(trim_whitespace(line.substr(sep + 1, line.size() - sep)).c_str(), &safeguard)));
 		if (date == safeguard || *safeguard != '\0')
 			throw InputException("data.csv is not properly formatted");
 	}
+	// Close data.csv
 	data.close();
-}
-
-void	BitcoinExchange::store_input(std::string input)
-{
-	std::ifstream	inp(input.c_str());
-	std::string		line;
-
-	getline(inp, line);
-	if (line != "date | value")
-		throw InputException("Argument file lacks proper header (date | value)");
-
-	while(getline(inp, line))
-	{
-		size_t	sep = line.find('|');
-		if (sep == std::string::npos)
-			this->_input[line.substr(0, line.size())] = 0;
-		else
-		{
-			std::string date = trim_whitespace(line.substr(0, sep));
-			char* safeguard;
-			this->_input[date] = std::strtof(trim_whitespace(line.substr(sep + 1, line.size() - sep)).c_str(), &safeguard);
-			if (date == safeguard || *safeguard != '\0')
-				this->_input[date] = 0;
-		}
-		this->incSize();
-	}
-	inp.close();
 }
 
 // |----------------------
@@ -161,32 +166,19 @@ void	BitcoinExchange::store_input(std::string input)
 BitcoinExchange &BitcoinExchange::operator = (const BitcoinExchange &orig)
 {
 	if (this != &orig)
-	{
-		this->_size = orig._size;
 		this->_data = orig._data;
-		this->_input = orig._input;
-	}
 	//std::cout << "BitcoinExchange assignment copy-constructed." << std::endl;
 	return (*this);
 }
 
-BitcoinExchange::BitcoinExchange(const BitcoinExchange &orig): _data(orig._data), _input(orig._input), _size(orig._size)
+BitcoinExchange::BitcoinExchange(const BitcoinExchange &orig): _data(orig._data)
 {
 	//std::cout << "BitcoinExchange copy-constructed." << std::endl;
 }
 
-BitcoinExchange::BitcoinExchange(std::string input)
-{
-	this->store_data();
-	this->_size = 0;
-	this->store_input(input);
-	//std::cout << "BitcoinExchange constructed." << std::endl;
-}
-
 BitcoinExchange::BitcoinExchange(void)
 {
-	this->store_data();
-	this->_size = 0;
+	this->set_data();
 	//std::cout << "BitcoinExchange constructed." << std::endl;
 }
 
