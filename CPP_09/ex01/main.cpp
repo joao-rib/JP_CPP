@@ -1,57 +1,79 @@
 #include "RPN.hpp"
 
-int	main()
+static bool	isDelim(char c)
+{
+	if (c == ' ' || c == '\t' || c == '\n'
+		|| c == '\v' || c == '\f' || c == '\r')
+		return (true);
+	else
+		return (false);
+}
+
+static std::string	trim_whitespace(const std::string& str)
+{
+	int i = 0;
+	while (isDelim(str[i]))
+		i++;
+	if (!str[i])
+		return ("");
+
+	size_t j = str.size() - 1;
+	while (isDelim(str[j]))
+		j--;
+	return (str.substr(i, j - i + 1));
+}
+
+static bool	isDigit(char c)
+{
+	if (c >= '0' && c <= '9')
+		return (true);
+	return (false);
+}
+
+static bool	isOpToken(char c)
+{
+	if (c == '+' || c == '-' || c == '*' || c == '/')
+		return (true);
+	else
+		return (false);
+}
+
+static bool parse_arg(std::string av)
+{
+	// WIP Validate arguments
+	av = trim_whitespace(av);
+	size_t len = av.size();
+	if (len < 5 || !(len % 2) || !isDigit(av[0]) || !isOpToken(av[len - 1])) // WIP Reevaluate len
+		return (false);
+	int j = 1;
+	for (unsigned int i = 0; i < av.size(); i++, j *= -1) // Numbers or operators in even; whitespace in odd
+	{ 
+		if ((j > 0 && !(isDigit(av[i]) || isOpToken(av[i])))
+			|| (j < 0 && !isDelim(av[i])))
+			return (false);
+	}
+	return (true);
+}
+
+int	main(int argc, char **argv)
 {
 try
 {
-	Bureaucrat	Matrix("Agent Smith", 1);
-	Bureaucrat	Hitman("Agent 47", 47);
-	Bureaucrat	MIB("Agent J", 142);
-	Bureaucrat	goon;
-	ShrubberyCreationForm		scf("Av_Aliados");		// Sign 145, Exec 137
-	//RobotomyRequestForm			rrf("Coporob");			// Sign 72, Exec 45
-	PresidentialPardonForm		ppf("Nelson Mandela");	// Sign 25, Exec 5
+	// Validate arguments
+	if (argc != 2 || !parse_arg(argv[1]))
+		throw InputException("");
 
-	Intern someRandomIntern;
-	AForm* rrf;
-	rrf = someRandomIntern.makeForm("robotomy request", "Bender");
-
-	std::cout << Matrix << " is on the scene." << std::endl;
-	std::cout << Hitman << " is on the scene." << std::endl;
-	std::cout << MIB << " is on the scene." << std::endl;
-	std::cout << goon << " is on the scene." << std::endl;
-
-	std::cout << std::endl << scf << " needs to be signed and executed." << std::endl; // Sign 145, Exec 137
-	Hitman.executeForm(scf);
-	goon.signForm(scf);
-	MIB.signForm(scf);
-	Hitman.signForm(scf);
-	MIB.executeForm(scf);
-	Hitman.executeForm(scf);
-
-	std::cout << std::endl << *rrf << " needs to be signed and executed." << std::endl; // Sign 72, Exec 45
-	Hitman.executeForm(*rrf);
-	MIB.signForm(*rrf);
-	Hitman.signForm(*rrf);
-	Hitman.executeForm(*rrf);
-	Matrix.executeForm(*rrf);
-	delete rrf;
-
-	std::cout << std::endl << ppf << " needs to be signed and executed." << std::endl; // Sign 25, Exec 5
-	Matrix.executeForm(ppf);
-	Hitman.signForm(ppf);
-	Matrix.signForm(ppf);
-	Hitman.executeForm(ppf);
-	Matrix.executeForm(ppf);
+	// WIP What the hell is Reverse Polish Notation?
+	//RPN().print_values(argv[1]);
 }
 catch (std::exception &e)
 {
-	std::cout << "Error: " << e.what() << std::endl;
+	std::cerr << "Error" << e.what() << std::endl;
 }
 	return 0;
 }
 
-//Output example
+//Example
 /*
 $> ./RPN "8 9 * 9 - 9 - 9 - 4 - 1 +"
 42
@@ -61,4 +83,5 @@ $> ./RPN "1 2 * 2 / 2 * 2 4 - +"
 0
 $> ./RPN "(1 + 1)"
 Error
+$>
 */
