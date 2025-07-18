@@ -20,9 +20,9 @@
 class RPN
 {
 private:
-	std::stack<int> _numbers;
-	std::stack<char> _operators;
-	void	set_stacks(std::string input);
+	std::stack<int>	_numbers;
+	std::string		_input;
+	void 	validate_input();
 	int		operation(char op, int fir, int sec);
 public:
 	RPN();
@@ -31,17 +31,10 @@ public:
 	RPN &operator = (const RPN &orig);
 	virtual ~RPN();
 
-	void	print_result(void);
+	void				setInput(std::string input);
+	std::string const	&getInput(void) const;
 
-/*	class InvalidValueException: public std::exception
-	{
-	private:
-		std::string _msg;
-	public:
-		InvalidValueException(std::string msg, std::string value);
-		virtual ~InvalidValueException() throw();
-		virtual const char *what() const throw();
-	};*/
+	void	print_result();
 };
 
 class InputException: public std::exception

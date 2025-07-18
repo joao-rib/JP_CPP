@@ -47,6 +47,23 @@ bool	isOpToken(char c)
 // | MEMBER FUNCTIONS
 // |----------------------
 
+void 	RPN::validate_input()
+{
+	this->setInput(trim_whitespace(this->getInput()));
+	size_t len = this->getInput().size();
+	if (len < 5 || !(len % 2) || !isDigit(this->getInput()[0]) || !isOpToken(this->getInput()[len - 1]))
+		throw InputException("");
+
+	// Numbers or operators in even; whitespace in odd
+	int j = 1;
+	for (unsigned int i = 0; i < this->getInput().size(); i++, j *= -1)
+	{ 
+		if ((j > 0 && !(isDigit(this->getInput()[i]) || isOpToken(this->getInput()[i])))
+			|| (j < 0 && !isDelim(this->getInput()[i])))
+			throw InputException("");
+	}
+}
+
 int		RPN::operation(char op, int fir, int sec)
 {
 	std::string	ops = "+-*/";
@@ -66,7 +83,7 @@ int		RPN::operation(char op, int fir, int sec)
 				case 3:
 					return (fir / sec);
 				default:
-					throw InputException("Unexpected character");
+					throw InputException(": Unexpected character");
 			}
 		}
 	}
@@ -75,21 +92,36 @@ int		RPN::operation(char op, int fir, int sec)
 
 void	RPN::print_result(void)
 {
-	// WIP Incorrect method, but it's a start
-	// "2 8 + 5 /"
-	// "1 2 * 2 / 2 * 2 4 - +"
-	while (this->_numbers.size() > 1 || !this->_operators.empty())
-	{
-		int second = this->_numbers.top();
-		this->_numbers.pop();
-		int first = this->_numbers.top();
-		this->_numbers.pop();
-		char op = this->_operators.top();
-		this->_operators.pop();
+	// Empty input check
+	if (this->getInput() == "")
+		return ;
 
-		this->_numbers.push(operation(op, first, second));
+	// Calculation process: , then operate when finding an operator
+	for (unsigned int i = 0; i < this->getInput().size(); i += 2)
+	{
+		// Add numbers to the stack
+		if (isDigit(this->getInput()[i]))
+			this->_numbers.push(this->getInput()[i] - '0');
+		else if (isOpToken(this->getInput()[i]))
+		{
+			// "If too many operators"
+			if (this->_numbers.size() < 2)
+				throw InputException("");
+
+			// Operate first two numbers from stack, then push the result to the top
+			int second = this->_numbers.top();
+			this->_numbers.pop();
+			int first = this->_numbers.top();
+			this->_numbers.pop();
+			this->_numbers.push(operation(this->getInput()[i], first, second));
+		}
 	}
 
+	// "If too many numbers"
+	if (this->_numbers.size() != 1)
+		throw InputException("");
+
+	// Print result
 	std::cout << this->_numbers.top() << std::endl;
 }
 
@@ -97,24 +129,14 @@ void	RPN::print_result(void)
 // | GETTERS & SETTERS
 // |----------------------
 
-void	RPN::set_stacks(std::string input)
+void	RPN::setInput(std::string input)
 {
-	// Empty input check
-	if (input == "")
-		return ;
+	this->_input = input;
+}
 
-	// Push tokens
-	for (unsigned int i = 0; i < input.size(); i += 2)
-	{ 
-		if (isDigit(input[i]))
-			this->_numbers.push(input[i] - '0');
-		else if (isOpToken(input[i]))
-			this->_operators.push(input[i]);
-	}
-
-	// Basic input check
-	if (this->_numbers.size() != (this->_operators.size() + 1))
-		throw InputException("");
+std::string const	&RPN::getInput(void) const
+{
+	return(this->_input);
 }
 
 // |----------------------
@@ -126,27 +148,28 @@ RPN &RPN::operator = (const RPN &orig)
 	if (this != &orig)
 	{
 		this->_numbers = orig._numbers;
-		this->_operators = orig._operators;
+		this->setInput(orig.getInput());
 	}
 	//std::cout << "RPN assignment copy-constructed." << std::endl;
 	return (*this);
 }
 
-RPN::RPN(const RPN &orig): _numbers(orig._numbers), _operators(orig._operators)
+RPN::RPN(const RPN &orig): _numbers(orig._numbers), _input(orig._input)
 {
 	//std::cout << "RPN copy-constructed." << std::endl;
 }
 
 RPN::RPN(std::string input)
 {
-	this->set_stacks(input);
+	this->setInput(input);
+	this->validate_input();
 	//std::cout << "RPN constructed." << std::endl;
 }
 
 RPN::RPN(void)
 {
-	this->set_stacks("");
-	//std::cout << "RPN constructed." << std::endl;
+	this->setInput("");
+	//std::cout << "Empty RPN constructed." << std::endl;
 }
 
 RPN::~RPN(void)
@@ -161,23 +184,6 @@ RPN::~RPN(void)
 // |----------------------
 // | EXCEPTIONS
 // |----------------------
-
-/*RPN::InvalidValueException::InvalidValueException(std::string msg, std::string value)
-{
-	std::ostringstream out;
-	out << msg << value;
-	_msg = out.str();
-}
-
-RPN::InvalidValueException::~InvalidValueException() throw()
-{
-	//std::cout << "Error message destroyed" << std::endl;
-}
-
-const char *RPN::InvalidValueException::what() const throw()
-{
-	return (this->_msg.c_str());
-}*/
 
 InputException::InputException(std::string msg)
 {
