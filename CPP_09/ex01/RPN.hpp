@@ -13,31 +13,27 @@
 #include <climits>
 #include <stdint.h>
 
-#include <map>
+#include <stack>
 #include <algorithm>
 #include <typeinfo>
 
 class RPN
 {
 private:
-	std::map<std::string, float> _data;
-	//std::map<std::string, float> _input;
-	//unsigned int	 _size;
+	std::stack<int> _numbers;
+	std::stack<char> _operators;
+	void	set_stacks(std::string input);
+	int		operation(char op, int fir, int sec);
 public:
 	RPN();
-	//RPN(std::string input);
+	RPN(std::string input);
 	RPN(const RPN &orig);
 	RPN &operator = (const RPN &orig);
 	virtual ~RPN();
 
-	//unsigned int const	&size(void) const;
-	//void					incSize(void);
-	void				set_data(void);
-	//void				set_input(std::string input);
+	void	print_result(void);
 
-	void		print_values(std::string input);
-
-	class InvalidValueException: public std::exception
+/*	class InvalidValueException: public std::exception
 	{
 	private:
 		std::string _msg;
@@ -45,7 +41,7 @@ public:
 		InvalidValueException(std::string msg, std::string value);
 		virtual ~InvalidValueException() throw();
 		virtual const char *what() const throw();
-	};
+	};*/
 };
 
 class InputException: public std::exception

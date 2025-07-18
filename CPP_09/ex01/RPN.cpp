@@ -42,129 +42,79 @@ bool	isOpToken(char c)
 		return (false);
 }
 
-bool	isDate(std::string str)
-{
-	// Syntax validation
-	if (str.size() != 10)
-		return (false);
-	if (str[4] != '-' || str[7] != '-')
-		return (false);
-	if (str[4] != '-' || str[7] != '-')
-		return (false);
-	for (unsigned int i = 0; i < 10; i++) {
-		if ((i == 4 || i == 7) && str[i] != '-')
-			return (false);
-		else if ((i == 4 || i == 7) && str[i] == '-')
-			;
-		else if (!isDigit(str[i]))
-			return (false);
-	}
-
-	// Calendar validation
-	int month = std::atoi(str.substr(5, 2).c_str());
-	int day = std::atoi(str.substr(8, 2).c_str());
-	if (month > 12 || day > 31 || (month == 2 && day > 29)
-		|| (day == 31 && (month == 4 || month == 6 || month == 9 || month == 11 )))
-		return (false);
-
-	return (true);
-}
 
 // |----------------------
 // | MEMBER FUNCTIONS
 // |----------------------
 
-void	RPN::print_values(std::string input)
+int		RPN::operation(char op, int fir, int sec)
 {
-	std::ifstream	inp(input.c_str());
-	std::string		line;
+	std::string	ops = "+-*/";
 
-	// Check input header
-	getline(inp, line);
-	if (line != "date | value")
-		throw InputException("Argument file lacks proper header (date | value)");
-
-	// Printing loop, once per line in input file
-	while (getline(inp, line))
+	for (unsigned int i = 0; i < 4; i++)
 	{
-	try
-	{
-		// Register date and value
-		std::string	date;
-		float		value;
-		size_t	sep = line.find('|');
-		if (sep == std::string::npos)
+		if (ops[i] == op)
 		{
-			date = line.substr(0, line.size());
-			value = 0;
+			switch (i)
+			{
+				case 0:
+					return (fir + sec);
+				case 1:
+					return (fir - sec);
+				case 2:
+					return (fir * sec);
+				case 3:
+					return (fir / sec);
+				default:
+					throw InputException("Unexpected character");
+			}
 		}
-		else
-		{
-			date = trim_whitespace(line.substr(0, sep));
-			char* safeguard;
-			value = std::strtof(trim_whitespace(line.substr(sep + 1, line.size() - sep)).c_str(), &safeguard);
-			if (date == safeguard || *safeguard != '\0')
-				value = 0;
-		}
-
-		// Validate date and value
-		if (!isDate(date) || value == 0)
-			throw InvalidValueException("bad input => ", date);
-		else if (value < 0)
-			throw InvalidValueException("not a positive number.", "");
-		else if (value > 1000)
-			throw InvalidValueException("too large a number.", "");
-
-		// Find corresponding date (or lower) in data.csv
-		std::map<std::string, float>::iterator it_data = this->_data.lower_bound(date);
-		if (it_data->first != date)
-			it_data--;
-		float exchanged = value * it_data->second;
-
-		// Print valid results
-		std::cout << date << " => " << value << " => " << exchanged << std::endl;
 	}
-	catch (std::exception &e)
+	return 0;
+}
+
+void	RPN::print_result(void)
+{
+	// WIP Incorrect method, but it's a start
+	// "2 8 + 5 /"
+	// "1 2 * 2 / 2 * 2 4 - +"
+	while (this->_numbers.size() > 1 || !this->_operators.empty())
 	{
-		std::cerr << "Error: " << e.what() << std::endl;
+		int second = this->_numbers.top();
+		this->_numbers.pop();
+		int first = this->_numbers.top();
+		this->_numbers.pop();
+		char op = this->_operators.top();
+		this->_operators.pop();
+
+		this->_numbers.push(operation(op, first, second));
 	}
-	}
-	// Close input file
-	inp.close();
+
+	std::cout << this->_numbers.top() << std::endl;
 }
 
 // |----------------------
 // | GETTERS & SETTERS
 // |----------------------
 
-void	RPN::set_data(void)
+void	RPN::set_stacks(std::string input)
 {
-	std::ifstream	data("./data.csv");
-	std::string		line;
+	// Empty input check
+	if (input == "")
+		return ;
 
-	// Check data.csv header
-	getline(data, line);
-	if (line != "date,exchange_rate")
-		throw InputException("data.csv lacks proper header (date,exchange_rate)");
-
-	// Setting loop, once per line in input file
-	while(getline(data, line))
-	{
-		// Validate separator
-		size_t	sep = line.find(',');
-		if (sep == std::string::npos)
-			continue ;
-
-		// Validate and register date and value
-		std::string date = trim_whitespace(line.substr(0, sep));
-		char* safeguard;
-		this->_data[date] = std::strtof(trim_whitespace(line.substr(sep + 1, line.size() - sep)).c_str(), &safeguard); // Map-specific insertion method
-		//this->_data.insert(std::make_pair(date, std::strtof(trim_whitespace(line.substr(sep + 1, line.size() - sep)).c_str(), &safeguard)));
-		if (date == safeguard || *safeguard != '\0')
-			throw InputException("data.csv is not properly formatted");
+	// Push tokens
+	for (unsigned int i = 0; i < input.size(); i += 2)
+	{ 
+		if (isDigit(input[i]))
+			this->_numbers.push(input[i] - '0');
+		else if (isOpToken(input[i]))
+			this->_operators.push(input[i]);
 	}
-	// Close data.csv
-	data.close();
+
+	// Basic input check
+	if (this->_numbers.size() != (this->_operators.size() + 1))
+		throw InputException("");
 }
 
 // |----------------------
@@ -174,19 +124,28 @@ void	RPN::set_data(void)
 RPN &RPN::operator = (const RPN &orig)
 {
 	if (this != &orig)
-		this->_data = orig._data;
+	{
+		this->_numbers = orig._numbers;
+		this->_operators = orig._operators;
+	}
 	//std::cout << "RPN assignment copy-constructed." << std::endl;
 	return (*this);
 }
 
-RPN::RPN(const RPN &orig): _data(orig._data)
+RPN::RPN(const RPN &orig): _numbers(orig._numbers), _operators(orig._operators)
 {
 	//std::cout << "RPN copy-constructed." << std::endl;
 }
 
+RPN::RPN(std::string input)
+{
+	this->set_stacks(input);
+	//std::cout << "RPN constructed." << std::endl;
+}
+
 RPN::RPN(void)
 {
-	this->set_data();
+	this->set_stacks("");
 	//std::cout << "RPN constructed." << std::endl;
 }
 
@@ -203,7 +162,7 @@ RPN::~RPN(void)
 // | EXCEPTIONS
 // |----------------------
 
-RPN::InvalidValueException::InvalidValueException(std::string msg, std::string value)
+/*RPN::InvalidValueException::InvalidValueException(std::string msg, std::string value)
 {
 	std::ostringstream out;
 	out << msg << value;
@@ -218,7 +177,7 @@ RPN::InvalidValueException::~InvalidValueException() throw()
 const char *RPN::InvalidValueException::what() const throw()
 {
 	return (this->_msg.c_str());
-}
+}*/
 
 InputException::InputException(std::string msg)
 {

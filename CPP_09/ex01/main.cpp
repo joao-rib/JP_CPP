@@ -40,10 +40,9 @@ static bool	isOpToken(char c)
 
 static bool parse_arg(std::string av)
 {
-	// WIP Validate arguments
 	av = trim_whitespace(av);
 	size_t len = av.size();
-	if (len < 5 || !(len % 2) || !isDigit(av[0]) || !isOpToken(av[len - 1])) // WIP Reevaluate len
+	if (len < 5 || !(len % 2) || !isDigit(av[0]) || !isOpToken(av[len - 1]))
 		return (false);
 	int j = 1;
 	for (unsigned int i = 0; i < av.size(); i++, j *= -1) // Numbers or operators in even; whitespace in odd
@@ -63,8 +62,7 @@ try
 	if (argc != 2 || !parse_arg(argv[1]))
 		throw InputException("");
 
-	// WIP What the hell is Reverse Polish Notation?
-	//RPN().print_values(argv[1]);
+	RPN(argv[1]).print_result();
 }
 catch (std::exception &e)
 {
