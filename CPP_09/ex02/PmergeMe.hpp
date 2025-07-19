@@ -24,6 +24,7 @@ private:
 	std::   <int>	_second;
 	char**	_input;
 	size_t	_size;
+	double	_start_time;
 	double	_time1;
 	double	_time2;
 	//void 	validate_input();
