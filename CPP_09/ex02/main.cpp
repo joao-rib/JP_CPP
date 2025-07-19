@@ -1,52 +1,30 @@
 #include "PmergeMe.hpp"
 
-int	main()
+int	main(int argc, char **argv)
 {
 try
 {
-	Bureaucrat	Matrix("Agent Smith", 1);
-	Bureaucrat	Hitman("Agent 47", 47);
-	Bureaucrat	MIB("Agent J", 142);
-	Bureaucrat	goon;
-	ShrubberyCreationForm		scf("Av_Aliados");		// Sign 145, Exec 137
-	//RobotomyRequestForm			rrf("Coporob");			// Sign 72, Exec 45
-	PresidentialPardonForm		ppf("Nelson Mandela");	// Sign 25, Exec 5
+	if (argc < 2)
+		throw InputException(": Please insert at sequence of positive numbers");
+	PmergeMe pmm = PmergeMe(argv + 1); // WIP Ideal constructor
+	// WIP check negatives ("Error" only)
+	// WIP check non-numbers
+	// WIP check duplicates
 
-	Intern someRandomIntern;
-	AForm* rrf;
-	rrf = someRandomIntern.makeForm("robotomy request", "Bender");
-
-	std::cout << Matrix << " is on the scene." << std::endl;
-	std::cout << Hitman << " is on the scene." << std::endl;
-	std::cout << MIB << " is on the scene." << std::endl;
-	std::cout << goon << " is on the scene." << std::endl;
-
-	std::cout << std::endl << scf << " needs to be signed and executed." << std::endl; // Sign 145, Exec 137
-	Hitman.executeForm(scf);
-	goon.signForm(scf);
-	MIB.signForm(scf);
-	Hitman.signForm(scf);
-	MIB.executeForm(scf);
-	Hitman.executeForm(scf);
-
-	std::cout << std::endl << *rrf << " needs to be signed and executed." << std::endl; // Sign 72, Exec 45
-	Hitman.executeForm(*rrf);
-	MIB.signForm(*rrf);
-	Hitman.signForm(*rrf);
-	Hitman.executeForm(*rrf);
-	Matrix.executeForm(*rrf);
-	delete rrf;
-
-	std::cout << std::endl << ppf << " needs to be signed and executed." << std::endl; // Sign 25, Exec 5
-	Matrix.executeForm(ppf);
-	Hitman.signForm(ppf);
-	Matrix.signForm(ppf);
-	Hitman.executeForm(ppf);
-	Matrix.executeForm(ppf);
+	// WIP print unsorted sequence
+	pmm.print_unsorted();
+	// WIP print sorted sequence
+	pmm.print_sorted();
+	// WIP Time to process with first container (microseconds, 5 decimals)
+	std::cout << "Time to process a range of " << pmm.size() << " elements with std::[..] : ";
+	std::cout << std::fixed << std::setprecision(5) << pmm.getTime("First") << " us" << std::endl;
+	// WIP Time to process with second container (microseconds, 5 decimals)
+	std::cout << "Time to process a range of " << pmm.size() << " elements with std::[..] : ";
+	std::cout << std::fixed << std::setprecision(5) << pmm.getTime("Second") << " us" << std::endl;
 }
 catch (std::exception &e)
 {
-	std::cout << "Error: " << e.what() << std::endl;
+	std::cerr << "Error" << e.what() << std::endl;
 }
 	return 0;
 }
