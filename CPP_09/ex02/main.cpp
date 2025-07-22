@@ -15,12 +15,12 @@ try
 	pmm.print_unsorted();
 	// WIP print sorted sequence
 	pmm.print_sorted();
-	// WIP Time to process with first container (microseconds, 5 decimals)
-	std::cout << "Time to process a range of " << pmm.size() << " elements with std::[..] : ";
-	std::cout << std::fixed << std::setprecision(5) << pmm.getTime("First") << " us" << std::endl;
-	// WIP Time to process with second container (microseconds, 5 decimals)
-	std::cout << "Time to process a range of " << pmm.size() << " elements with std::[..] : ";
-	std::cout << std::fixed << std::setprecision(5) << pmm.getTime("Second") << " us" << std::endl;
+	// WIP Time to process with first container (microseconds, 5 decimals => picoseconds)
+	std::cout << "Time to process a range of " << pmm.getSize() << " elements with std::vectot : ";
+	std::cout << std::fixed << std::setprecision(5) << pmm.getTime(TIME_1) << " us" << std::endl;
+	// WIP Time to process with second container (microseconds, 5 decimals => picoseconds)
+	std::cout << "Time to process a range of " << pmm.getSize() << " elements with std::deque : ";
+	std::cout << std::fixed << std::setprecision(5) << pmm.getTime(TIME_2) << " us" << std::endl;
 }
 catch (std::exception &e)
 {
@@ -43,6 +43,4 @@ Time to process a range of 3000 elements with std::[..] : 62.14389 us
 Time to process a range of 3000 elements with std::[..] : 69.27212 us
 $> ./PmergeMe "-1" "2"
 Error
-$> # For OSX USER:
-$> ./PmergeMe `jot -r 3000 1 100000 | tr '\n' ' '`
 */

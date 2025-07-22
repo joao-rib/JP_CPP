@@ -13,21 +13,35 @@
 #include <climits>
 #include <stdint.h>
 
-#include <stack>
+#include <vector>
+#include <deque>
 #include <algorithm>
 #include <typeinfo>
+
+enum t_times
+{
+	TIME_1,
+	TIME_2,
+	TIME_START
+};
 
 class PmergeMe
 {
 private:
-	std::   <int>	_first;
-	std::   <int>	_second;
-	char**	_input;
-	size_t	_size;
-	double	_start_time;
-	double	_time1;
-	double	_time2;
-	//void 	validate_input();
+	std::vector<int>	_first;
+	std::deque<int>		_second;
+	int*				_input;
+	size_t				_size;
+	unsigned double		_start_time;
+	unsigned double		_time1;
+	unsigned double		_time2;
+
+	void	setInput(char **args);
+	void	setTime(unsigned double time, t_times option);
+
+	void 	validate_input();
+	void	order_vector(int *input);
+	void	order_deque(int *input);
 public:
 	PmergeMe();
 	PmergeMe(char** input);
@@ -35,8 +49,8 @@ public:
 	PmergeMe &operator = (const PmergeMe &orig);
 	virtual ~PmergeMe();
 
-	//void				setInput(std::string input);
-	//std::string const	&getInput(void) const;
+	size_t const			&getSize() const;
+	unsigned double const	&getTime(t_times option) const;
 
 	void	print_unsorted();
 	void	print_sorted();
