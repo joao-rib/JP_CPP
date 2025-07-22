@@ -31,7 +31,7 @@ private:
 	std::vector<int>	_first;
 	std::deque<int>		_second;
 	int*				_input;
-	size_t				_size;
+	const size_t		_size;
 	unsigned double		_start_time;
 	unsigned double		_time1;
 	unsigned double		_time2;
@@ -39,7 +39,7 @@ private:
 	void	setInput(char **args);
 	void	setTime(unsigned double time, t_times option);
 
-	void 	validate_input();
+//	void 	validate_input();
 	void	order_vector(int *input);
 	void	order_deque(int *input);
 public:

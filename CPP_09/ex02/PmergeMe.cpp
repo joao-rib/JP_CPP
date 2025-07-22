@@ -39,9 +39,9 @@ bool	isDigit(char c)
 // | MEMBER FUNCTIONS
 // |----------------------
 
-void 	PmergeMe::validate_input() // WIP write function
+/*void 	PmergeMe::validate_input() // WIP write function
 {
-	/*this->setInput(trim_whitespace(this->getInput()));
+	this->setInput(trim_whitespace(this->getInput()));
 	size_t len = this->getInput().size();
 	if (len < 5 || !(len % 2) || !isDigit(this->getInput()[0]) || !isOpToken(this->getInput()[len - 1]))
 		throw InputException("");
@@ -53,12 +53,9 @@ void 	PmergeMe::validate_input() // WIP write function
 		if ((j > 0 && !(isDigit(this->getInput()[i]) || isOpToken(this->getInput()[i])))
 			|| (j < 0 && !isDelim(this->getInput()[i])))
 			throw InputException("");
-	}*/
-	;
+	}
 	// WIP check negatives ("Error" only)
-	// WIP check non-numbers
-	// WIP check duplicates
-}
+}*/
 
 void	PmergeMe::order_vector(int *input)
 {
@@ -72,10 +69,10 @@ void	PmergeMe::order_deque(int *input)
 
 void	PmergeMe::print_unsorted(void) // WIP write function
 {
-	/*// Empty input check
-	if (this->getInput() == "")
+	// Empty variable check
+	if (!this->_input)
 		return ;
-
+/*
 	// Calculation process: , then operate when finding an operator
 	for (unsigned int i = 0; i < this->getInput().size(); i += 2)
 	{
@@ -148,10 +145,17 @@ void	PmergeMe::print_sorted(void) // WIP write function
 
 void	PmergeMe::setInput(char **args)
 {
-	; // WIP write function
-	// WIP check negatives ("Error" only)
-	// WIP check non-numbers
-	// WIP check duplicates
+	char* safeguard = 0;
+	this->_input = new T[this.getSize()];
+	for (unsigned int i = 0; i < this.getSize(); i++)
+	{
+		this->_input[i] = static_cast<int>(std::strtod(trim_whitespace(args[i + 1]).c_str(), &safeguard));
+		if (args[i] == safeguard || *safeguard != '\0')
+			throw InputException(": Invalid arguments");
+		if (this->_input[i] < 0)
+			throw InputException("");
+	}
+	// WIP check duplicates?
 }
 
 void	PmergeMe::setTime(unsigned double time, t_times option)
@@ -206,6 +210,7 @@ PmergeMe &PmergeMe::operator = (const PmergeMe &orig)
 		this->_size = orig.getSize();
 		setTime(orig._start_time, TIME_START); // WIP current time
 		this->order_vector();
+		setTime(orig._start_time, TIME_START); // WIP current time
 		this->order_deque();
 	}
 	//std::cout << "PmergeMe assignment copy-constructed." << std::endl;
@@ -217,24 +222,25 @@ PmergeMe::PmergeMe(const PmergeMe &orig): _input(orig._input)
 	this->_size = orig.getSize();
 	setTime(orig._start_time, TIME_START); // WIP current time
 	this->order_vector();
+	setTime(orig._start_time, TIME_START); // WIP current time
 	this->order_deque();
 	//std::cout << "PmergeMe copy-constructed." << std::endl;
 }
 
-PmergeMe::PmergeMe(char** args)
+PmergeMe::PmergeMe(char** args, int arg_num): _size(arg_num - 1)
 {
 	this->setInput(args);
-	this->validate_input();
+	//this->validate_input();
 	setTime(0, TIME_START); // WIP current time
 	this->order_vector();
+	setTime(0, TIME_START); // WIP current time
 	this->order_deque();
 	//std::cout << "PmergeMe constructed." << std::endl;
 }
 
-PmergeMe::PmergeMe(void)
+PmergeMe::PmergeMe(void): _size(0)
 {
 	_input = NULL;
-	_size = 0;
 	setTime(0, TIME_START); // WIP current time
 	setTime(0, TIME_1);
 	setTime(0, TIME_2);
@@ -243,6 +249,7 @@ PmergeMe::PmergeMe(void)
 
 PmergeMe::~PmergeMe(void)
 {
+	delete[] this->_input;
 	//std::cout << "PmergeMe destructed." << std::endl;
 }
 

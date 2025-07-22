@@ -6,17 +6,15 @@ try
 {
 	if (argc < 2)
 		throw InputException(": Please insert at sequence of positive numbers");
-	PmergeMe pmm = PmergeMe(argv + 1); // WIP Ideal constructor
-	// WIP check negatives ("Error" only)
-	// WIP check non-numbers
-	// WIP check duplicates
+	PmergeMe pmm = PmergeMe(argv, argc);
+	// WIP check duplicates?
 
 	// WIP print unsorted sequence
 	pmm.print_unsorted();
 	// WIP print sorted sequence
 	pmm.print_sorted();
 	// WIP Time to process with first container (microseconds, 5 decimals => picoseconds)
-	std::cout << "Time to process a range of " << pmm.getSize() << " elements with std::vectot : ";
+	std::cout << "Time to process a range of " << pmm.getSize() << " elements with std::vector : ";
 	std::cout << std::fixed << std::setprecision(5) << pmm.getTime(TIME_1) << " us" << std::endl;
 	// WIP Time to process with second container (microseconds, 5 decimals => picoseconds)
 	std::cout << "Time to process a range of " << pmm.getSize() << " elements with std::deque : ";
