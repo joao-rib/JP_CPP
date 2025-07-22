@@ -6,10 +6,10 @@ try
 {
 	if (argc < 2)
 		throw InputException(": Please insert at sequence of positive numbers");
+
 	PmergeMe pmm = PmergeMe(argv, argc);
 	// WIP check duplicates?
 
-	// WIP print unsorted sequence
 	pmm.print_unsorted();
 	// WIP print sorted sequence
 	pmm.print_sorted();

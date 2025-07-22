@@ -4,7 +4,7 @@
 // | HELPER FUNCTIONS
 // |----------------------
 
-bool	isDelim(char c)
+bool	isDelim(char c) // WIP check if redundant
 {
 	if (c == ' ' || c == '\t' || c == '\n'
 		|| c == '\v' || c == '\f' || c == '\r')
@@ -13,7 +13,7 @@ bool	isDelim(char c)
 		return (false);
 }
 
-std::string	trim_whitespace(const std::string& str)
+std::string	trim_whitespace(const std::string& str) // WIP check if redundant
 {
 	int i = 0;
 	while (isDelim(str[i]))
@@ -27,7 +27,7 @@ std::string	trim_whitespace(const std::string& str)
 	return (str.substr(i, j - i + 1));
 }
 
-bool	isDigit(char c)
+bool	isDigit(char c) // WIP check if redundant
 {
 	if (c >= '0' && c <= '9')
 		return (true);
@@ -57,50 +57,27 @@ bool	isDigit(char c)
 	// WIP check negatives ("Error" only)
 }*/
 
-void	PmergeMe::order_vector(int *input)
+void	PmergeMe::order_vector(void)
 {
 	; // WIP write function
 }
 
-void	PmergeMe::order_deque(int *input)
+void	PmergeMe::order_deque(void)
 {
 	; // WIP write function
 }
 
-void	PmergeMe::print_unsorted(void) // WIP write function
+void	PmergeMe::print_unsorted(void)
 {
 	// Empty variable check
-	if (!this->_input)
+	if (!this->getInput())
 		return ;
-/*
-	// Calculation process: , then operate when finding an operator
-	for (unsigned int i = 0; i < this->getInput().size(); i += 2)
-	{
-		// Add numbers to the stack
-		if (isDigit(this->getInput()[i]))
-			this->_numbers.push(this->getInput()[i] - '0');
-		else if (isOpToken(this->getInput()[i]))
-		{
-			// "If too many operators"
-			if (this->_numbers.size() < 2)
-				throw InputException("");
 
-			// Operate first two numbers from stack, then push the result to the top
-			int second = this->_numbers.top();
-			this->_numbers.pop();
-			int first = this->_numbers.top();
-			this->_numbers.pop();
-			this->_numbers.push(operation(this->getInput()[i], first, second));
-		}
-	}
-
-	// "If too many numbers"
-	if (this->_numbers.size() != 1)
-		throw InputException("");
-
-	// Print result
-	std::cout << this->_numbers.top() << std::endl;*/
-	;
+	// Print
+	std::cout << "Before:";
+	for (unsigned int i = 0; i < this->getSize(); i++)
+		std::cout << " " << this->getInput()[i];
+	std::cout << std::endl;
 }
 
 void	PmergeMe::print_sorted(void) // WIP write function
@@ -146,8 +123,8 @@ void	PmergeMe::print_sorted(void) // WIP write function
 void	PmergeMe::setInput(char **args)
 {
 	char* safeguard = 0;
-	this->_input = new T[this.getSize()];
-	for (unsigned int i = 0; i < this.getSize(); i++)
+	this->_input = new int[this->getSize()];
+	for (unsigned int i = 0; i < this->getSize(); i++)
 	{
 		this->_input[i] = static_cast<int>(std::strtod(trim_whitespace(args[i + 1]).c_str(), &safeguard));
 		if (args[i] == safeguard || *safeguard != '\0')
@@ -158,7 +135,7 @@ void	PmergeMe::setInput(char **args)
 	// WIP check duplicates?
 }
 
-void	PmergeMe::setTime(unsigned double time, t_times option)
+void	PmergeMe::setTime(unsigned int time, t_times option)
 {
 	switch (option)
 	{
@@ -177,12 +154,17 @@ void	PmergeMe::setTime(unsigned double time, t_times option)
 	return ;
 }
 
+int *const	&PmergeMe::getInput(void) const
+{
+	return(this->_input);
+}
+
 size_t const	&PmergeMe::getSize(void) const
 {
 	return(this->_size);
 }
 
-unsigned double const	&PmergeMe::getTime(t_times option) const
+unsigned int const	&PmergeMe::getTime(t_times option) const
 {
 	switch (option)
 	{
@@ -206,8 +188,8 @@ PmergeMe &PmergeMe::operator = (const PmergeMe &orig)
 {
 	if (this != &orig)
 	{
-		this->_input = orig._input();
-		this->_size = orig.getSize();
+		this->_input = orig._input;
+		//this->_size = orig.getSize();
 		setTime(orig._start_time, TIME_START); // WIP current time
 		this->order_vector();
 		setTime(orig._start_time, TIME_START); // WIP current time
@@ -217,9 +199,9 @@ PmergeMe &PmergeMe::operator = (const PmergeMe &orig)
 	return (*this);
 }
 
-PmergeMe::PmergeMe(const PmergeMe &orig): _input(orig._input)
+PmergeMe::PmergeMe(const PmergeMe &orig): _input(orig._input), _size(orig._size)
 {
-	this->_size = orig.getSize();
+	//this->_size = orig.getSize();
 	setTime(orig._start_time, TIME_START); // WIP current time
 	this->order_vector();
 	setTime(orig._start_time, TIME_START); // WIP current time

@@ -32,25 +32,26 @@ private:
 	std::deque<int>		_second;
 	int*				_input;
 	const size_t		_size;
-	unsigned double		_start_time;
-	unsigned double		_time1;
-	unsigned double		_time2;
+	unsigned int		_start_time;
+	unsigned int		_time1;
+	unsigned int		_time2;
 
+	int *const			&getInput() const;
 	void	setInput(char **args);
-	void	setTime(unsigned double time, t_times option);
+	void	setTime(unsigned int time, t_times option);
 
 //	void 	validate_input();
-	void	order_vector(int *input);
-	void	order_deque(int *input);
+	void	order_vector();
+	void	order_deque();
 public:
 	PmergeMe();
-	PmergeMe(char** input);
+	PmergeMe(char** args, int arg_num);
 	PmergeMe(const PmergeMe &orig);
 	PmergeMe &operator = (const PmergeMe &orig);
 	virtual ~PmergeMe();
 
-	size_t const			&getSize() const;
-	unsigned double const	&getTime(t_times option) const;
+	size_t const		&getSize() const;
+	unsigned int const	&getTime(t_times option) const;
 
 	void	print_unsorted();
 	void	print_sorted();
