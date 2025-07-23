@@ -39,24 +39,6 @@ bool	isDigit(char c) // WIP check if redundant
 // | MEMBER FUNCTIONS
 // |----------------------
 
-/*void 	PmergeMe::validate_input() // WIP write function
-{
-	this->setInput(trim_whitespace(this->getInput()));
-	size_t len = this->getInput().size();
-	if (len < 5 || !(len % 2) || !isDigit(this->getInput()[0]) || !isOpToken(this->getInput()[len - 1]))
-		throw InputException("");
-
-	// Numbers or operators in even; whitespace in odd
-	int j = 1;
-	for (unsigned int i = 0; i < this->getInput().size(); i++, j *= -1)
-	{ 
-		if ((j > 0 && !(isDigit(this->getInput()[i]) || isOpToken(this->getInput()[i])))
-			|| (j < 0 && !isDelim(this->getInput()[i])))
-			throw InputException("");
-	}
-	// WIP check negatives ("Error" only)
-}*/
-
 void	PmergeMe::order_vector(std::vector<int> above)
 {
 	if (above.size() < 2)

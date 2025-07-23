@@ -40,7 +40,6 @@ private:
 	void	setInput(char **args);
 	void	setTime(unsigned int time, t_times option);
 
-//	void 	validate_input();
 	void	order_vector(std::vector<int> above);
 	void	order_deque(std::deque<int> above);
 public:
