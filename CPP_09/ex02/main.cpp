@@ -11,7 +11,6 @@ try
 	// WIP check duplicates?
 
 	pmm.print_unsorted();
-	// WIP print sorted sequence
 	pmm.print_sorted();
 	// WIP Time to process with first container (microseconds, 5 decimals => picoseconds)
 	std::cout << "Time to process a range of " << pmm.getSize() << " elements with std::vector : ";
@@ -26,6 +25,8 @@ catch (std::exception &e)
 }
 	return 0;
 }
+
+// TEST: ./PmergeMe 11 2 17 0 16 8 6 15 10 3 21 1 18 9 14 19 12 5 4 20 13 7
 
 //Output example
 /*

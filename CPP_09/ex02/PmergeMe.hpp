@@ -50,8 +50,8 @@ public:
 	PmergeMe &operator = (const PmergeMe &orig);
 	virtual ~PmergeMe();
 
-	size_t const		&getSize() const;
-	unsigned int const	&getTime(t_times option) const;
+	size_t const	&getSize() const;
+	unsigned int	getTime(t_times option) const;
 
 	void	print_unsorted();
 	void	print_sorted();
