@@ -57,21 +57,30 @@ bool	isDigit(char c) // WIP check if redundant
 	// WIP check negatives ("Error" only)
 }*/
 
-void	PmergeMe::order_vector(void)
+void	PmergeMe::order_vector(std::vector<int> above)
 {
-	/*for (unsigned int i = 0; i < this->getSize(); i =+ 2)
+	if (above.size() < 2)
+		return ;
+	// STEP 1: Swap values, Make pairs
+	std::vector<int>::iterator it = above.begin();
+	std::vector<int> below;
+	for (unsigned int i = 0; i < (this->getSize() - 1); i =+ 2, it += 2)
 	{
-		if ()
-			;
+		if (it < (it + 1)) // WIP it.value()
+			swap(it, it + 1);
+		below.push_back(std::make_pair(it, it + 1));
 	}
-		_first.push_back(this->getInput()[i]);*/
+	order_vector(below);
 
-	//std::vector main;
-	//std::vector pend;
-	; // WIP algorithm
+	// STEP 2: main and pend
+	// WIP std::vector main;
+	// WIP std::vector pend;
+
+	// STEP 3: Jacobsthal
+
 }
 
-void	PmergeMe::order_deque(void)
+void	PmergeMe::order_deque(std::deque<int> above)
 {
 	; // WIP algorithm
 }
@@ -179,11 +188,11 @@ PmergeMe &PmergeMe::operator = (const PmergeMe &orig)
 		setTime(orig._start_time, TIME_START); // WIP current time
 		for (unsigned int i = 0; i < this->getSize(); i++)
 			_first.push_back(this->getInput()[i]);
-		this->order_vector();
+		this->order_vector(_first);
 		setTime(orig._start_time, TIME_START); // WIP current time
 		for (unsigned int i = 0; i < this->getSize(); i++)
 			_second.push_back(this->getInput()[i]);
-		this->order_deque();
+		this->order_deque(_second);
 	}
 	//std::cout << "PmergeMe assignment copy-constructed." << std::endl;
 	return (*this);
@@ -195,11 +204,11 @@ PmergeMe::PmergeMe(const PmergeMe &orig): _input(orig._input), _size(orig._size)
 	setTime(orig._start_time, TIME_START); // WIP current time
 	for (unsigned int i = 0; i < this->getSize(); i++)
 		_first.push_back(this->getInput()[i]);
-	this->order_vector();
+	this->order_vector(_first);
 	setTime(orig._start_time, TIME_START); // WIP current time
 	for (unsigned int i = 0; i < this->getSize(); i++)
 		_second.push_back(this->getInput()[i]);
-	this->order_deque();
+	this->order_deque(_second);
 	//std::cout << "PmergeMe copy-constructed." << std::endl;
 }
 
@@ -210,11 +219,11 @@ PmergeMe::PmergeMe(char** args, int arg_num): _size(arg_num - 1)
 	setTime(0, TIME_START); // WIP current time
 	for (unsigned int i = 0; i < this->getSize(); i++)
 		_first.push_back(this->getInput()[i]);
-	this->order_vector();
+	this->order_vector(_first);
 	setTime(0, TIME_START); // WIP current time
 	for (unsigned int i = 0; i < this->getSize(); i++)
 		_second.push_back(this->getInput()[i]);
-	this->order_deque();
+	this->order_deque(_second);
 	//std::cout << "PmergeMe constructed." << std::endl;
 }
 

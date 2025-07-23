@@ -41,8 +41,8 @@ private:
 	void	setTime(unsigned int time, t_times option);
 
 //	void 	validate_input();
-	void	order_vector();
-	void	order_deque();
+	void	order_vector(std::vector<int> above);
+	void	order_deque(std::deque<int> above);
 public:
 	PmergeMe();
 	PmergeMe(char** args, int arg_num);
