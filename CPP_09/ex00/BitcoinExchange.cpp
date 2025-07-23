@@ -82,7 +82,7 @@ void	BitcoinExchange::print_values(std::string input)
 		// Register date and value
 		std::string	date;
 		float		value;
-		size_t	sep = line.find(' | ');
+		size_t	sep = line.find('|');
 		if (sep == std::string::npos)
 		{
 			date = line.substr(0, line.size());
