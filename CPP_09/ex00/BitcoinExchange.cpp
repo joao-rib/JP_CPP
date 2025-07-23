@@ -39,10 +39,6 @@ bool	isDate(std::string str)
 	// Syntax validation
 	if (str.size() != 10)
 		return (false);
-	if (str[4] != '-' || str[7] != '-')
-		return (false);
-	if (str[4] != '-' || str[7] != '-')
-		return (false);
 	for (unsigned int i = 0; i < 10; i++) {
 		if ((i == 4 || i == 7) && str[i] != '-')
 			return (false);
@@ -57,6 +53,8 @@ bool	isDate(std::string str)
 	int day = std::atoi(str.substr(8, 2).c_str());
 	if (month > 12 || day > 31 || (month == 2 && day > 29)
 		|| (day == 31 && (month == 4 || month == 6 || month == 9 || month == 11 )))
+		return (false);
+	if (month == 2 && day == 29 && (std::atoi(str.substr(0, 4).c_str()) % 4 != 0))
 		return (false);
 
 	return (true);
