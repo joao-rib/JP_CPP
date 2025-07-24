@@ -57,7 +57,7 @@ std::string	trim_whitespace(const std::string& str)
 
 void	PmergeMe::order_vector(std::vector<int> above)
 {
-	/*if (above.size() < 2)
+	if (above.size() < 2)
 		return ;
 	// STEP 1: Swap values, Make pairs
 	std::vector<int>::iterator it = above.begin();
@@ -68,7 +68,7 @@ void	PmergeMe::order_vector(std::vector<int> above)
 			swap(it, it + 1);
 		below.push_back(std::make_pair(it, it + 1));
 	}
-	order_vector(below);*/
+	order_vector(below);
 	(void)above;
 	// STEP 2: main and pend
 	// WIP std::vector main;
