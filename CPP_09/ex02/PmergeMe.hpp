@@ -12,6 +12,7 @@
 #include <cmath>
 #include <climits>
 #include <stdint.h>
+#include <sys/time.h>
 
 #include <vector>
 #include <deque>
@@ -30,15 +31,15 @@ class PmergeMe
 private:
 	std::vector<int>	_first;
 	std::deque<int>		_second;
-	int*				_input;
-	const size_t		_size;
-	unsigned int		_start_time;
-	unsigned int		_time1;
-	unsigned int		_time2;
+	int*			_input;
+	const size_t	_size;
+	long			_start_time;
+	long			_time1;
+	long			_time2;
 
 	int *const			&getInput() const;
 	void	setInput(char **args);
-	void	setTime(unsigned int time, t_times option);
+	void	setTime(t_times option);
 
 	void	order_vector(std::vector<int> above);
 	void	order_deque(std::deque<int> above);
@@ -50,7 +51,7 @@ public:
 	virtual ~PmergeMe();
 
 	size_t const	&getSize() const;
-	unsigned int	getTime(t_times option) const;
+	long			getTime(t_times option) const;
 
 	void	print_unsorted();
 	void	print_sorted();

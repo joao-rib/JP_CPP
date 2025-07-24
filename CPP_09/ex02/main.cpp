@@ -8,16 +8,17 @@ try
 		throw InputException(": Please insert at sequence of positive numbers");
 
 	PmergeMe pmm = PmergeMe(argv, argc);
-	// WIP check duplicates?
 
 	pmm.print_unsorted();
 	pmm.print_sorted();
-	// WIP Time to process with first container (microseconds, 5 decimals => picoseconds)
+
+	// Time to process with Vector (microseconds, 5 decimals => picoseconds)
 	std::cout << "Time to process a range of " << pmm.getSize() << " elements with std::vector : ";
-	std::cout << std::fixed << std::setprecision(5) << pmm.getTime(TIME_1) << " us" << std::endl;
-	// WIP Time to process with second container (microseconds, 5 decimals => picoseconds)
+	std::cout << std::fixed << std::setprecision(5) << static_cast<double>(pmm.getTime(TIME_1)) << " us" << std::endl;
+
+	// Time to process with Deque (microseconds, 5 decimals => picoseconds)
 	std::cout << "Time to process a range of " << pmm.getSize() << " elements with std::deque : ";
-	std::cout << std::fixed << std::setprecision(5) << pmm.getTime(TIME_2) << " us" << std::endl;
+	std::cout << std::fixed << std::setprecision(5) << static_cast<double>(pmm.getTime(TIME_2)) << " us" << std::endl;
 }
 catch (std::exception &e)
 {
