@@ -29,8 +29,8 @@ enum t_times
 class PmergeMe
 {
 private:
-	std::vector<int>	_first;
-	std::deque<int>		_second;
+	std::vector<int>	_vec_cnt;
+	std::deque<int>		_deq_cnt;
 	int*			_input;
 	const size_t	_size;
 	long			_start_time;
@@ -41,8 +41,8 @@ private:
 	void	setInput(char **args);
 	void	setTime(t_times option);
 
-	void	order_vector(std::vector<int> above);
-	void	order_deque(std::deque<int> above);
+	std::vector<int>	order_vector(std::vector<int> above);
+	std::deque<int>		order_deque(std::deque<int> above);
 public:
 	PmergeMe();
 	PmergeMe(char** args, int arg_num);
@@ -66,5 +66,21 @@ public:
 	virtual ~InputException() throw();
 	virtual const char *what() const throw();
 };
+
+template<typename T>
+T&	min(T& a, T& b)
+{
+	if (a < b)
+		return a;
+	return b;
+}
+
+template<typename T>
+T&	max(T& a, T& b)
+{
+	if (a > b)
+		return a;
+	return b;
+}
 
 #endif

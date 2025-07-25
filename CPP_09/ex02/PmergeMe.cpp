@@ -43,6 +43,42 @@ std::string	trim_whitespace(const std::string& str)
 	return (str.substr(i, j - i + 1));
 }
 
+int	nextJacobsthal(int num)
+{
+	if (num < 3)
+		return (3);
+
+	int i = 1;
+	int prev = 0;
+	int value = 1;
+	while (num >= value)
+	{
+		int buff = value;
+		value = prev + prev + i;
+		prev = buff;
+		i *= -1;
+	}
+	return (value);
+}
+
+int	lastJacobsthal(int num)
+{
+	if (num == 1)
+		return (0);
+
+	int i = 1;
+	int prev = 0;
+	int value = 1;
+	while (num >= value)
+	{
+		int buff = value;
+		value = prev + prev + i;
+		prev = buff;
+		i *= -1;
+	}
+	return (prev);
+}
+
 /*bool	isDigit(char c)
 {
 	if (c >= '0' && c <= '9')
@@ -55,30 +91,49 @@ std::string	trim_whitespace(const std::string& str)
 // | MEMBER FUNCTIONS
 // |----------------------
 
-void	PmergeMe::order_vector(std::vector<int> above)
+std::vector<int>	PmergeMe::order_vector(std::vector<int> above)
 {
-	if (above.size() < 2)
-		return ;
-	// STEP 1: Swap values, Make pairs
-	std::vector<int>::iterator it = above.begin();
-	std::vector<int> below;
-	for (unsigned int i = 0; i < (this->getSize() - 1); i =+ 2, it += 2)
+	size_t s = above.size();
+
+	// Last layer
+	if (s < 2)
+		return (above);
+
+	// If Vector's size is odd
+	int Odd_Element = -1;
+	if (s % 2)
 	{
-		if (it < (it + 1)) // WIP it.value()
-			swap(it, it + 1);
-		below.push_back(std::make_pair(it, it + 1));
+		Odd_Element = above.back();
+		above.pop_back();
+		s--;
 	}
-	order_vector(below);
-	(void)above;
-	// STEP 2: main and pend
-	// WIP std::vector main;
-	// WIP std::vector pend;
 
-	// STEP 3: Jacobsthal
+	// Create main and pend
+	//std::vector<std::pair<int, int>> vec_pairs;
+	std::vector<int> pend_vec;
+	std::vector<int> main_vec;
+	for (unsigned int i = 0; i < s; i += 2)
+	{
+		main_vec.push_back(max(above[i], above[i + 1]));
+		pend_vec.push_back(min(above[i], above[i + 1]));
+	}
 
+	//Recurse
+	main_vec = order_vector(main_vec);
+
+	// STEP 3: Jacobsthal WIP
+	// 3.1: Jacobsthal numbers
+	// 3.2: Group from pend (?)
+	// 3.3: Insert from group into main (?)
+	//	main_vec.insert(it, value);
+	// 3.4: Insert remaining pends
+	// 3.5: Insert Odd_Element
+
+	//(void)above;
+	return (main_vec);
 }
 
-void	PmergeMe::order_deque(std::deque<int> above)
+std::deque<int>	PmergeMe::order_deque(std::deque<int> above)
 {
 	(void)above; // WIP algorithm
 }
@@ -99,13 +154,13 @@ void	PmergeMe::print_unsorted(void)
 void	PmergeMe::print_sorted(void)
 {
 	// Empty variable check
-	if (this->_first.empty() || this->_second.empty())
+	if (this->_vec_cnt.empty() || this->_deq_cnt.empty())
 		return ;
 
 	// Print
 	std::cout << "After:";
 	for (unsigned int i = 0; i < this->getSize(); i++)
-		std::cout << " " << this->_first[i]; // From Vector
+		std::cout << " " << this->_vec_cnt[i]; // From Vector
 	std::cout << std::endl;
 }
 
@@ -187,14 +242,14 @@ PmergeMe &PmergeMe::operator = (const PmergeMe &orig)
 
 		setTime(TIME_START);
 		for (unsigned int i = 0; i < this->getSize(); i++)
-			_first.push_back(this->getInput()[i]);
-		this->order_vector(_first);
+			_vec_cnt.push_back(this->getInput()[i]);
+		this->_vec_cnt = this->order_vector(_vec_cnt);
 		setTime(TIME_1);
 
 		setTime(TIME_START);
 		for (unsigned int i = 0; i < this->getSize(); i++)
-			_second.push_back(this->getInput()[i]);
-		this->order_deque(_second);
+			_deq_cnt.push_back(this->getInput()[i]);
+		this->_deq_cnt = this->order_deque(_deq_cnt);
 		setTime(TIME_2);
 	}
 	//std::cout << "PmergeMe assignment copy-constructed." << std::endl;
@@ -205,14 +260,14 @@ PmergeMe::PmergeMe(const PmergeMe &orig): _input(orig._input), _size(orig._size)
 {
 	setTime(TIME_START);
 	for (unsigned int i = 0; i < this->getSize(); i++)
-		_first.push_back(this->getInput()[i]);
-	this->order_vector(_first);
+		_vec_cnt.push_back(this->getInput()[i]);
+	this->_vec_cnt = this->order_vector(_vec_cnt);
 	setTime(TIME_1);
 
 	setTime(TIME_START);
 	for (unsigned int i = 0; i < this->getSize(); i++)
-		_second.push_back(this->getInput()[i]);
-	this->order_deque(_second);
+		_deq_cnt.push_back(this->getInput()[i]);
+	this->_deq_cnt = this->order_deque(_deq_cnt);
 	setTime(TIME_2);
 
 	//std::cout << "PmergeMe copy-constructed." << std::endl;
@@ -224,14 +279,14 @@ PmergeMe::PmergeMe(char** args, int arg_num): _size(arg_num - 1)
 
 	setTime(TIME_START);
 	for (unsigned int i = 0; i < this->getSize(); i++)
-		_first.push_back(this->getInput()[i]);
-	this->order_vector(_first);
+		_vec_cnt.push_back(this->getInput()[i]);
+	this->_vec_cnt = this->order_vector(_vec_cnt);
 	setTime(TIME_1);
 
 	setTime(TIME_START);
 	for (unsigned int i = 0; i < this->getSize(); i++)
-		_second.push_back(this->getInput()[i]);
-	this->order_deque(_second);
+		_deq_cnt.push_back(this->getInput()[i]);
+	this->_deq_cnt = this->order_deque(_deq_cnt);
 	setTime(TIME_2);
 
 	//std::cout << "PmergeMe constructed." << std::endl;
