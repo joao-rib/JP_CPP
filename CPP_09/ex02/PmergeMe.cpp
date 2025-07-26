@@ -43,25 +43,27 @@ std::string	trim_whitespace(const std::string& str)
 	return (str.substr(i, j - i + 1));
 }
 
-int	nextJacobsthal(int num)
+int	diffJacobsthal(int seq_num)
 {
-	if (num < 3)
-		return (3);
+	if (seq_num < 1)
+		throw InputException(": Bad use of diffJacobsthal()");
 
 	int i = 1;
+	int s = 0;
 	int prev = 0;
-	int value = 1;
-	while (num >= value)
+	int curr = 1;
+	while (s != seq_num)
 	{
-		int buff = value;
-		value = prev + prev + i;
+		int buff = curr;
+		curr = prev + prev + i;
 		prev = buff;
 		i *= -1;
+		s++;
 	}
-	return (value);
+	return (curr - prev);
 }
 
-int	lastJacobsthal(int num)
+/*int	lastJacobsthal(int num)
 {
 	if (num == 1)
 		return (0);
@@ -77,7 +79,7 @@ int	lastJacobsthal(int num)
 		i *= -1;
 	}
 	return (prev);
-}
+}*/
 
 /*bool	isDigit(char c)
 {
@@ -121,13 +123,15 @@ std::vector<int>	PmergeMe::order_vector(std::vector<int> above)
 	//Recurse
 	main_vec = order_vector(main_vec);
 
+	if (Odd_Element > -1)
+		pend_vec.push_back(Odd_Element);
+
 	// STEP 3: Jacobsthal WIP
 	// 3.1: Jacobsthal numbers
 	// 3.2: Group from pend (?)
 	// 3.3: Insert from group into main (?)
-	//	main_vec.insert(it, value);
+	//  main_vec.insert(std::lower_bound(main_vec.begin(), main_vec.end(), value), value);
 	// 3.4: Insert remaining pends
-	// 3.5: Insert Odd_Element
 
 	//(void)above;
 	return (main_vec);
