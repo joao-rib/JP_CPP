@@ -253,13 +253,13 @@ PmergeMe &PmergeMe::operator = (const PmergeMe &orig)
 		setTime(TIME_START);
 		for (unsigned int i = 0; i < this->getSize(); i++)
 			_vec_cnt.push_back(this->getInput()[i]);
-		this->_vec_cnt = this->order_vector(_vec_cnt);
+		this->_vec_cnt = this->order_vector(_vec_cnt, 1);
 		setTime(TIME_1);
 
 		setTime(TIME_START);
 		for (unsigned int i = 0; i < this->getSize(); i++)
 			_deq_cnt.push_back(this->getInput()[i]);
-		this->_deq_cnt = this->order_deque(_deq_cnt);
+		this->_deq_cnt = this->order_deque(_deq_cnt, 1);
 		setTime(TIME_2);
 	}
 	//std::cout << "PmergeMe assignment copy-constructed." << std::endl;

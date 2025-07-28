@@ -73,14 +73,19 @@ public:
 };
 
 template<typename T>
-void	swap(T& a, T& b)
+void	swap_pairs(T& container, unsigned int start, size_t pair_half_size)
 {
-	T buff = a;
-	a = b;
-	b = buff;
+	size_t end = start + pair_half_size
+	while (start < end)
+	{
+		T buff = container[start];
+		container[start] = container[start + pair_half_size];
+		container[start + pair_half_size] = buff;
+		start++;
+	}
 }
 
-template<typename T>
+/*template<typename T>
 T&	min(T& a, T& b)
 {
 	if (a < b)
@@ -94,7 +99,7 @@ T&	max(T& a, T& b)
 	if (a > b)
 		return a;
 	return b;
-}
+}*/
 
 template<typename T>
 void PmergeMe::order_container(T& container, unsigned int layer) // WIP
@@ -102,7 +107,7 @@ void PmergeMe::order_container(T& container, unsigned int layer) // WIP
 	size_t pair_size = layer;
 	for (unsigned int i = 0; i < layer; i++)
 		pair_size *= 2;
-	int pair_total = container.size() / pair_size; // Odd numbers unaccounted for?
+	size_t pair_total = this->getSize() / pair_size; // Odd numbers unaccounted for?
 
 	// Last layer
 	if (pair_total < 2)
@@ -111,16 +116,14 @@ void PmergeMe::order_container(T& container, unsigned int layer) // WIP
 		return ;
 	}
 
-	// If Container's size is odd
-	int Odd_Element = -1;
-	if (s != pair_total * 2 * layer)
-		Odd_Element = container.back(); // WIP must be the entire pair
+	// If Container's size is odd, then this variable is different from 0
+	unsigned int Odd_Element_pos = this->getSize() - (pair_total * pair_size);
 
 	// Swap numbers/pairs where needed
-	for (unsigned int i = 0; i < (pair_total * pair_size); i++)
+	for (unsigned int i = 0; i < pair_total; i += pair_size)
 	{
-		if (container[i] > container[i + 1])
-			::swap(container[i], container[i + 1]); // WIP must be the entire pair
+		if (container[i + (pair_size / 2) - 1] > container[i + pair_size - 1])
+			::swap_pairs(container, i, pair_size / 2);
 	}
 
 	// Recurse
@@ -163,7 +166,7 @@ void PmergeMe::order_container(T& container, unsigned int layer) // WIP
 	while (--p >= c)
 		main_cnt.insert(std::lower_bound(main_cnt.begin(), main_cnt.end(), pend_cnt[p]), pend_cnt[p]); // WIP must be the entire pair
 
-	// STEP 4: Replace values in container, from main
+	// Replace values in container, from main
 	for (unsigned int i = 0; i < main_cnt.size(); i++)
 		container[i] = main_cnt[i]; // WIP Does it work between pairs and values?
 }
