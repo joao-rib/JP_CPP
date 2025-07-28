@@ -133,8 +133,8 @@ void PmergeMe::order_container(T& container, unsigned int layer) // WIP
 	std::T::T pend_cnt;
 	std::T::T main_cnt;
 	T::iterator it = container.begin();
-	main_cnt = push_back(*it); // b1 // WIP must be the entire pair
-	main_cnt = push_back(*(++it)); // a1 // WIP must be the entire pair
+	main_cnt.push_back(*it); // b1 // WIP must be the entire pair
+	main_cnt.push_back(*(++it)); // a1 // WIP must be the entire pair
 	it++;
 	for (unsigned int i = 2; i < (pair_total * pair_size); i += 2, it++) // WIP must be the entire pair
 	{
