@@ -46,7 +46,7 @@ std::string	trim_whitespace(const std::string& str)
 int	diffJacobsthal(int seq_num)
 {
 	if (seq_num < 1)
-		throw InputException(": Bad use of diffJacobsthal()");
+		throw InputException(": Invalid use of diffJacobsthal()");
 
 	int i = 1;
 	int s = 0;
@@ -93,7 +93,7 @@ int	diffJacobsthal(int seq_num)
 // | MEMBER FUNCTIONS
 // |----------------------
 
-std::vector<int>	PmergeMe::order_vector(std::vector<int> above)
+/*std::vector<int>	PmergeMe::order_vector(std::vector<int> above)
 {
 	size_t s = above.size();
 
@@ -141,7 +141,7 @@ std::deque<int>	PmergeMe::order_deque(std::deque<int> above)
 {
 	//above.push_back(2);
 	(void)above; // WIP algorithm
-}
+}*/
 
 void	PmergeMe::print_unsorted(void)
 {

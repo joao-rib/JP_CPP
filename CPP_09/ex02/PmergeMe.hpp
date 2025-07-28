@@ -41,8 +41,8 @@ private:
 	void	setInput(char **args);
 	void	setTime(t_times option);
 
-	std::vector<int>	order_vector(std::vector<int> above);
-	std::deque<int>		order_deque(std::deque<int> above);
+	//std::vector<int>	order_vector(std::vector<int> above);
+	//std::deque<int>		order_deque(std::deque<int> above);
 
 	template <typename T>
 	void order_container(T& container, unsigned int layer); // WIP
@@ -130,21 +130,21 @@ void PmergeMe::order_container(T& container, unsigned int layer) // WIP
 	this->order_container(container, layer + 1);
 
 	// Create main and pend
-	std::T::T pend_cnt;
-	std::T::T main_cnt;
+	T pend_cnt;
+	T main_cnt;
 	T::iterator it = container.begin();
-	main_cnt.push_back(*it); // b1 // WIP must be the entire pair
-	main_cnt.push_back(*(++it)); // a1 // WIP must be the entire pair
+	main_cnt.push_back(*it); // b1 // WIP must be the entire pair // push_back_pairs(main_cnt, 0, pair_size)
+	main_cnt.push_back(*(++it)); // a1 // WIP must be the entire pair // push_back_pairs(main_cnt, 1, pair_size)
 	it++;
 	for (unsigned int i = 2; i < (pair_total * pair_size); i += 2, it++) // WIP must be the entire pair
 	{
-		pend_cnt.push_back(push_back(*it));
-		main_cnt.push_back(push_back(*(++it)));
+		pend_cnt.push_back(push_back(*it)); // push_back_pairs(pend_cnt, i, pair_size)
+		main_cnt.push_back(push_back(*(++it))); // push_back_pairs(main_cnt, ++i, pair_size)
 	}
 
 	// Add the odd element into the pend
-	if (Odd_Element > 0)
-		pend_cnt.push_back(Odd_Element); // WIP must be the entire pair
+	if (Odd_Element_pos > 0)
+		pend_cnt.push_back(Odd_Element_pos); // WIP must be the entire pair // push_back_rest(pend_cnt, Odd_Element_pos)
 
 	// Insert pend elements into the main
 	int j = 2;
@@ -156,7 +156,7 @@ void PmergeMe::order_container(T& container, unsigned int layer) // WIP
 		{
 			if (i > p)
 				break ;
-			main_cnt.insert(std::lower_bound(main_cnt.begin(), main_cnt.end(), pend_cnt[i]), pend_cnt[i]); // WIP must be the entire pair
+			main_cnt.insert(std::lower_bound(main_cnt.begin(), main_cnt.end(), pend_cnt[c + i]), pend_cnt[c + i]); // WIP must be the entire pair // insert_pairs(main_cnt, c + i, pair_size)
 		}
 		c += diffJacobsthal(j);
 		j++;
@@ -164,11 +164,11 @@ void PmergeMe::order_container(T& container, unsigned int layer) // WIP
 
 	// Insert remaining pends, if any
 	while (--p >= c)
-		main_cnt.insert(std::lower_bound(main_cnt.begin(), main_cnt.end(), pend_cnt[p]), pend_cnt[p]); // WIP must be the entire pair
+		main_cnt.insert(std::lower_bound(main_cnt.begin(), main_cnt.end(), pend_cnt[p]), pend_cnt[p]); // WIP must be the entire pair // insert_pairs(main_cnt, p, pair_size)
 
 	// Replace values in container, from main
 	for (unsigned int i = 0; i < main_cnt.size(); i++)
-		container[i] = main_cnt[i]; // WIP Does it work between pairs and values?
+		container[i] = main_cnt[i]; // Should work...
 }
 
 #endif
