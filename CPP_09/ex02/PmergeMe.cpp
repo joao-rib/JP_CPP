@@ -208,6 +208,11 @@ void	PmergeMe::setTime(t_times option)
 	return ;
 }
 
+size_t const	&PmergeMe::getLayers(void) const
+{
+	return(this->_last_layer);
+}
+
 int *const	&PmergeMe::getInput(void) const
 {
 	return(this->_input);

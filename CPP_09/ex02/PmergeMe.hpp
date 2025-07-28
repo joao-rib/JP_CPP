@@ -55,6 +55,7 @@ public:
 	virtual ~PmergeMe();
 
 	size_t const	&getSize() const;
+	size_t const	&getLayers() const;
 	long			getTime(t_times option) const;
 
 	void	print_unsorted();
