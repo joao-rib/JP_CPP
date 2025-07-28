@@ -43,6 +43,10 @@ private:
 
 	std::vector<int>	order_vector(std::vector<int> above);
 	std::deque<int>		order_deque(std::deque<int> above);
+
+	template <typename T>
+	void order_container(T& container, unsigned int layer, unsigned int pair_total); // WIP
+	unsigned int	_last_layer;
 public:
 	PmergeMe();
 	PmergeMe(char** args, int arg_num);
@@ -81,6 +85,39 @@ T&	max(T& a, T& b)
 	if (a > b)
 		return a;
 	return b;
+}
+
+template<typename T>
+void PmergeMe::order_container(T& container, unsigned int layer, unsigned int pair_total) // WIP
+{
+	size_t s = container.size();
+	// int pair_total = s / (2 * layer); // Odd numbers unaccounted for
+
+	// Last layer
+	if (pair_total < 2)
+	{
+		_last_layer = layer;
+		return ;
+	}
+
+	// If Container's size is odd
+	/*int Odd_Element = -1;
+	if (s != pair_total * 2 * layer)
+		Odd_Element = container.back(); // WIP must be the entire pair*/
+
+	// Create main and pend
+
+	// Recurse
+
+	//if (Odd_Element > -1)
+	//	pend_cnt.push_back(Odd_Element);
+
+	// STEP 3: Jacobsthal WIP
+	// 3.1: Jacobsthal numbers
+	// 3.2: Insert b1, a1, a2, etc. to main
+	// 3.3: Insert pairs from pend into main (Jacobstahl order, in reverse)
+	//  main_vec.insert(std::lower_bound(main_vec.begin(), main_vec.end(), value), value);
+	// 3.4: Insert remaining pends, if any
 }
 
 #endif

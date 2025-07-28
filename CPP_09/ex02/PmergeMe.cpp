@@ -139,6 +139,7 @@ std::vector<int>	PmergeMe::order_vector(std::vector<int> above)
 
 std::deque<int>	PmergeMe::order_deque(std::deque<int> above)
 {
+	//above.push_back(2);
 	(void)above; // WIP algorithm
 }
 
