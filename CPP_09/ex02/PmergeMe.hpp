@@ -143,7 +143,7 @@ void PmergeMe::order_container(T& container, unsigned int layer) // WIP
 	}
 
 	// Add the odd element into the pend
-	if (Odd_Element > -1)
+	if (Odd_Element > 0)
 		pend_cnt.push_back(Odd_Element); // WIP must be the entire pair
 
 	// Insert pend elements into the main
