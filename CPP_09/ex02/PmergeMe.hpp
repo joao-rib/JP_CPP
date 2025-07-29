@@ -75,7 +75,7 @@ public:
 template<typename T>
 void	swap_pairs(T& container, unsigned int start, size_t pair_half_size)
 {
-	size_t end = start + pair_half_size
+	size_t end = start + pair_half_size;
 	while (start < end)
 	{
 		T buff = container[start];
@@ -89,7 +89,7 @@ template<typename T>
 void	insert_pairs(T& main_cnt, int value, size_t pair_size)
 {
 	for (unsigned int i = 0; i < pair_size; i++) // WIP This ain't right. "Value" isn't enough
-		main_cnt.insert(std::lower_bound(main_cnt.begin(), main_cnt.end(), value), value);
+		main_cnt.insert(std::lower_bound(main_cnt.begin(), main_cnt.end(), value), value); // WIP lower_bound is only relevant for highest number
 }
 
 template<typename T>
@@ -153,20 +153,20 @@ void PmergeMe::order_container(T& container, unsigned int layer) // WIP
 	// Create main and pend
 	T pend_cnt;
 	T main_cnt;
-	push_back_pairs(container, main_cnt, 0, pair_size); // b1
-	push_back_pairs(container, main_cnt, 1, pair_size); // a1
-	for (unsigned int i = 2; i < (pair_total * pair_size); i += 2)
+	push_back_pairs(container, main_cnt, 0, pair_size / 2); // b1
+	push_back_pairs(container, main_cnt, 1, pair_size / 2); // a1
+	for (unsigned int i = 2; i < (pair_total * pair_size); i++) 
 	{
-		push_back_pairs(container, pend_cnt, i, pair_size); // Remaining b
-		push_back_pairs(container, main_cnt, ++i, pair_size); // Remaining a
+		push_back_pairs(container, pend_cnt, i, pair_size / 2); // Remaining b
+		push_back_pairs(container, main_cnt, ++i, pair_size / 2); // Remaining a
 	}
 
-	// Add the odd element into the pend
+	// Add the odd elements into the pend
 	if (Odd_Element_pos > 0)
 		push_back_rest(container, pend_cnt, Odd_Element_pos);
 
 	// Insert pend elements into the main
-	int j = 2;
+	/*int j = 2;
 	size_t c = 0;
 	size_t p = pend_cnt.size();
 	while (c < p) // WIP must be the entire pair
@@ -179,15 +179,15 @@ void PmergeMe::order_container(T& container, unsigned int layer) // WIP
 		}
 		c += diffJacobsthal(j);
 		j++;
-	}
+	}*/
 
 	// Insert remaining pends, if any
-	while (--p >= c)
+	/*while (--p >= c)
 		insert_pairs(main_cnt, pend_cnt[p], pair_size); // WIP must be the entire pair
 
 	// Replace values in container, from main
 	for (unsigned int i = 0; i < main_cnt.size(); i++)
-		container[i] = main_cnt[i]; // Should work...
+		container[i] = main_cnt[i]; // Should work...*/
 }
 
 #endif

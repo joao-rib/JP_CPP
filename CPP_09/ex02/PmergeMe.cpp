@@ -43,7 +43,7 @@ std::string	trim_whitespace(const std::string& str)
 	return (str.substr(i, j - i + 1));
 }
 
-int	diffJacobsthal(int seq_num)
+int	diffJacobsthal(int seq_num) // WIP This is wrong...
 {
 	if (seq_num < 1)
 		throw InputException(": Invalid use of diffJacobsthal()");
