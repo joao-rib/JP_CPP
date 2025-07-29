@@ -253,13 +253,13 @@ PmergeMe &PmergeMe::operator = (const PmergeMe &orig)
 		setTime(TIME_START);
 		for (unsigned int i = 0; i < this->getSize(); i++)
 			_vec_cnt.push_back(this->getInput()[i]);
-		this->_vec_cnt = this->order_vector(_vec_cnt, 1);
+		this->order_container(this->_vec_cnt, 1);
 		setTime(TIME_1);
 
 		setTime(TIME_START);
 		for (unsigned int i = 0; i < this->getSize(); i++)
 			_deq_cnt.push_back(this->getInput()[i]);
-		this->_deq_cnt = this->order_deque(_deq_cnt, 1);
+		this->order_container(this->_deq_cnt, 1);
 		setTime(TIME_2);
 	}
 	//std::cout << "PmergeMe assignment copy-constructed." << std::endl;
@@ -271,13 +271,13 @@ PmergeMe::PmergeMe(const PmergeMe &orig): _input(orig._input), _size(orig._size)
 	setTime(TIME_START);
 	for (unsigned int i = 0; i < this->getSize(); i++)
 		_vec_cnt.push_back(this->getInput()[i]);
-	this->_vec_cnt = this->order_vector(_vec_cnt);
+	this->order_container(this->_vec_cnt, 1);
 	setTime(TIME_1);
 
 	setTime(TIME_START);
 	for (unsigned int i = 0; i < this->getSize(); i++)
 		_deq_cnt.push_back(this->getInput()[i]);
-	this->_deq_cnt = this->order_deque(_deq_cnt);
+	this->order_container(this->_deq_cnt, 1);
 	setTime(TIME_2);
 
 	//std::cout << "PmergeMe copy-constructed." << std::endl;
@@ -290,13 +290,13 @@ PmergeMe::PmergeMe(char** args, int arg_num): _size(arg_num - 1)
 	setTime(TIME_START);
 	for (unsigned int i = 0; i < this->getSize(); i++)
 		_vec_cnt.push_back(this->getInput()[i]);
-	this->_vec_cnt = this->order_vector(_vec_cnt);
+	this->order_container(this->_vec_cnt, 1);
 	setTime(TIME_1);
 
 	setTime(TIME_START);
 	for (unsigned int i = 0; i < this->getSize(); i++)
 		_deq_cnt.push_back(this->getInput()[i]);
-	this->_deq_cnt = this->order_deque(_deq_cnt);
+	this->order_container(this->_deq_cnt, 1);
 	setTime(TIME_2);
 
 	//std::cout << "PmergeMe constructed." << std::endl;
