@@ -1,39 +1,6 @@
 #include "PmergeMe.hpp"
 
-int	diffJacobsthal(int seq_num) // WIP This is wrong...
-{
-	if (seq_num < 1)
-		return 1;
-
-	int i = 1;
-	int s = 0;
-	int prev = 0;
-	int curr = 1;
-	while (s != seq_num)
-	{
-		int buff = curr;
-		curr = prev + prev + i;
-		prev = buff;
-		i *= -1;
-		s++;
-	}
-	std::cout << "Curr " << curr << std::endl;
-	std::cout << "Prev " << prev << std::endl;
-	return (curr - prev);
-}
-
-int	main(void)
-{
-	std::cout << diffJacobsthal(0) << std::endl;
-	std::cout << diffJacobsthal(1) << std::endl;
-	std::cout << diffJacobsthal(2) << std::endl;
-	std::cout << diffJacobsthal(3) << std::endl;
-	std::cout << diffJacobsthal(4) << std::endl;
-	std::cout << diffJacobsthal(5) << std::endl;
-	std::cout << diffJacobsthal(6) << std::endl;
-}
-
-/*int	main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 try
 {
@@ -61,7 +28,7 @@ catch (std::exception &e)
 	std::cerr << "Error" << e.what() << std::endl;
 }
 	return 0;
-}*/
+}
 
 // TEST: ./PmergeMe 11 2 17 0 16 8 6 15 10 3 21 1 18 9 14 19 12 5 4 20 13 7
 
