@@ -86,10 +86,12 @@ void	swap_pairs(T& container, unsigned int start, size_t pair_half_size)
 }
 
 template<typename T>
-void	insert_pairs(T& main_cnt, int value, size_t pair_size)
+void	insert_pairs(T& main_cnt, T& pend_cnt, size_t pos, size_t pair_half_size)
 {
-	for (unsigned int i = 0; i < pair_size; i++) // WIP This ain't right. "Value" isn't enough
-		main_cnt.insert(std::lower_bound(main_cnt.begin(), main_cnt.end(), value), value); // WIP lower_bound is only relevant for highest number
+	typename T::iterator it = std::lower_bound(main_cnt.begin(), main_cnt.end(), pend_cnt[pos * pair_half_size]); // WIP end()?
+	main_cnt.insert(it, pend_cnt[pos * pair_half_size]); // WIP lower_bound is only relevant for highest number
+	for (unsigned int i = 1; i <= pair_half_size; i--)
+		; // WIP lower_bound is only relevant for highest number
 }
 
 template<typename T>
@@ -166,20 +168,20 @@ void PmergeMe::order_container(T& container, unsigned int layer) // WIP
 		push_back_rest(container, pend_cnt, Odd_Element_pos);
 
 	// Insert pend elements into the main
-	/*int j = 2;
+	int j = 2;
 	size_t c = 0;
-	size_t p = pend_cnt.size();
-	while (c < p) // WIP must be the entire pair
+	size_t p = pend_cnt.size() / (pair_size / 2);
+	while (c < p)
 	{
 		for (unsigned int i = diffJacobsthal(j); i >= 0; i--)
 		{
 			if (i > p)
 				break ;
-			insert_pairs(main_cnt, pend_cnt[c + i], pair_size); // WIP must be the entire pair
+			insert_pairs(main_cnt, pend_cnt, c + i, pair_size); // WIP must be the entire pair
 		}
 		c += diffJacobsthal(j);
 		j++;
-	}*/
+	}
 
 	// Insert remaining pends, if any
 	/*while (--p >= c)
