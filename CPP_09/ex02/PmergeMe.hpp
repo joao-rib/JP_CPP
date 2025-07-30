@@ -91,8 +91,9 @@ void	insert_pairs(T& main_cnt, T& pend_cnt, size_t pos, size_t element_size) // 
 	size_t true_pos = (pos * element_size) + (element_size - 1);
 	typename T::iterator it = std::lower_bound(main_cnt.begin(), main_cnt.end(), pend_cnt[true_pos]) - element_size + 1; // WIP end()?
 
-	for (unsigned int i = 0; i < element_size; i++)
-		main_cnt.insert(it - i, pend_cnt[true_pos - i]);
+	//for (unsigned int i = 0; i < element_size; i++)
+	//	main_cnt.insert(it - i, pend_cnt[true_pos - i]);
+	main_cnt.insert(it, pend_cnt.begin() + (pos * element_size), pend_cnt.begin() + ((pos + 1) * element_size));
 }
 
 template<typename T>
