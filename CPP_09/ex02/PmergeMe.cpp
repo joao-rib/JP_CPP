@@ -43,27 +43,6 @@ std::string	trim_whitespace(const std::string& str)
 	return (str.substr(i, j - i + 1));
 }
 
-int	diffJacobsthal(int seq_num)
-{
-	if (seq_num == 0)
-		return 1;
-	else if (seq_num == 1)
-		return 0;
-
-	int i = 1;
-	int s = 0;
-	int curr = 0;
-	int next = 1;
-	while (s < (seq_num - 1))
-	{
-		curr = next;
-		next = curr + curr + i;
-		i *= -1;
-		s++;
-	}
-	return (next - curr);
-}
-
 // |----------------------
 // | MEMBER FUNCTIONS
 // |----------------------
@@ -87,11 +66,38 @@ void	PmergeMe::print_sorted(void)
 	if (this->_vec_cnt.empty() || this->_deq_cnt.empty())
 		return ;
 
-	// Print
-	std::cout << "After:";
+	// Print (Vector)
+	std::cout << "After (Vector):";
 	for (unsigned int i = 0; i < this->getSize(); i++)
-		std::cout << " " << this->_vec_cnt[i]; // From Vector
+		std::cout << " " << this->_vec_cnt[i];
 	std::cout << std::endl;
+
+	// Print (Deque) // WIP This part should be fully commented by the end
+	std::cout << "After (Deque):";
+	for (unsigned int i = 0; i < this->getSize(); i++)
+		std::cout << " " << this->_deq_cnt[i];
+	std::cout << std::endl;
+}
+
+int	PmergeMe::diffJacobsthal(int seq_num)
+{
+	if (seq_num == 0)
+		return 1;
+	else if (seq_num == 1)
+		return 0;
+
+	int i = 1;
+	int s = 0;
+	int curr = 0;
+	int next = 1;
+	while (s < (seq_num - 1))
+	{
+		curr = next;
+		next = curr + curr + i;
+		i *= -1;
+		s++;
+	}
+	return (next - curr);
 }
 
 // |----------------------
@@ -133,7 +139,7 @@ void	PmergeMe::setTime(t_times option)
 	return ;
 }
 
-size_t const	&PmergeMe::getLayers(void) const
+size_t	PmergeMe::getLayers(void) const
 {
 	return(this->_last_layer);
 }

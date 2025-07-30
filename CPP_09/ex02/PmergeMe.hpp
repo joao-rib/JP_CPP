@@ -41,11 +41,8 @@ private:
 	void	setInput(char **args);
 	void	setTime(t_times option);
 
-	//std::vector<int>	order_vector(std::vector<int> above);
-	//std::deque<int>		order_deque(std::deque<int> above);
-
 	template <typename T>
-	void order_container(T& container, unsigned int layer); // WIP
+	void order_container(T& container, unsigned int layer);
 	unsigned int	_last_layer;
 public:
 	PmergeMe();
@@ -55,11 +52,12 @@ public:
 	virtual ~PmergeMe();
 
 	size_t const	&getSize() const;
-	size_t const	&getLayers() const;
+	size_t			getLayers() const;
 	long			getTime(t_times option) const;
 
 	void	print_unsorted();
 	void	print_sorted();
+	int		diffJacobsthal(int seq_num);
 };
 
 class InputException: public std::exception
@@ -78,7 +76,7 @@ void	swap_pairs(T& container, unsigned int start, size_t element_size)
 	size_t end = start + element_size;
 	while (start < end)
 	{
-		T buff = container[start];
+		int buff = container[start];
 		container[start] = container[start + element_size];
 		container[start + element_size] = buff;
 		start++;
@@ -86,14 +84,17 @@ void	swap_pairs(T& container, unsigned int start, size_t element_size)
 }
 
 template<typename T>
-void	insert_pairs(T& main_cnt, T& pend_cnt, size_t pos, size_t element_size) // WIP
+void	insert_pairs(T& main_cnt, T& pend_cnt, size_t pos, size_t element_size)
 {
-	size_t true_pos = (pos * element_size) + (element_size - 1);
-	typename T::iterator it = std::lower_bound(main_cnt.begin(), main_cnt.end(), pend_cnt[true_pos]) - element_size + 1; // WIP end()?
+	size_t max_pos = (pos + 1) * element_size;
+
+	typename T::iterator it = std::lower_bound(main_cnt.begin(), main_cnt.end(), pend_cnt[max_pos]); // WIP end()?
+	for (unsigned int i = 1; i < element_size; i++)
+		it--;
 
 	//for (unsigned int i = 0; i < element_size; i++)
-	//	main_cnt.insert(it - i, pend_cnt[true_pos - i]);
-	main_cnt.insert(it, pend_cnt.begin() + (pos * element_size), pend_cnt.begin() + ((pos + 1) * element_size));
+	//	main_cnt.insert(it - i, pend_cnt[max_pos - i]);
+	main_cnt.insert(it, pend_cnt.begin() + (pos * element_size), pend_cnt.begin() + max_pos);
 }
 
 template<typename T>
@@ -111,7 +112,7 @@ void	push_back_rest(T& container, T& buff_cnt, size_t start_pos)
 }
 
 template<typename T>
-void PmergeMe::order_container(T& container, unsigned int layer) // WIP
+void PmergeMe::order_container(T& container, unsigned int layer)
 {
 	size_t pair_size = layer;
 	for (unsigned int i = 0; i < layer; i++)
@@ -159,13 +160,13 @@ void PmergeMe::order_container(T& container, unsigned int layer) // WIP
 	size_t p = pend_cnt.size() / (pair_size / 2);
 	while (c < p)
 	{
-		for (unsigned int i = diffJacobsthal(j); i > 0; i--)
+		for (unsigned int i = this->diffJacobsthal(j); i > 0; i--)
 		{
 			if ((c + i) > p)
 				break ;
 			::insert_pairs(main_cnt, pend_cnt, c + i - 1, pair_size / 2);
 		}
-		c += diffJacobsthal(j);
+		c += this->diffJacobsthal(j);
 		j++;
 	}
 

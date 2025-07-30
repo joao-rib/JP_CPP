@@ -7,7 +7,7 @@ try
 	if (argc < 2)
 		throw InputException(": Please insert at sequence of positive numbers");
 
-	PmergeMe pmm = PmergeMe(argv, argc);
+	PmergeMe pmm = PmergeMe(argv, argc); // WIP Sorting algorithm isn't quite there yet. Run debugging tests
 
 	pmm.print_unsorted();
 	pmm.print_sorted();
