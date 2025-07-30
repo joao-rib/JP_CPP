@@ -64,85 +64,9 @@ int	diffJacobsthal(int seq_num)
 	return (next - curr);
 }
 
-/*int	lastJacobsthal(int num)
-{
-	if (num == 1)
-		return (0);
-
-	int i = 1;
-	int prev = 0;
-	int value = 1;
-	while (num >= value)
-	{
-		int buff = value;
-		value = prev + prev + i;
-		prev = buff;
-		i *= -1;
-	}
-	return (prev);
-}*/
-
-/*bool	isDigit(char c)
-{
-	if (c >= '0' && c <= '9')
-		return (true);
-	return (false);
-}*/
-
-
 // |----------------------
 // | MEMBER FUNCTIONS
 // |----------------------
-
-/*std::vector<int>	PmergeMe::order_vector(std::vector<int> above)
-{
-	size_t s = above.size();
-
-	// Last layer
-	if (s < 2)
-		return (above);
-
-	// If Vector's size is odd
-	int Odd_Element = -1;
-	if (s % 2)
-	{
-		Odd_Element = above.back();
-		above.pop_back();
-		s--;
-	}
-
-	// Create main and pend
-	//std::vector<std::pair<int, int>> vec_pairs;
-	std::vector<int> pend_vec;
-	std::vector<int> main_vec;
-	for (unsigned int i = 0; i < s; i += 2)
-	{
-		main_vec.push_back(max(above[i], above[i + 1]));
-		pend_vec.push_back(min(above[i], above[i + 1]));
-	}
-
-	//Recurse
-	main_vec = order_vector(main_vec);
-
-	if (Odd_Element > -1)
-		pend_vec.push_back(Odd_Element);
-
-	// STEP 3: Jacobsthal WIP
-	// 3.1: Jacobsthal numbers
-	// 3.2: Group from pend (?)
-	// 3.3: Insert from group into main (?)
-	//  main_vec.insert(std::lower_bound(main_vec.begin(), main_vec.end(), value), value);
-	// 3.4: Insert remaining pends
-
-	//(void)above;
-	return (main_vec);
-}
-
-std::deque<int>	PmergeMe::order_deque(std::deque<int> above)
-{
-	//above.push_back(2);
-	(void)above; // WIP algorithm
-}*/
 
 void	PmergeMe::print_unsorted(void)
 {
