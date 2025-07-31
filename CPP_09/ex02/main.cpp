@@ -21,7 +21,7 @@ try
 	std::cout << std::fixed << std::setprecision(5) << static_cast<double>(pmm.getTime(TIME_2)) << " us" << std::endl;
 
 	// How many layers of recursion?
-	// std::cout << '\n' << "...Only took me " << pmm.getLayers() << " layers of recursion!" << std::endl;
+	std::cout << '\n' << "...Only took me " << pmm.getLayers() << " layers of recursion!" << std::endl;
 }
 catch (std::exception &e)
 {

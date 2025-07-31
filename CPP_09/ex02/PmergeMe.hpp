@@ -84,17 +84,29 @@ void	swap_pairs(T& container, unsigned int start, size_t element_size)
 }
 
 template<typename T>
-void	insert_pairs(T& main_cnt, T& pend_cnt, size_t pos, size_t element_size)
+void	insert_pairs(T& dst, T& src, size_t pos, size_t element_size)
 {
-	size_t max_pos = (pos + 1) * element_size;
-
-	typename T::iterator it = std::lower_bound(main_cnt.begin(), main_cnt.end(), pend_cnt[max_pos]); // WIP end()?
+	size_t max_pos = ((pos + 1) * element_size) - 1;
+	//std::cout << "pos = " << pos << std::endl;
+	//std::cout << "max_pos = " << max_pos << std::endl;
+	//std::cout << "src[max_pos] = " << src[max_pos] << std::endl;
+	typename T::iterator it = std::lower_bound(dst.begin(), dst.end(), src[max_pos]); // WIP end()?
+	// WIP 19 did not go to the right spot
+	//std::cout << "*it (real) = " << *it << std::endl;
 	for (unsigned int i = 1; i < element_size; i++)
 		it--;
-
+	//std::cout << "*it (begin) = " << *it << std::endl;
 	//for (unsigned int i = 0; i < element_size; i++)
-	//	main_cnt.insert(it - i, pend_cnt[max_pos - i]);
-	main_cnt.insert(it, pend_cnt.begin() + (pos * element_size), pend_cnt.begin() + max_pos);
+	//	dst.insert(it - i, src[max_pos - i]);
+	//std::cout << "src.begin() + (pos * element_size) = " << *(src.begin() + (pos * element_size)) << std::endl;
+	//std::cout << "src.begin() + max_pos = " << *(src.begin() + max_pos) << std::endl;
+	dst.insert(it, src.begin() + (pos * element_size), src.begin() + max_pos + 1);
+	/*std::cout << std::endl;
+	std::cout << "dst.size() = " << dst.size() << std::endl;
+	std::cout << "dst: ";
+	for (unsigned int i = 0; i < dst.size(); i++)
+		std::cout << dst[i] << " ";
+	std::cout << std::endl;*/
 }
 
 template<typename T>
@@ -105,16 +117,16 @@ void	push_back_pairs(T& container, T& buff_cnt, size_t pair_num, size_t element_
 }
 
 template<typename T>
-void	push_back_rest(T& container, T& buff_cnt, size_t start_pos)
+void	push_back_rest(T& src, T& dst, size_t start_pos)
 {
-	for (unsigned int i = start_pos; i < buff_cnt.size(); i++)
-		buff_cnt.push_back(container[i]);
+	for (unsigned int i = start_pos; i < src.size(); i++)
+		dst.push_back(src[i]);
 }
 
 template<typename T>
 void PmergeMe::order_container(T& container, unsigned int layer)
 {
-	size_t pair_size = layer;
+	size_t pair_size = 1;
 	for (unsigned int i = 0; i < layer; i++)
 		pair_size *= 2;
 	size_t pair_total = this->getSize() / pair_size; // Odd numbers unaccounted for?
@@ -130,29 +142,64 @@ void PmergeMe::order_container(T& container, unsigned int layer)
 	unsigned int Odd_Element_pos = pair_total * pair_size;
 
 	// Swap numbers/pairs where needed
-	for (unsigned int i = 0; i < pair_total; i += pair_size)
+	for (unsigned int i = 0; i < (pair_total * pair_size); i += pair_size)
 	{
 		if (container[i + (pair_size / 2) - 1] > container[i + pair_size - 1])
 			::swap_pairs(container, i, pair_size / 2);
 	}
-
+	std::cout << "PRE-recursion container (layer " << layer << "): " << std::endl;
+	for (unsigned int i = 0; i < this->getSize(); i++)
+		std::cout << container[i] << " ";
+	std::cout << std::endl;
 	// Recurse
 	this->order_container(container, layer + 1);
+
+	std::cout << '\n' << "POST-recursion container (layer " << layer << "): " << std::endl;
+	for (unsigned int i = 0; i < this->getSize(); i++)
+		std::cout << container[i] << " ";
+	std::cout << std::endl;
 
 	// Create main and pend
 	T pend_cnt;
 	T main_cnt;
 	::push_back_pairs(container, main_cnt, 0, pair_size / 2); // b1
 	::push_back_pairs(container, main_cnt, 1, pair_size / 2); // a1
-	for (unsigned int i = 2; i < (pair_total * pair_size); i++) 
+	for (unsigned int i = 2; i < (pair_total * 2); i++) 
 	{
 		::push_back_pairs(container, pend_cnt, i, pair_size / 2); // Remaining b
 		::push_back_pairs(container, main_cnt, ++i, pair_size / 2); // Remaining a
 	}
 
+	/*std::cout << std::endl;
+	std::cout << "pair_total = " << pair_total << std::endl;
+	std::cout << "pair_size = " << pair_size << std::endl;
+	std::cout << "main_cnt.size() = " << main_cnt.size() << std::endl;
+	std::cout << "main_cnt (layer " << layer << "): ";
+	for (unsigned int i = 0; i < main_cnt.size(); i++)
+		std::cout << main_cnt[i] << " ";
+	std::cout << std::endl;
+	std::cout << "pend_cnt.size() = " << pend_cnt.size() << std::endl;
+	std::cout << "pend_cnt (layer " << layer << "): ";
+	for (unsigned int i = 0; i < pend_cnt.size(); i++)
+		std::cout << pend_cnt[i] << " ";
+	std::cout << std::endl;*/
+
 	// Add the odd elements into the pend
 	if (Odd_Element_pos < this->getSize())
 		::push_back_rest(container, pend_cnt, Odd_Element_pos);
+
+	/*std::cout << std::endl;
+	std::cout << "Odd_Element_pos = " << Odd_Element_pos << std::endl;
+	std::cout << "main_cnt.size() = " << main_cnt.size() << std::endl;
+	std::cout << "main_cnt (layer " << layer << "): ";
+	for (unsigned int i = 0; i < main_cnt.size(); i++)
+		std::cout << main_cnt[i] << " ";
+	std::cout << std::endl;
+	std::cout << "pend_cnt.size() = " << pend_cnt.size() << std::endl;
+	std::cout << "pend_cnt (layer " << layer << "): ";
+	for (unsigned int i = 0; i < pend_cnt.size(); i++)
+		std::cout << pend_cnt[i] << " ";
+	std::cout << std::endl;*/
 
 	// Insert pend elements into the main
 	int j = 2;
@@ -170,13 +217,27 @@ void PmergeMe::order_container(T& container, unsigned int layer)
 		j++;
 	}
 
+	std::cout << std::endl;
+	std::cout << "p = " << p << "; c = " << c << std::endl;
+	std::cout << "Remaining (p - c) = " << (p - c) << std::endl;
+	std::cout << "main_cnt.size() = " << main_cnt.size() << std::endl;
+	std::cout << "main_cnt (layer " << layer << "): ";
+	for (unsigned int i = 0; i < main_cnt.size(); i++)
+		std::cout << main_cnt[i] << " ";
+	std::cout << std::endl;
+	std::cout << "pend_cnt.size() = " << pend_cnt.size() << std::endl;
+	std::cout << "pend_cnt (layer " << layer << "): ";
+	for (unsigned int i = 0; i < pend_cnt.size(); i++)
+		std::cout << pend_cnt[i] << " ";
+	std::cout << std::endl;
+
 	// Insert remaining pends, if any
-	for (unsigned int i = p - c; i > 0; i--)
+	for (unsigned int i = p - c; i > 0; i--) // WIP certainly wrong
 		::insert_pairs(main_cnt, pend_cnt, c + i - 1, pair_size / 2);
 
-	// Add remaining elements into the pend
+	// Add remaining elements from the pend
 	if (p * (pair_size / 2) < pend_cnt.size())
-		::push_back_rest(main_cnt, pend_cnt, p * (pair_size / 2));
+		::push_back_rest(pend_cnt, main_cnt, p * (pair_size / 2));
 
 	// Replace values in container, from main
 	for (unsigned int i = 0; i < main_cnt.size(); i++)
