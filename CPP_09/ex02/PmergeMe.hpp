@@ -138,7 +138,7 @@ void PmergeMe::order_container(T& container, unsigned int layer)
 	// Last layer
 	if (pair_total < 2)
 	{
-		_last_layer = layer;
+		this->_last_layer = layer;
 		return ;
 	}
 
