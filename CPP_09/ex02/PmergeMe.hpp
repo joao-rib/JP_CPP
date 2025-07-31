@@ -87,30 +87,30 @@ template<typename T>
 void	insert_pairs(T& dst, T& src, size_t pos, size_t element_size)
 {
 	size_t max_pos = ((pos + 1) * element_size) - 1;
-	std::cout << std::endl;
+	/*std::cout << std::endl;
 	std::cout << "(initial) dst.size() = " << dst.size() << std::endl;
-	std::cout << "(initial) dst: ";
+	std::cout << "(initial) dst: ";*/
 	for (unsigned int i = 0; i < dst.size(); i++)
 		std::cout << dst[i] << " ";
-	std::cout << std::endl;
+	/*std::cout << std::endl;
 	std::cout << "pos = " << pos << std::endl;
 	std::cout << "max_pos = " << max_pos << std::endl;
-	std::cout << "src[max_pos] = " << src[max_pos] << std::endl;
+	std::cout << "src[max_pos] = " << src[max_pos] << std::endl;*/
 	typename T::iterator it = std::lower_bound(dst.begin(), dst.end(), src[max_pos]); // WIP end()?
 	// WIP 19 did not go to the right spot // Search manually instead of using lower_bound
-	std::cout << "*it (real) = " << *it << std::endl;
+	//std::cout << "*it (real) = " << *it << std::endl;
 	for (unsigned int i = 1; i < element_size; i++)
 		it--;
-	std::cout << "*it (begin) = " << *it << std::endl;
+	/*std::cout << "*it (begin) = " << *it << std::endl;
 	std::cout << "src.begin() + (pos * element_size) = " << *(src.begin() + (pos * element_size)) << std::endl;
-	std::cout << "src.begin() + max_pos = " << *(src.begin() + max_pos) << std::endl;
+	std::cout << "src.begin() + max_pos = " << *(src.begin() + max_pos) << std::endl;*/
 	dst.insert(it, src.begin() + (pos * element_size), src.begin() + max_pos + 1);
-	std::cout << std::endl;
+	/*std::cout << std::endl;
 	std::cout << "dst.size() = " << dst.size() << std::endl;
 	std::cout << "dst: ";
 	for (unsigned int i = 0; i < dst.size(); i++)
 		std::cout << dst[i] << " ";
-	std::cout << std::endl;
+	std::cout << std::endl;*/
 }
 
 template<typename T>
