@@ -7,7 +7,7 @@ try
 	if (argc < 2)
 		throw InputException(": Please insert at sequence of positive numbers");
 
-	PmergeMe pmm = PmergeMe(argv, argc); // WIP Sorting algorithm isn't quite there yet. Run debugging tests
+	PmergeMe pmm = PmergeMe(argv, argc);
 
 	pmm.print_unsorted();
 	pmm.print_sorted();
@@ -21,7 +21,7 @@ try
 	std::cout << std::fixed << std::setprecision(5) << static_cast<double>(pmm.getTime(TIME_2)) << " us" << std::endl;
 
 	// How many layers of recursion?
-	std::cout << '\n' << "...Only took me " << pmm.getLayers() << " layers of recursion!" << std::endl;
+	//std::cout << '\n' << "...Only took me " << pmm.getLayers() << " layers of recursion!" << std::endl;
 }
 catch (std::exception &e)
 {
@@ -31,6 +31,7 @@ catch (std::exception &e)
 }
 
 // TEST: ./PmergeMe 11 2 17 0 16 8 6 15 10 3 21 1 18 9 14 19 12 5 4 20 13 7
+// TEST: ./PmergeMe 11 2 17 0 16 8 6 15 10 3 21 1 18 9 14 19 12 5 4 20 13 7 456 // WIP This test segfaults
 
 //Output example
 /*

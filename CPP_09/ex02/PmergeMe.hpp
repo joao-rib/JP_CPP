@@ -87,30 +87,21 @@ template<typename T>
 void	insert_pairs(T& dst, T& src, size_t pos, size_t element_size)
 {
 	size_t max_pos = ((pos + 1) * element_size) - 1;
-	/*std::cout << std::endl;
-	std::cout << "(initial) dst.size() = " << dst.size() << std::endl;
-	std::cout << "(initial) dst: ";*/
-	for (unsigned int i = 0; i < dst.size(); i++)
-		std::cout << dst[i] << " ";
-	/*std::cout << std::endl;
-	std::cout << "pos = " << pos << std::endl;
-	std::cout << "max_pos = " << max_pos << std::endl;
-	std::cout << "src[max_pos] = " << src[max_pos] << std::endl;*/
-	typename T::iterator it = std::lower_bound(dst.begin(), dst.end(), src[max_pos]); // WIP end()?
-	// WIP 19 did not go to the right spot // Search manually instead of using lower_bound
+
+	typename T::iterator it;
+	for (unsigned int i = 0; i < dst.size(); i += element_size) // WIP searching order?
+	{
+		if (dst[i + element_size - 1] > src[max_pos])
+		{
+			it = dst.begin() + i;
+			break;
+		}
+	}
+	// typename T::iterator it = std::lower_bound(dst.begin(), dst.end(), src[max_pos]);
 	//std::cout << "*it (real) = " << *it << std::endl;
-	for (unsigned int i = 1; i < element_size; i++)
-		it--;
-	/*std::cout << "*it (begin) = " << *it << std::endl;
-	std::cout << "src.begin() + (pos * element_size) = " << *(src.begin() + (pos * element_size)) << std::endl;
-	std::cout << "src.begin() + max_pos = " << *(src.begin() + max_pos) << std::endl;*/
+	//for (unsigned int i = 1; i < element_size; i++)
+	//	it--;
 	dst.insert(it, src.begin() + (pos * element_size), src.begin() + max_pos + 1);
-	/*std::cout << std::endl;
-	std::cout << "dst.size() = " << dst.size() << std::endl;
-	std::cout << "dst: ";
-	for (unsigned int i = 0; i < dst.size(); i++)
-		std::cout << dst[i] << " ";
-	std::cout << std::endl;*/
 }
 
 template<typename T>
@@ -151,17 +142,9 @@ void PmergeMe::order_container(T& container, unsigned int layer)
 		if (container[i + (pair_size / 2) - 1] > container[i + pair_size - 1])
 			::swap_pairs(container, i, pair_size / 2);
 	}
-	std::cout << "PRE-recursion container (layer " << layer << "): " << std::endl;
-	for (unsigned int i = 0; i < this->getSize(); i++)
-		std::cout << container[i] << " ";
-	std::cout << std::endl;
+
 	// Recurse
 	this->order_container(container, layer + 1);
-
-	std::cout << '\n' << "POST-recursion container (layer " << layer << "): " << std::endl;
-	for (unsigned int i = 0; i < this->getSize(); i++)
-		std::cout << container[i] << " ";
-	std::cout << std::endl;
 
 	// Create main and pend
 	T pend_cnt;
@@ -174,36 +157,9 @@ void PmergeMe::order_container(T& container, unsigned int layer)
 		::push_back_pairs(container, main_cnt, ++i, pair_size / 2); // Remaining a
 	}
 
-	/*std::cout << std::endl;
-	std::cout << "pair_total = " << pair_total << std::endl;
-	std::cout << "pair_size = " << pair_size << std::endl;
-	std::cout << "main_cnt.size() = " << main_cnt.size() << std::endl;
-	std::cout << "main_cnt (layer " << layer << "): ";
-	for (unsigned int i = 0; i < main_cnt.size(); i++)
-		std::cout << main_cnt[i] << " ";
-	std::cout << std::endl;
-	std::cout << "pend_cnt.size() = " << pend_cnt.size() << std::endl;
-	std::cout << "pend_cnt (layer " << layer << "): ";
-	for (unsigned int i = 0; i < pend_cnt.size(); i++)
-		std::cout << pend_cnt[i] << " ";
-	std::cout << std::endl;*/
-
 	// Add the odd elements into the pend
 	if (Odd_Element_pos < this->getSize())
 		::push_back_rest(container, pend_cnt, Odd_Element_pos);
-
-	/*std::cout << std::endl;
-	std::cout << "Odd_Element_pos = " << Odd_Element_pos << std::endl;
-	std::cout << "main_cnt.size() = " << main_cnt.size() << std::endl;
-	std::cout << "main_cnt (layer " << layer << "): ";
-	for (unsigned int i = 0; i < main_cnt.size(); i++)
-		std::cout << main_cnt[i] << " ";
-	std::cout << std::endl;
-	std::cout << "pend_cnt.size() = " << pend_cnt.size() << std::endl;
-	std::cout << "pend_cnt (layer " << layer << "): ";
-	for (unsigned int i = 0; i < pend_cnt.size(); i++)
-		std::cout << pend_cnt[i] << " ";
-	std::cout << std::endl;*/
 
 	// Insert pend elements into the main
 	int j = 2;
@@ -214,30 +170,12 @@ void PmergeMe::order_container(T& container, unsigned int layer)
 		for (unsigned int i = this->diffJacobsthal(j); i > 0; i--)
 		{
 			if ((c + i) > p)
-				break ;
+				continue ;
 			::insert_pairs(main_cnt, pend_cnt, c + i - 1, pair_size / 2);
 		}
 		c += this->diffJacobsthal(j);
 		j++;
 	}
-
-	std::cout << std::endl;
-	std::cout << "p = " << p << "; c = " << c << std::endl;
-	std::cout << "Remaining (p - c) = " << (p - c) << std::endl;
-	std::cout << "main_cnt.size() = " << main_cnt.size() << std::endl;
-	std::cout << "main_cnt (layer " << layer << "): ";
-	for (unsigned int i = 0; i < main_cnt.size(); i++)
-		std::cout << main_cnt[i] << " ";
-	std::cout << std::endl;
-	std::cout << "pend_cnt.size() = " << pend_cnt.size() << std::endl;
-	std::cout << "pend_cnt (layer " << layer << "): ";
-	for (unsigned int i = 0; i < pend_cnt.size(); i++)
-		std::cout << pend_cnt[i] << " ";
-	std::cout << std::endl;
-
-	// Insert remaining pends, if any
-	for (unsigned int i = p - c; i > 0; i--) // WIP certainly wrong
-		::insert_pairs(main_cnt, pend_cnt, c + i - 1, pair_size / 2);
 
 	// Add remaining elements from the pend
 	if (p * (pair_size / 2) < pend_cnt.size())

@@ -67,16 +67,18 @@ void	PmergeMe::print_sorted(void)
 		return ;
 
 	// Print (Vector)
-	std::cout << "After (Vector):";
+	std::cout << "After:";
 	for (unsigned int i = 0; i < this->getSize(); i++)
 		std::cout << " " << this->_vec_cnt[i];
 	std::cout << std::endl;
 
-	// Print (Deque) // WIP This part should be fully commented by the end
-	std::cout << "After (Deque):";
+	// This part is commented, but it is good for testing
+	// Print (Deque)
+/*	std::cout << "After (Deque):";
 	for (unsigned int i = 0; i < this->getSize(); i++)
 		std::cout << " " << this->_deq_cnt[i];
 	std::cout << std::endl;
+*/
 }
 
 int	PmergeMe::diffJacobsthal(int seq_num)
