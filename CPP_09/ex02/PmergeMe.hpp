@@ -244,7 +244,7 @@ void PmergeMe::order_container(T& container, unsigned int layer)
 		::push_back_rest(pend_cnt, main_cnt, p * (pair_size / 2));
 
 	// Replace values in container, from main
-	for (unsigned int i = 0; i < main_cnt.size(); i++)
+	for (unsigned int i = 0; i < this->getSize(); i++)
 		container[i] = main_cnt[i];
 }
 
