@@ -228,7 +228,7 @@ PmergeMe::PmergeMe(char** args, int arg_num): _size(arg_num - 1)
 		_vec_cnt.push_back(this->getInput()[i]);
 	this->order_container(this->_vec_cnt, 1);
 	setTime(TIME_1);
-	std::cout << '\n' << "MEGATEST" << std::endl << std::endl; // WIP DEBUGGING
+
 	setTime(TIME_START);
 	for (unsigned int i = 0; i < this->getSize(); i++)
 		_deq_cnt.push_back(this->getInput()[i]);
