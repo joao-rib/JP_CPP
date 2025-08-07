@@ -71,7 +71,7 @@ public:
 };
 
 template<typename T>
-void	push_back_pairs(T& container, T& buff_cnt, size_t pair_num, size_t element_size)
+void	push_back_elements(T& container, T& buff_cnt, size_t pair_num, size_t element_size)
 {
 	for (unsigned int i = 0; i < element_size; i++)
 		buff_cnt.push_back(container[(pair_num * element_size) + i]);
@@ -85,7 +85,7 @@ void	push_back_rest(T& src, T& dst, size_t start_pos)
 }
 
 template<typename T>
-void	swap_pairs(T& container, unsigned int start, size_t element_size)
+void	swap_elements(T& container, unsigned int start, size_t element_size)
 {
 	size_t end = start + element_size;
 	while (start < end)
@@ -98,10 +98,10 @@ void	swap_pairs(T& container, unsigned int start, size_t element_size)
 }
 
 template<typename T>
-void	insert_pairs(T& dst, T& src, size_t pos, size_t element_size)
+void	insert_elements(T& dst, T& src, size_t pos, size_t element_size)
 {
 	if (element_size == 0)
-		throw InputException(": Invalid use of insert_pairs()");
+		throw InputException(": Invalid use of insert_elements()");
 
 	size_t max_pos = ((pos + 1) * element_size) - 1;
 
@@ -149,7 +149,7 @@ void PmergeMe::order_container(T& container, unsigned int layer)
 	for (unsigned int i = 0; i < (pair_total * pair_size); i += pair_size)
 	{
 		if (container[i + (pair_size / 2) - 1] > container[i + pair_size - 1])
-			::swap_pairs(container, i, pair_size / 2);
+			::swap_elements(container, i, pair_size / 2);
 	}
 
 	// Recurse
@@ -158,12 +158,12 @@ void PmergeMe::order_container(T& container, unsigned int layer)
 	// Create main and pend
 	T pend_cnt;
 	T main_cnt;
-	::push_back_pairs(container, main_cnt, 0, pair_size / 2); // b1
-	::push_back_pairs(container, main_cnt, 1, pair_size / 2); // a1
+	::push_back_elements(container, main_cnt, 0, pair_size / 2); // b1
+	::push_back_elements(container, main_cnt, 1, pair_size / 2); // a1
 	for (unsigned int i = 2; i < (pair_total * 2); i++) 
 	{
-		::push_back_pairs(container, pend_cnt, i, pair_size / 2); // Remaining b
-		::push_back_pairs(container, main_cnt, ++i, pair_size / 2); // Remaining a
+		::push_back_elements(container, pend_cnt, i, pair_size / 2); // Remaining b
+		::push_back_elements(container, main_cnt, ++i, pair_size / 2); // Remaining a
 	}
 
 	// Add the odd elements into the pend
@@ -180,7 +180,7 @@ void PmergeMe::order_container(T& container, unsigned int layer)
 		{
 			if ((c + i) > p)
 				continue ;
-			::insert_pairs(main_cnt, pend_cnt, c + i - 1, pair_size / 2);
+			::insert_elements(main_cnt, pend_cnt, c + i - 1, pair_size / 2);
 		}
 		c += this->diffJacobsthal(j);
 		j++;
