@@ -71,6 +71,20 @@ public:
 };
 
 template<typename T>
+void	push_back_pairs(T& container, T& buff_cnt, size_t pair_num, size_t element_size)
+{
+	for (unsigned int i = 0; i < element_size; i++)
+		buff_cnt.push_back(container[(pair_num * element_size) + i]);
+}
+
+template<typename T>
+void	push_back_rest(T& src, T& dst, size_t start_pos)
+{
+	for (unsigned int i = start_pos; i < src.size(); i++)
+		dst.push_back(src[i]);
+}
+
+template<typename T>
 void	swap_pairs(T& container, unsigned int start, size_t element_size)
 {
 	size_t end = start + element_size;
@@ -86,14 +100,19 @@ void	swap_pairs(T& container, unsigned int start, size_t element_size)
 template<typename T>
 void	insert_pairs(T& dst, T& src, size_t pos, size_t element_size)
 {
+	if (element_size == 0)
+		throw InputException(": Invalid use of insert_pairs()");
+
 	size_t max_pos = ((pos + 1) * element_size) - 1;
 
 	typename T::iterator it;
+	bool max_value = true;
 	for (unsigned int i = 0; i < dst.size(); i += element_size) // WIP searching order?
 	{
 		if (dst[i + element_size - 1] > src[max_pos])
 		{
 			it = dst.begin() + i;
+			max_value = false;
 			break;
 		}
 	}
@@ -101,21 +120,11 @@ void	insert_pairs(T& dst, T& src, size_t pos, size_t element_size)
 	//std::cout << "*it (real) = " << *it << std::endl;
 	//for (unsigned int i = 1; i < element_size; i++)
 	//	it--;
-	dst.insert(it, src.begin() + (pos * element_size), src.begin() + max_pos + 1);
-}
 
-template<typename T>
-void	push_back_pairs(T& container, T& buff_cnt, size_t pair_num, size_t element_size)
-{
-	for (unsigned int i = 0; i < element_size; i++)
-		buff_cnt.push_back(container[(pair_num * element_size) + i]);
-}
-
-template<typename T>
-void	push_back_rest(T& src, T& dst, size_t start_pos)
-{
-	for (unsigned int i = start_pos; i < src.size(); i++)
-		dst.push_back(src[i]);
+	if (max_value)
+		::push_back_rest(src, dst, pos * element_size);
+	else
+		dst.insert(it, src.begin() + (pos * element_size), src.begin() + max_pos + 1);
 }
 
 template<typename T>

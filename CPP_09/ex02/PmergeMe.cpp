@@ -180,6 +180,7 @@ PmergeMe &PmergeMe::operator = (const PmergeMe &orig)
 {
 	if (this != &orig)
 	{
+		_last_layer = 0;
 		this->_input = orig._input;
 		//this->_size = orig.getSize();
 
@@ -201,6 +202,7 @@ PmergeMe &PmergeMe::operator = (const PmergeMe &orig)
 
 PmergeMe::PmergeMe(const PmergeMe &orig): _input(orig._input), _size(orig._size)
 {
+	_last_layer = 0;
 	setTime(TIME_START);
 	for (unsigned int i = 0; i < this->getSize(); i++)
 		_vec_cnt.push_back(this->getInput()[i]);
@@ -218,6 +220,7 @@ PmergeMe::PmergeMe(const PmergeMe &orig): _input(orig._input), _size(orig._size)
 
 PmergeMe::PmergeMe(char** args, int arg_num): _size(arg_num - 1)
 {
+	_last_layer = 0;
 	this->setInput(args);
 
 	setTime(TIME_START);
@@ -225,7 +228,7 @@ PmergeMe::PmergeMe(char** args, int arg_num): _size(arg_num - 1)
 		_vec_cnt.push_back(this->getInput()[i]);
 	this->order_container(this->_vec_cnt, 1);
 	setTime(TIME_1);
-
+	std::cout << '\n' << "MEGATEST" << std::endl << std::endl; // WIP DEBUGGING
 	setTime(TIME_START);
 	for (unsigned int i = 0; i < this->getSize(); i++)
 		_deq_cnt.push_back(this->getInput()[i]);
@@ -237,6 +240,7 @@ PmergeMe::PmergeMe(char** args, int arg_num): _size(arg_num - 1)
 
 PmergeMe::PmergeMe(void): _size(0)
 {
+	_last_layer = 0;
 	_input = NULL;
 	setTime(TIME_START);
 	setTime(TIME_1);
