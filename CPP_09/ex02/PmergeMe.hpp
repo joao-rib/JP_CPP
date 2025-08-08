@@ -110,32 +110,23 @@ size_t	insert_elements(T& dst, T& src, size_t pos, size_t element_size)
 	if (element_size == 0)
 		throw InputException(": Invalid use of insert_elements()");
 
+	// Compare max value from pend group with max values from main groups
 	size_t comparison_total = 0;
 	size_t max_pos = ((pos + 1) * element_size) - 1;
-
-	typename T::iterator it;
-	bool max_value = true;
-	for (unsigned int i = 0; i < dst.size(); i += element_size) // WIP searching order?
+	typename T::iterator it = dst.end();
+	for (unsigned int i = 0; i < dst.size(); i += element_size)
 	{
 		if (dst[i + element_size - 1] > src[max_pos])
 		{
 			it = dst.begin() + i;
-			max_value = false;
 			comparison_total++;
 			break;
 		}
 		comparison_total++;
 	}
-	// typename T::iterator it = std::lower_bound(dst.begin(), dst.end(), src[max_pos]);
-	//std::cout << "*it (real) = " << *it << std::endl;
-	//for (unsigned int i = 1; i < element_size; i++)
-	//	it--;
 
-	if (max_value)
-		//dst.insert(dst.end(), src.begin() + (pos * element_size), src.begin() + max_pos + 1);
-		::push_back_rest(src, dst, pos * element_size);
-	else
-		dst.insert(it, src.begin() + (pos * element_size), src.begin() + max_pos + 1);
+	// Insert pend group into main container
+	dst.insert(it, src.begin() + (pos * element_size), src.begin() + max_pos + 1);
 	
 	return (comparison_total);
 }
