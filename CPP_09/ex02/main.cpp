@@ -21,7 +21,11 @@ try
 	std::cout << std::fixed << std::setprecision(5) << static_cast<double>(pmm.getTime(TIME_2)) << " us" << std::endl;
 
 	// How many layers of recursion?
-	//std::cout << '\n' << "...Only took me " << pmm.getLayers() << " layers of recursion!" << std::endl;
+	std::cout << '\n' << "...Only took me " << pmm.getLayers() << " layers of recursion!" << std::endl;
+	// How many comparisons?
+	std::cout << "Vector took " << pmm.getCompVec() << " comparisons." << std::endl;
+	std::cout << "Deque took " << pmm.getCompDeq() << " comparisons." << std::endl;
+	std::cout << "Maximum is " << pmm.maxComparisons() << " comparisons (Size " << pmm.getSize() << ")." << std::endl;
 }
 catch (std::exception &e)
 {

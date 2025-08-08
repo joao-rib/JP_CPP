@@ -102,6 +102,16 @@ int	PmergeMe::diffJacobsthal(int seq_num)
 	return (next - curr);
 }
 
+int PmergeMe::maxComparisons()
+{
+	int sum = 0;
+	for (size_t k = 1; k <= this->getSize(); ++k) {
+		double value = (3.0 / 4.0) * k;
+		sum += static_cast<int>(ceil(log2(value)));
+	}
+	return sum;
+}
+
 // |----------------------
 // | GETTERS & SETTERS
 // |----------------------
@@ -146,6 +156,16 @@ size_t	PmergeMe::getLayers(void) const
 	return(this->_last_layer);
 }
 
+size_t	PmergeMe::getCompVec(void) const
+{
+	return(this->_comparisons_vec);
+}
+
+size_t	PmergeMe::getCompDeq(void) const
+{
+	return(this->_comparisons_deq);
+}
+
 int *const	&PmergeMe::getInput(void) const
 {
 	return(this->_input);
@@ -181,6 +201,7 @@ PmergeMe &PmergeMe::operator = (const PmergeMe &orig)
 	if (this != &orig)
 	{
 		_last_layer = 0;
+		_comp_tmp = 0;
 		this->_input = orig._input;
 		//this->_size = orig.getSize();
 
@@ -188,12 +209,14 @@ PmergeMe &PmergeMe::operator = (const PmergeMe &orig)
 		for (unsigned int i = 0; i < this->getSize(); i++)
 			_vec_cnt.push_back(this->getInput()[i]);
 		this->order_container(this->_vec_cnt, 1);
+		_comparisons_vec = _comp_tmp;
 		setTime(TIME_1);
 
 		setTime(TIME_START);
 		for (unsigned int i = 0; i < this->getSize(); i++)
 			_deq_cnt.push_back(this->getInput()[i]);
 		this->order_container(this->_deq_cnt, 1);
+		_comparisons_deq = _comp_tmp;
 		setTime(TIME_2);
 	}
 	//std::cout << "PmergeMe assignment copy-constructed." << std::endl;
@@ -203,16 +226,20 @@ PmergeMe &PmergeMe::operator = (const PmergeMe &orig)
 PmergeMe::PmergeMe(const PmergeMe &orig): _input(orig._input), _size(orig._size)
 {
 	_last_layer = 0;
+	_comp_tmp = 0;
+
 	setTime(TIME_START);
 	for (unsigned int i = 0; i < this->getSize(); i++)
 		_vec_cnt.push_back(this->getInput()[i]);
 	this->order_container(this->_vec_cnt, 1);
+	_comparisons_vec = _comp_tmp;
 	setTime(TIME_1);
 
 	setTime(TIME_START);
 	for (unsigned int i = 0; i < this->getSize(); i++)
 		_deq_cnt.push_back(this->getInput()[i]);
 	this->order_container(this->_deq_cnt, 1);
+	_comparisons_deq = _comp_tmp;
 	setTime(TIME_2);
 
 	//std::cout << "PmergeMe copy-constructed." << std::endl;
@@ -222,17 +249,21 @@ PmergeMe::PmergeMe(char** args, int arg_num): _size(arg_num - 1)
 {
 	_last_layer = 0;
 	this->setInput(args);
+	_comp_tmp = 0;
 
 	setTime(TIME_START);
 	for (unsigned int i = 0; i < this->getSize(); i++)
 		_vec_cnt.push_back(this->getInput()[i]);
 	this->order_container(this->_vec_cnt, 1);
+	_comparisons_vec = _comp_tmp;
 	setTime(TIME_1);
 
+	_comp_tmp = 0;;
 	setTime(TIME_START);
 	for (unsigned int i = 0; i < this->getSize(); i++)
 		_deq_cnt.push_back(this->getInput()[i]);
 	this->order_container(this->_deq_cnt, 1);
+	_comparisons_deq = _comp_tmp;
 	setTime(TIME_2);
 
 	//std::cout << "PmergeMe constructed." << std::endl;
@@ -242,6 +273,9 @@ PmergeMe::PmergeMe(void): _size(0)
 {
 	_last_layer = 0;
 	_input = NULL;
+	_comp_tmp = 0;
+	_comparisons_deq = 0;
+	_comparisons_vec = 0;
 	setTime(TIME_START);
 	setTime(TIME_1);
 	setTime(TIME_2);

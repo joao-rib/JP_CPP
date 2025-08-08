@@ -43,7 +43,11 @@ private:
 
 	template <typename T>
 	void order_container(T& container, unsigned int layer);
+
 	unsigned int	_last_layer;
+	unsigned int	_comparisons_vec;
+	unsigned int	_comparisons_deq;
+	unsigned int	_comp_tmp;
 public:
 	PmergeMe();
 	PmergeMe(char** args, int arg_num);
@@ -53,11 +57,14 @@ public:
 
 	size_t const	&getSize() const;
 	size_t			getLayers() const;
+	size_t			getCompVec() const;
+	size_t			getCompDeq() const;
 	long			getTime(t_times option) const;
 
 	void	print_unsorted();
 	void	print_sorted();
 	int		diffJacobsthal(int seq_num);
+	int		maxComparisons();
 };
 
 class InputException: public std::exception
@@ -98,11 +105,12 @@ void	swap_elements(T& container, unsigned int start, size_t element_size)
 }
 
 template<typename T>
-void	insert_elements(T& dst, T& src, size_t pos, size_t element_size)
+size_t	insert_elements(T& dst, T& src, size_t pos, size_t element_size)
 {
 	if (element_size == 0)
 		throw InputException(": Invalid use of insert_elements()");
 
+	size_t comparison_total = 0;
 	size_t max_pos = ((pos + 1) * element_size) - 1;
 
 	typename T::iterator it;
@@ -113,8 +121,10 @@ void	insert_elements(T& dst, T& src, size_t pos, size_t element_size)
 		{
 			it = dst.begin() + i;
 			max_value = false;
+			comparison_total++;
 			break;
 		}
+		comparison_total++;
 	}
 	// typename T::iterator it = std::lower_bound(dst.begin(), dst.end(), src[max_pos]);
 	//std::cout << "*it (real) = " << *it << std::endl;
@@ -122,9 +132,12 @@ void	insert_elements(T& dst, T& src, size_t pos, size_t element_size)
 	//	it--;
 
 	if (max_value)
+		//dst.insert(dst.end(), src.begin() + (pos * element_size), src.begin() + max_pos + 1);
 		::push_back_rest(src, dst, pos * element_size);
 	else
 		dst.insert(it, src.begin() + (pos * element_size), src.begin() + max_pos + 1);
+	
+	return (comparison_total);
 }
 
 template<typename T>
@@ -150,6 +163,7 @@ void PmergeMe::order_container(T& container, unsigned int layer)
 	{
 		if (container[i + (pair_size / 2) - 1] > container[i + pair_size - 1])
 			::swap_elements(container, i, pair_size / 2);
+		_comp_tmp++;
 	}
 
 	// Recurse
@@ -180,7 +194,7 @@ void PmergeMe::order_container(T& container, unsigned int layer)
 		{
 			if ((c + i) > p)
 				continue ;
-			::insert_elements(main_cnt, pend_cnt, c + i - 1, pair_size / 2);
+			_comp_tmp += ::insert_elements(main_cnt, pend_cnt, c + i - 1, pair_size / 2);
 		}
 		c += this->diffJacobsthal(j);
 		j++;
