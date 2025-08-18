@@ -43,6 +43,8 @@ private:
 
 	template <typename T>
 	void order_container(T& container, unsigned int layer);
+	template<typename T>
+	void order_small(T& container);
 
 	unsigned int	_last_layer;
 	unsigned int	_comparisons_vec;
@@ -132,17 +134,45 @@ size_t	insert_elements(T& dst, T& src, size_t pos, size_t element_size)
 }
 
 template<typename T>
+void PmergeMe::order_small(T& container)
+{
+	// Swap numbers if needed
+	if (container[0] > container[1])
+		::swap_elements(container, 0, 1);
+	_comp_tmp++;
+
+	// Create main and pend
+	T pend_cnt;
+	T main_cnt;
+	::push_back_elements(container, main_cnt, 0, 1); // b1
+	::push_back_elements(container, main_cnt, 1, 1); // a1
+
+	// Add the odd elements into the pend, then insert into the main
+	if (this->getSize() == 3)
+	{
+		::push_back_rest(container, pend_cnt, 1);
+		_comp_tmp += ::insert_elements(main_cnt, pend_cnt, 1, 1);
+	}
+
+	// Replace values in container, from main
+	for (unsigned int i = 0; i < this->getSize(); i++)
+		container[i] = main_cnt[i];
+}
+
+template<typename T>
 void PmergeMe::order_container(T& container, unsigned int layer)
 {
 	size_t pair_size = 1;
 	for (unsigned int i = 0; i < layer; i++)
 		pair_size *= 2;
-	size_t pair_total = this->getSize() / pair_size; // Odd numbers unaccounted for?
+	size_t pair_total = this->getSize() / pair_size;
 
 	// Last layer
 	if (pair_total < 2)
 	{
 		this->_last_layer = layer;
+		if (this->getSize() < 4)
+			this->order_small(container);
 		return ;
 	}
 
