@@ -173,6 +173,12 @@ void PmergeMe::order_container(T& container, unsigned int layer)
 		this->_last_layer = layer;
 		if (this->getSize() < 4)
 			this->order_small(container);
+		else
+		{
+			if (container[(pair_size / 2) - 1] > container[pair_size - 1])
+				::swap_elements(container, 0, pair_size / 2);
+			_comp_tmp++;
+		}
 		return ;
 	}
 
