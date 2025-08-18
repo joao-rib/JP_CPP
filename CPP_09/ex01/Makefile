@@ -7,7 +7,7 @@ RM = rm -fr
 
 all: $(NAME)
 
-$(NAME):
+$(NAME): $(SRC) $(MAIN) 
 	@$(CPP) $(FLAGS) $(SRC) $(MAIN) -o $(NAME)
 
 clean:
