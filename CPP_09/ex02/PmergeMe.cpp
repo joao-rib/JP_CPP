@@ -258,7 +258,7 @@ PmergeMe::PmergeMe(char** args, int arg_num): _size(arg_num - 1)
 	_comparisons_vec = _comp_tmp;
 	setTime(TIME_1);
 
-	_comp_tmp = 0;;
+	_comp_tmp = 0;
 	setTime(TIME_START);
 	for (unsigned int i = 0; i < this->getSize(); i++)
 		_deq_cnt.push_back(this->getInput()[i]);
