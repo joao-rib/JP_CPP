@@ -212,6 +212,7 @@ PmergeMe &PmergeMe::operator = (const PmergeMe &orig)
 		_comparisons_vec = _comp_tmp;
 		setTime(TIME_1);
 
+		_comp_tmp = 0;
 		setTime(TIME_START);
 		for (unsigned int i = 0; i < this->getSize(); i++)
 			_deq_cnt.push_back(this->getInput()[i]);
@@ -235,6 +236,7 @@ PmergeMe::PmergeMe(const PmergeMe &orig): _input(orig._input), _size(orig._size)
 	_comparisons_vec = _comp_tmp;
 	setTime(TIME_1);
 
+	_comp_tmp = 0;
 	setTime(TIME_START);
 	for (unsigned int i = 0; i < this->getSize(); i++)
 		_deq_cnt.push_back(this->getInput()[i]);
