@@ -107,7 +107,7 @@ void	BitcoinExchange::print_values(std::string input)
 
 		// Find corresponding date (or lower) in data.csv
 		std::map<std::string, float>::iterator it_data = this->_data.lower_bound(date);
-		if (it_data->first != date)
+		if (it_data->first != date && it_data != this->_data.begin())
 			it_data--;
 		float exchanged = value * it_data->second;
 

@@ -66,6 +66,9 @@ void 	RPN::validate_input()
 
 int		RPN::operation(char op, int fir, int sec)
 {
+	if (op == '/' && sec == 0)
+		throw InputException(": Cannot divide by zero");
+
 	std::string	ops = "+-*/";
 
 	for (unsigned int i = 0; i < 4; i++)
